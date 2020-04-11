@@ -104,6 +104,17 @@ body {
     background-color: #ddd;
 }
 
+.schaltflaeche {
+    width: 250px;
+    height: 50px;
+    margin: 0px;
+    position: relative;
+    top: 0px;
+    left: 0px;
+    padding-left: 10px;
+    line-height: 50px;
+}
+
 .menuButton {
     background-color: rgba(150,150,150,0.5);
     cursor: pointer;
@@ -111,12 +122,6 @@ body {
     height: 50px;
     position: relative;
     float: top;
-    padding-left: 10px;
-    line-height: 50px;
-}
-
-.buttonText {
-/*    vertical-align: middle;*/
 }
 
 .menuButton:hover {
@@ -150,6 +155,13 @@ body {
     top: -600px;
     left: 375px;
     float: left;
+}
+
+#buttonsKarteWeitergeben, #buttonsKarteAufMitspielerSpielen {
+    position: relative;
+    float: left;
+    left: 250px;
+    top: -100px;
 }
 
 .spielerInfo {
