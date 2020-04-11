@@ -25,6 +25,7 @@ function mitteKarteMenu(kartenId) {
 function vordergrundErstellen(kartenId) {
     grosseKarte = document.createElement("div");
     grosseKarte.setAttribute("id", "karteImVordergrund");
+    grosseKarte.setAttribute("onclick", "vordergrundEntfernen()");
     
     buttonDiv = document.createElement("div");
     buttonDiv.setAttribute("id", "buttons");
@@ -35,7 +36,6 @@ function vordergrundErstellen(kartenId) {
     grosseKarteBild = document.createElement("img");
     grosseKarteBild.src = "karten/" + kartenId + ".jpg";
     grosseKarteBild.width = "375";
-    grosseKarteBild.setAttribute("onclick", "vordergrundEntfernen()");
     
     grosseKarteBildDiv.appendChild(grosseKarteBild);
     grosseKarteBildDiv.appendChild(buttonDiv);
