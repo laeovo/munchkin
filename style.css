@@ -154,12 +154,10 @@ body {
     position: relative;
     top: -600px;
     left: 375px;
-    float: left;
 }
 
 #buttonsKarteWeitergeben, #buttonsKarteAufMitspielerSpielen {
     position: relative;
-    float: left;
     left: 250px;
     top: -100px;
 }
