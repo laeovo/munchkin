@@ -102,3 +102,57 @@ function karteSpielen(kartenId, positionVorher) {
     xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xhr.send("aktion=karteSpielen&kartenId=" + kartenId + "&positionVorher=" + positionVorher);
 }
+
+// Karte weitergeben = Karte landet auf der Hand von irgendwem anders
+function karteWeitergeben(kartenId, spielerId, positionVorher) {
+    const xhr = new XMLHttpRequest();
+    xhr.onload = function() {
+        console.log(this.responseText);
+        if (positionVorher == "verdeckt") {
+            kartenregionAktualisierenWrapper("eigeneHandkarten");
+        }
+        else if (positionVorher == "offen") {
+            kartenregionAktualisierenWrapper("eigeneOffeneKarten");
+        }
+        
+        if ((spielerId-getEigeneId())%4 == 1) {
+            kartenregionAktualisierenWrapper("handkartenObenLinks");
+        }
+        else if ((spielerId-getEigeneId())%4 == 2) {
+            kartenregionAktualisierenWrapper("handkartenObenRechts");
+        }
+        else if ((spielerId-getEigeneId())%4 == 3) {
+            kartenregionAktualisierenWrapper("handkartenUntenRechts");
+        }
+    }
+    xhr.open("POST", "kartenManager.php");
+    xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xhr.send("aktion=karteWeitergeben&kartenId=" + kartenId + "&empfaenger=" + spielerId + "&positionVorher=" + positionVorher);
+}
+
+// Karte auf Mitspieler spielen = Karte landet in der Auslage von irgendwem anders (z.B. Flüche)
+function karteAufMitspielerSpielen(kartenId, spielerId, positionVorher) {
+    const xhr = new XMLHttpRequest();
+    xhr.onload = function() {
+        console.log(this.responseText);
+        if (positionVorher == "verdeckt") {
+            kartenregionAktualisierenWrapper("eigeneHandkarten");
+        }
+        else if (positionVorher == "offen") {
+            kartenregionAktualisierenWrapper("eigeneOffeneKarten");
+        }
+        
+        if ((spielerId-getEigeneId())%4 == 1) {
+            kartenregionAktualisierenWrapper("offeneKartenObenLinks");
+        }
+        else if ((spielerId-getEigeneId())%4 == 2) {
+            kartenregionAktualisierenWrapper("offeneKartenObenRechts");
+        }
+        else if ((spielerId-getEigeneId())%4 == 3) {
+            kartenregionAktualisierenWrapper("offeneKartenUntenRechts");
+        }
+    }
+    xhr.open("POST", "kartenManager.php");
+    xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xhr.send("aktion=karteAufMitspielerSpielen&kartenId=" + kartenId + "&empfaenger=" + spielerId + "&positionVorher=" + positionVorher);
+}
