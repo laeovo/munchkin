@@ -67,6 +67,9 @@ function vordergrundEntfernen() {
 }
 
 function karteWeitergebenMenu(kartenId, positionVorher) {
+    if (window.document.getElementById("buttonsKarteAufMitspielerSpielen") != null) {
+        aufMitspielerSpielenMenuAusblenden(kartenId, positionVorher);
+    }
     window.document.getElementById("buttonKarteWeitergebenSchaltflaeche").setAttribute("onclick", "weitergebenMenuAusblenden(" + kartenId + ", '" + positionVorher + "')");
     const xhr = new XMLHttpRequest();
     xhr.onload = function() {
@@ -92,6 +95,9 @@ function weitergebenMenuAusblenden(kartenId, positionVorher) {
 }
 
 function karteAufMitspielerSpielenMenu(kartenId, positionVorher) {
+    if (window.document.getElementById("buttonsKarteWeitergeben") != null) {
+        weitergebenMenuAusblenden(kartenId, positionVorher);
+    }
     window.document.getElementById("buttonKarteAufMitspielerSpielenSchaltflaeche").setAttribute("onclick", "aufMitspielerSpielenMenuAusblenden(" + kartenId + ", '" + positionVorher + "')");
     const xhr = new XMLHttpRequest();
     xhr.onload = function() {
