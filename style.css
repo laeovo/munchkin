@@ -1,0 +1,197 @@
+body {
+    font-family: "Avenir", "sans-serif";
+    overflow: hidden;
+    padding: 0px;
+    background-image: url("hintergrund.jpg");
+    background-size: cover;
+}
+
+#spielerStufe0, #spielerStufe1, #spielerStufe2, #spielerStufe3 {
+    border: 1px dotted grey;
+}
+
+.karte {
+    padding: 0px;
+    cursor: pointer;
+}
+
+.eigeneHandkarte {
+    position: relative;
+    float: left;
+}
+
+.eigeneOffeneKarte {
+    position: relative;
+    float: left;
+}
+
+.mitteKarte {
+    position: relative;
+    float: left;
+}
+
+.spielerObenLinksHandkarte {
+    position: relative;
+    float: left;
+}
+
+.spielerObenLinksOffeneKarte {
+    position: relative;
+    float: left;
+}
+
+.spielerObenRechtsHandkarte {
+    position: relative;
+    float: right;
+}
+
+.spielerObenRechtsOffeneKarte {
+    position: relative;
+    float: right;
+}
+
+.spielerUntenRechtsHandkarte {
+    position: relative;
+    float: right;
+}
+
+.spielerUntenRechtsOffeneKarte {
+    position: relative;
+    float: right;
+}
+
+#eigeneHandkarten, #eigeneOffeneKarten, #spielerObenLinksHandkarten, #spielerObenLinksOffeneKarten, #spielerObenRechtsHandkarten, #spielerObenRechtsOffeneKarten, #spielerUntenRechtsHandkarten, #spielerUntenRechtsOffeneKarten, #mitte {
+    position: absolute;
+}
+
+#nachziehstapelTuer, #nachziehstapelSchatz {
+    cursor: pointer;
+}
+
+#ablagestapelTuer, #nachziehstapelTuer, #nachziehstapelSchatz, #ablagestapelSchatz {
+    float: left;
+}
+
+#stapel {
+    width: 0px;
+    top: 100px;
+    margin: 0px auto;
+}
+
+#ablagestapelTuer {
+    position: relative;
+    top: 40px;
+    left: 0px;
+    background-color: #ddd;
+}
+
+#nachziehstapelTuer {
+    position: relative;
+    top: 0px;
+    left: 0px;
+}
+
+#nachziehstapelSchatz {
+    position: relative;
+    top: 0px;
+    left: 0px;
+}
+
+#ablagestapelSchatz {
+    position: relative;
+    top: 40px;
+    left: 0px;
+    background-color: #ddd;
+}
+
+.menuButton {
+    background-color: rgba(150,150,150,0.5);
+    cursor: pointer;
+    width: 250px;
+    height: 50px;
+    position: relative;
+    float: top;
+    padding-left: 10px;
+    line-height: 50px;
+}
+
+.buttonText {
+/*    vertical-align: middle;*/
+}
+
+.menuButton:hover {
+    background-color: rgba(200,200,200,0.5);
+}
+
+#karteImVordergrund {
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(100, 100, 100, 0.5);
+}
+
+#grosseKarteBildDiv {
+    position: relative;
+    top: 50vh;
+    left: 50vw;
+    width: 375px;
+    height: 600px;
+    transform: translate(-50%, -50%);
+}
+
+#grosseKarteBild {
+    cursor: pointer;
+}
+
+#buttons {
+    position: relative;
+    top: -600px;
+    left: 375px;
+    float: left;
+}
+
+.spielerInfo {
+    background-color: rgba(200,200,200,0.75);
+    height: 50px;
+    position: absolute;
+    padding: 0px;
+}
+
+.spielerName {
+    height: 50px;
+    line-height: 50px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.punktestand {
+    width: 50px;
+    height: 50px;
+    line-height: 50px;
+    font-size: 1.5em;
+}
+
+#spielstandKlicker, #spielstandErhoehen, #spielstandErniedrigen {
+    width: 30px;
+}
+
+#spielstandKlicker {
+    height: 50px;
+    position: relative;
+    top: 0px;
+    left: 0px;
+    float: left;
+}
+
+#spielstandErhoehen, #spielstandErniedrigen {
+    float: top;
+    height: 25px;
+    cursor: pointer;
+    background-color: rgba(100,100,100,0);
+}
+
+#spielstandErhoehen:hover, #spielstandErniedrigen:hover {
+    background-color: rgba(100,100,100,0.35);
+}
