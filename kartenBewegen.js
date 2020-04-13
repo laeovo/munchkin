@@ -4,9 +4,9 @@ function tuerkarteVerdecktZiehen() {
         console.log(this.responseText);
         kartenregionAktualisierenWrapper("eigeneHandkarten");
     }
-    xhr.open("POST", "kartenManager.php");
+    xhr.open("POST", "kartenBewegen.php");
     xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    xhr.send("aktion=verdecktKarteZiehen&stapel=Tuer");
+    xhr.send("von=nachziehstapel&stapel=Tuer&nach=karten" + getEigeneId() + "verdeckt");
 }
 
 function tuerkarteOffenZiehen() {
@@ -15,9 +15,9 @@ function tuerkarteOffenZiehen() {
         console.log(this.responseText);
         kartenregionAktualisierenWrapper("mitte");
     }
-    xhr.open("POST", "kartenManager.php");
+    xhr.open("POST", "kartenBewegen.php");
     xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    xhr.send("aktion=offenKarteZiehen&stapel=Tuer");
+    xhr.send("von=nachziehstapel&stapel=Tuer&nach=mitte");
 }
 
 function schatzkarteVerdecktZiehen() {
@@ -26,9 +26,9 @@ function schatzkarteVerdecktZiehen() {
         console.log(this.responseText);
         kartenregionAktualisierenWrapper("eigeneHandkarten");
     }
-    xhr.open("POST", "kartenManager.php");
+    xhr.open("POST", "kartenBewegen.php");
     xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    xhr.send("aktion=verdecktKarteZiehen&stapel=Schatz");
+    xhr.send("von=nachziehstapel&stapel=Schatz&nach=karten" + getEigeneId() + "verdeckt");
 }
 
 function schatzkarteOffenZiehen() {
@@ -37,9 +37,9 @@ function schatzkarteOffenZiehen() {
         console.log(this.responseText);
         kartenregionAktualisierenWrapper("mitte");
     }
-    xhr.open("POST", "kartenManager.php");
+    xhr.open("POST", "kartenBewegen.php");
     xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    xhr.send("aktion=offenKarteZiehen&stapel=Schatz");
+    xhr.send("von=nachziehstapel&stapel=Schatz&nach=mitte");
 }
 
 function karteAblegen(kartenId, positionVorher) {
@@ -57,9 +57,14 @@ function karteAblegen(kartenId, positionVorher) {
         }
         ablagestapelAktualisieren();
     }
-    xhr.open("POST", "kartenManager.php");
+    xhr.open("POST", "kartenBewegen.php");
     xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    xhr.send("aktion=karteAblegen&kartenId=" + kartenId + "&positionVorher=" + positionVorher);
+    if (positionVorher == "mitte") {
+        xhr.send("von=mitte&nach=ablagestapel&karte=" + kartenId);
+    }
+    else {
+        xhr.send("von=karten" + getEigeneId() + positionVorher + "&nach=ablagestapel&karte=" + kartenId);
+    }
 }
 
 function karteAuslegen(kartenId) {
@@ -69,9 +74,9 @@ function karteAuslegen(kartenId) {
         kartenregionAktualisierenWrapper("eigeneHandkarten");
         kartenregionAktualisierenWrapper("eigeneOffeneKarten");
     }
-    xhr.open("POST", "kartenManager.php");
+    xhr.open("POST", "kartenBewegen.php");
     xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    xhr.send("aktion=karteAuslegen&kartenId=" + kartenId);
+    xhr.send("von=karten" + getEigeneId() + "verdeckt&nach=karten" + getEigeneId() + "offen&karte=" + kartenId);
 }
 
 function karteAufnehmen(kartenId) {
@@ -81,9 +86,9 @@ function karteAufnehmen(kartenId) {
         kartenregionAktualisierenWrapper("mitte");
         kartenregionAktualisierenWrapper("eigeneHandkarten");
     }
-    xhr.open("POST", "kartenManager.php");
+    xhr.open("POST", "kartenBewegen.php");
     xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    xhr.send("aktion=karteAufnehmen&kartenId=" + kartenId);
+    xhr.send("von=mitte&nach=karten" + getEigeneId() + "verdeckt&karte=" + kartenId);
 }
 
 function karteSpielen(kartenId, positionVorher) {
@@ -98,9 +103,9 @@ function karteSpielen(kartenId, positionVorher) {
         }
         kartenregionAktualisierenWrapper("mitte");
     }
-    xhr.open("POST", "kartenManager.php");
+    xhr.open("POST", "kartenBewegen.php");
     xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    xhr.send("aktion=karteSpielen&kartenId=" + kartenId + "&positionVorher=" + positionVorher);
+    xhr.send("von=karten" + getEigeneId() + positionVorher + "&nach=mitte&karte=" + kartenId);
 }
 
 // Karte weitergeben = Karte landet auf der Hand von irgendwem anders
@@ -125,9 +130,9 @@ function karteWeitergeben(kartenId, spielerId, positionVorher) {
             kartenregionAktualisierenWrapper("handkartenUntenRechts");
         }
     }
-    xhr.open("POST", "kartenManager.php");
+    xhr.open("POST", "kartenBewegen.php");
     xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    xhr.send("aktion=karteWeitergeben&kartenId=" + kartenId + "&empfaenger=" + spielerId + "&positionVorher=" + positionVorher);
+    xhr.send("von=karten" + getEigeneId() + positionVorher + "&nach=karten" + spielerId + "verdeckt&karte=" + kartenId);
 }
 
 // Karte auf Mitspieler spielen = Karte landet in der Auslage von irgendwem anders (z.B. Flüche)
@@ -152,7 +157,7 @@ function karteAufMitspielerSpielen(kartenId, spielerId, positionVorher) {
             kartenregionAktualisierenWrapper("offeneKartenUntenRechts");
         }
     }
-    xhr.open("POST", "kartenManager.php");
+    xhr.open("POST", "kartenBewegen.php");
     xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    xhr.send("aktion=karteAufMitspielerSpielen&kartenId=" + kartenId + "&empfaenger=" + spielerId + "&positionVorher=" + positionVorher);
+    xhr.send("von=karten" + getEigeneId() + positionVorher + "&nach=karten" + spielerId + "offen&karte=" + kartenId);
 }
