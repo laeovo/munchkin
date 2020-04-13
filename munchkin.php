@@ -8,29 +8,6 @@
         <link rel="stylesheet" txpe="text/css" href="style.css" />
         </head>
     <body onload="ablagestapelAktualisieren(), automatischeSpielerAktualisierung(), automatischeKartenAktualisierung(), autostop()">
-        <a href="registrieren.php" align="center">Neustart</a>
-<!--    <body onload="kartenAktualisieren()">-->
-        <!-- Dieser Block wird noch umgeschrieben, sodass die Buttons schöner aussehen -->
-        <!--
-        <?php
-            $fp = fopen("spieler.txt", r);
-            $data = fgets($fp, filesize("spieler.txt")+1);
-            fclose($fp);
-            
-            $spieler = explode("/", $data);
-            for ($i = 0; $i < count($spieler); $i++) {
-                $spielerName = explode(";", $spieler[$i])[0];
-                $spielerStufe = explode(";", $spieler[$i])[1];
-                echo "<p><span id=\"spielerName" . $i . "\">" . $spielerName . "</span>: <span id=\"spielerStufe" . $i . "\">" . $spielerStufe . "</span>";
-                if (isset($_COOKIE["spielerName"]) && $i == $_COOKIE["spielerId"]) {
-                    echo "<input type=\"submit\" value=\"erh&ouml;hen\" onclick=\"spielerSteigtAuf()\" /><input type=\"submit\" value=\"erniedrigen\" onclick=\"spielerSteigtAb()\" />";
-                }
-                echo "</p>\n";
-            }
-            ?>
-        <input type="submit" onclick="stop()" value="Stop" />
-        <a href="registrieren.php">Neustart</a>
-        -->
         
         <div id="stapel">
             <div id="ablagestapelTuer" class="stapelKarte"><img id="ablagestapelTuerBild" style="max-width: 100%; max-height: 100%" /></div>
