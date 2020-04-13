@@ -1,0 +1,64 @@
+<html>
+    <head>
+        <title>Munchkin - Spielleitung</title>
+        </head>
+    <script type="text/Javascript">
+        function kartenZuruecksetzen() {
+            
+        }
+    
+    function spielerZuruecksetzen() {
+        
+    }
+    
+    function spielSchliessen() {
+        spielStatusSetzen("spielLaeuft");
+    }
+    
+    function spielOeffnen() {
+        spielStatusSetzen("");
+    }
+    
+    function spielStatusSetzen(neuerStatus) {
+        const xhr = new XMLHttpRequest();
+        xhr.onload = function () {
+            const status = this.responseText;
+            if (status == "spielLaeuft") {
+                button.setAttribute("value", "Spiel &ouml;ffnen");
+                button.setAttribute("onclick", "spielOeffnen()");
+            }
+            else {
+                button.setAttribute("value", "Spiel schlie&szlig;en");
+                button.setAttribute("onclick", "spielSchliessen()");
+            }
+        }
+        xhr.open("POST", "spielStatusSetzen.php");
+        xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        xhr.send("neuerStatus=" + neuerStatus);
+    }
+    
+    function startStoppButtonSetzen() {
+        var button = window.document.getElementById("startStopp");
+        const xhr = new XMLHttpRequest();
+        xhr.onload = function () {
+            const status = this.responseText;
+            if (status == "spielLaeuft") {
+                button.setAttribute("value", "Spiel &ouml;ffnen");
+                button.setAttribute("onclick", "spielOeffnen()");
+            }
+            else {
+                button.setAttribute("value", "Spiel schlie&szlig;en");
+                button.setAttribute("onclick", "spielSchliessen()");
+            }
+        }
+        xhr.open("GET", "../spielstatus.txt");
+        xhr.send();
+    }
+        </script>
+    <body onload="startStoppButtonSetzen()">
+        <input type="submit" value="Karten zurücksetzen" onclick="kartenZuruecksetzen()" />
+        <input type="submit" value="Spieler zurücksetzen" onclick="spielerZuruecksetzen()" />
+        <input id="startStopp" type="submit" />
+        </body>
+    </html>
+
