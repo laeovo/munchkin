@@ -37,11 +37,11 @@
                 const status = this.responseText;
                 if (status == "spielLaeuft") {
                     button.setAttribute("value", "Spiel &ouml;ffnen");
-                    button.setAttribute("onclick", "spielOeffnen()");
+                    button.setAttribute("onclick", "spielOeffnen(), startStoppButtonSetzen()");
                 }
                 else {
                     button.setAttribute("value", "Spiel schliessen");
-                    button.setAttribute("onclick", "spielSchliessen()");
+                    button.setAttribute("onclick", "spielSchliessen(), startStoppButtonSetzen()");
                 }
             }
             xhr.open("GET", "../spielstatus.txt");

@@ -44,7 +44,7 @@
                         link = window.document.getElementById("link");
                         link.setAttribute("href", "munchkin.php");
                         link.setAttribute("style", "color: #fff; text-decoration: none; cursor: pointer;");
-                        window.document.getElementById("inhalt").setAttribute("style", "cursor: pointer; width: 250px; height: 50px; margin: 0px auto; background-color: green; line-height: 50px;");
+                        window.document.getElementById("inhalt").setAttribute("style", "cursor: pointer; background-color: green; line-height: 50px;");
                     }
                 }
                 xhr.open("GET", "spielstatus.txt");
@@ -53,8 +53,12 @@
             </script>
         </head>
     <body onload="automatischAktualisieren()" style="font-family: Avenir, Sans-Serif">
-        <div id="inhalt" align="center" style="cursor: ; width: 250px; height: 50px; margin: 0px auto; background-color: #aaa; line-height: 50px;">
-            <a id="link" href="" style="color: #777; text-decoration: none; cursor: default;">Los gehts!</a>
+        <div style="width: 250px; heigt: 50px; position: absolute; top: 50vh; left: 50vw; transform: translate(-50%, -50%);">
+            <a id="link" href="" style="color: #777; text-decoration: none; cursor: default;">
+                <div id="inhalt" align="center" style="cursor: default; background-color: #aaa; line-height: 50px;">
+                    Los gehts!
+                    </div>
+                </a>
             </div>
         </body>
     </html>
