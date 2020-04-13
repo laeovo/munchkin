@@ -109,7 +109,7 @@ function kartenregionAktualisierenWrapper(region) {
         kartenregionAktualisieren("karten" + (getEigeneId()+1)%4 + "verdeckt.txt", "spielerObenLinksHandkarte", "spielerObenLinksHandkarten", ""); // TODO Aktion zum Ziehen hinzufügen, auch bei den anderen Spielern
     }
     else if (region == "offeneKartenObenLinks") {
-        kartenregionAktualisieren("karten" + (getEigeneId()+1)%4 + "offen.txt", "spielerObenLinksOffeneKarte", "spielerObenLinksOffeneKarten", ""); // TODO Aktion zum Klauen hinzufügen, auch bei den anderen Spielern
+        kartenregionAktualisieren("karten" + (getEigeneId()+1)%4 + "offen.txt", "spielerObenLinksOffeneKarte", "spielerObenLinksOffeneKarten", "fremdeOffeneKarteMenu"); // TODO Aktion zum Klauen hinzufügen, auch bei den anderen Spielern
     }
     else if (region == "handkartenObenRechts") {
         kartenregionAktualisieren("karten" + (getEigeneId()+2)%4 + "verdeckt.txt", "spielerObenRechtsHandkarte", "spielerObenRechtsHandkarten", "");
@@ -207,7 +207,20 @@ function kartenregionAktualisieren(dateiname, klasse, kontainer, menuAktion) {
                 neuerKarteninhalt.setAttribute("src", "karten/" + neueKarten[i] + ".jpg");
             }
             neuerKarteninhalt.setAttribute("width", breiteMitteKarten);
-            neuerKarteninhalt.setAttribute("onclick", menuAktion + "(" + neueKarten[i] + ")");
+            if (menuAktion == "fremdeOffeneKarteMenu") {
+                if (kontainer == "spielerObenLinksOffeneKarten") {
+                    neuerKarteninhalt.setAttribute("onclick", menuAktion + "(" + neueKarten[i] + ", " + (getEigeneId()+1)%4 + ")");
+                }
+                else if (kontainer == "spielerObenRechtsOffeneKarten") {
+                    neuerKarteninhalt.setAttribute("onclick", menuAktion + "(" + neueKarten[i] + ", " + (getEigeneId()+2)%4 + ")");
+                }
+                else if (kontainer == "spielerUntenRechtsOffeneKarten") {
+                    neuerKarteninhalt.setAttribute("onclick", menuAktion + "(" + neueKarten[i] + ", " + (getEigeneId()+3)%4 + ")");
+                }
+            }
+            else {
+                neuerKarteninhalt.setAttribute("onclick", menuAktion + "(" + neueKarten[i] + ")");
+            }
             window.document.getElementById(klasse + neueKarten[i]).appendChild(neuerKarteninhalt);
         }
         

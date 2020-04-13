@@ -161,3 +161,24 @@ function karteAufMitspielerSpielen(kartenId, spielerId, positionVorher) {
     xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xhr.send("von=karten" + getEigeneId() + positionVorher + "&nach=karten" + spielerId + "offen&karte=" + kartenId);
 }
+
+function karteKlauen(kartenId, spielerId) {
+    const xhr = new XMLHttpRequest();
+    xhr.onload = function() {
+        console.log(this.responseText);
+        kartenregionAktualisierenWrapper("eigeneHandkarten");
+        
+        if ((spielerId-getEigeneId())%4 == 1) {
+            kartenregionAktualisierenWrapper("offeneKartenObenLinks");
+        }
+        else if ((spielerId-getEigeneId())%4 == 2) {
+            kartenregionAktualisierenWrapper("offeneKartenObenRechts");
+        }
+        else if ((spielerId-getEigeneId())%4 == 3) {
+            kartenregionAktualisierenWrapper("offeneKartenUntenRechts");
+        }
+    }
+    xhr.open("POST", "kartenBewegen.php");
+    xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xhr.send("von=karten" + spielerId + "offen&nach=karten" + getEigeneId() + "verdeckt&karte=" + kartenId);
+}

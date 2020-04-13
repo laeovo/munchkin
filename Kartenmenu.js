@@ -22,6 +22,11 @@ function mitteKarteMenu(kartenId) {
     buttonErstellen("Karte flaggen", "KarteFlaggen", "vordergrundEntfernen(), karteFlaggen(" + kartenId + ")", "buttons");
 }
 
+function fremdeOffeneKarteMenu(kartenId, spielerId) {
+    vordergrundErstellen(kartenId);
+    buttonErstellen("Karte klauen", "KarteKlauen", "vordergrundEntfernen(), karteKlauen(" + kartenId + ", " + spielerId + ")", "buttons");
+}
+
 function vordergrundErstellen(kartenId) {
     grosseKarte = document.createElement("div");
     grosseKarte.setAttribute("id", "karteImVordergrund");
