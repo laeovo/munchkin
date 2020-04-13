@@ -3,10 +3,6 @@
         <title>Munchkin - Spielleitung</title>
         </head>
     <script type="text/Javascript">
-        function kartenZuruecksetzen() {
-            // start.php aufrufen
-        }
-    
         function spielerZuruecksetzen() {
             dateiSetzen("spieler.txt", "");
         }
@@ -55,7 +51,7 @@
         
         function automatischAktualisieren() {
             console.log("automatisch aktualisieren");
-            // setInterval(spielerAktualisieren, 100);
+            setInterval(spielerAktualisieren, 100);
             var ticker = setInterval(startStoppButtonSetzen, 100);
             setTimeout(function() {
                 clearInterval(ticker);
@@ -73,6 +69,12 @@
                 window.document.getElementById("spieler").innerHTML = spielerString;
             }
             xhr.open("GET", "../spieler.txt");
+            xhr.send();
+        }
+    
+        function kartenZuruecksetzen() {
+            const xhr = new XMLHttpRequest();
+            xhr.open("GET", "start.php");
             xhr.send();
         }
         </script>
