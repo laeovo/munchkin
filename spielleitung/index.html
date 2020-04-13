@@ -12,29 +12,21 @@
     }
     
     function spielSchliessen() {
-        spielStatusSetzen("spielLaeuft");
+        dateiSetzen("spielLaeuft");
     }
     
     function spielOeffnen() {
-        spielStatusSetzen("");
+        dateiSetzen("");
     }
     
-    function spielStatusSetzen(neuerStatus) {
+    function dateiSetzen(dateiName, neuerStatus) {
         const xhr = new XMLHttpRequest();
         xhr.onload = function () {
-            const status = this.responseText;
-            if (status == "spielLaeuft") {
-                button.setAttribute("value", "Spiel &ouml;ffnen");
-                button.setAttribute("onclick", "spielOeffnen()");
-            }
-            else {
-                button.setAttribute("value", "Spiel schlie&szlig;en");
-                button.setAttribute("onclick", "spielSchliessen()");
-            }
+            
         }
-        xhr.open("POST", "spielStatusSetzen.php");
+        xhr.open("POST", "dateiSetzen.php");
         xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-        xhr.send("neuerStatus=" + neuerStatus);
+        xhr.send("neuerStatus=" + neuerStatus + "&datei=" + dateiName);
     }
     
     function startStoppButtonSetzen() {

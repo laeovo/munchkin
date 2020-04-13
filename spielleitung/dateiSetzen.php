@@ -1,7 +1,7 @@
-
 <?php
     $neuerStatus = $_POST["neuerStatus"];
-    $fp = fopen("spielStatus.txt", w);
+    $dateiname = "../" . $_POST["datei"];
+    $fp = fopen($dateiname, w);
     fputs($fp, $neuerStatus);
     fclose($fp);
     ?>
