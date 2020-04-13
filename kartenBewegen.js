@@ -79,16 +79,26 @@ function karteAuslegen(kartenId) {
     xhr.send("von=karten" + getEigeneId() + "verdeckt&nach=karten" + getEigeneId() + "offen&karte=" + kartenId);
 }
 
-function karteAufnehmen(kartenId) {
+function karteAufnehmen(kartenId, positionVorher) {
     const xhr = new XMLHttpRequest();
     xhr.onload = function() {
         console.log(this.responseText);
-        kartenregionAktualisierenWrapper("mitte");
+        if (positionVorher == "mitte") {
+            kartenregionAktualisierenWrapper("mitte");
+        }
+        else {
+            kartenregionAktualisierenWrapper("eigeneOffeneKarten");
+        }
         kartenregionAktualisierenWrapper("eigeneHandkarten");
     }
     xhr.open("POST", "kartenBewegen.php");
     xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    xhr.send("von=mitte&nach=karten" + getEigeneId() + "verdeckt&karte=" + kartenId);
+    if (positionVorher == "mitte") {
+        xhr.send("von=mitte&nach=karten" + getEigeneId() + "verdeckt&karte=" + kartenId);
+    }
+    else {
+        xhr.send("von=karten" + getEigeneId() + "offen&nach=karten" + getEigeneId() + "verdeckt&karte=" + kartenId);
+    }
 }
 
 function karteSpielen(kartenId, positionVorher) {
@@ -162,7 +172,7 @@ function karteAufMitspielerSpielen(kartenId, spielerId, positionVorher) {
     xhr.send("von=karten" + getEigeneId() + positionVorher + "&nach=karten" + spielerId + "offen&karte=" + kartenId);
 }
 
-function karteKlauen(kartenId, spielerId) {
+function offeneKarteKlauen(kartenId, spielerId) {
     const xhr = new XMLHttpRequest();
     xhr.onload = function() {
         console.log(this.responseText);
@@ -180,5 +190,5 @@ function karteKlauen(kartenId, spielerId) {
     }
     xhr.open("POST", "kartenBewegen.php");
     xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    xhr.send("von=karten" + spielerId + "offen&nach=karten" + getEigeneId() + "verdeckt&karte=" + kartenId);
+    xhr.send("von=karten" + spielerId + "offen&nach=karten" + getEigeneId() + "offen&karte=" + kartenId);
 }

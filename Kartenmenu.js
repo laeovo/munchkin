@@ -11,6 +11,7 @@ function eigeneOffeneKarteMenu(kartenId) {
     vordergrundErstellen(kartenId);
     buttonErstellen("Karte in die Mitte spielen", "KarteSpielen", "vordergrundEntfernen(), karteSpielen(" + kartenId + ", 'offen')", "buttons");
     buttonErstellen("Karte ablegen", "KarteAblegen", "vordergrundEntfernen(), karteAblegen(" + kartenId + ", 'offen')", "buttons");
+    buttonErstellen("Karte aufnehmen", "KarteAufnehmen", "vordergrundEntfernen(), karteAufnehmen(" + kartenId + ", 'offen')", "buttons");
     buttonErstellen("Karte auf jemanden spielen", "KarteAufMitspielerSpielen", "karteAufMitspielerSpielenMenu(" + kartenId + ", 'offen')", "buttons");
     buttonErstellen("Karte an jemanden abgeben", "KarteWeitergeben", "karteWeitergebenMenu(" + kartenId + ", 'offen')", "buttons");
 }
@@ -18,13 +19,13 @@ function eigeneOffeneKarteMenu(kartenId) {
 function mitteKarteMenu(kartenId) {
     vordergrundErstellen(kartenId);
     buttonErstellen("Karte ablegen", "KarteAblegen", "vordergrundEntfernen(), karteAblegen(" + kartenId + ", 'mitte')", "buttons");
-    buttonErstellen("Karte aufnehmen", "KarteAufnehmen", "vordergrundEntfernen(), karteAufnehmen(" + kartenId + ")", "buttons");
+    buttonErstellen("Karte aufnehmen", "KarteAufnehmen", "vordergrundEntfernen(), karteAufnehmen(" + kartenId + ", 'mitte')", "buttons");
     buttonErstellen("Karte flaggen", "KarteFlaggen", "vordergrundEntfernen(), karteFlaggen(" + kartenId + ")", "buttons");
 }
 
 function fremdeOffeneKarteMenu(kartenId, spielerId) {
     vordergrundErstellen(kartenId);
-    buttonErstellen("Karte klauen", "KarteKlauen", "vordergrundEntfernen(), karteKlauen(" + kartenId + ", " + spielerId + ")", "buttons");
+    buttonErstellen("Karte klauen", "KarteKlauen", "vordergrundEntfernen(), offeneKarteKlauen(" + kartenId + ", " + spielerId + ")", "buttons");
 }
 
 function vordergrundErstellen(kartenId) {
