@@ -4,7 +4,6 @@
         <script type="text/JavaScript" src="aktualisieren.js"></script>
         <script type="text/JavaScript" src="kartenBewegen.js"></script>
         <script type="text/JavaScript" src="Kartenmenu.js"></script>
-        <script type="text/JavaScript" src="script.js"></script>
         <script type="text/JavaScript" src="spielstandManipulieren.js"></script>
         <link rel="stylesheet" txpe="text/css" href="style.css" />
         </head>
