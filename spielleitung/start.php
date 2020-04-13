@@ -1,7 +1,6 @@
 <?php
     // Was passiert alles beim Start?
     
-    // TODO Überprüfen, ob gerade nicht schon ein Spiel läuft! Falls ja, hier nichts machen.
     $fp = fopen("../spielstatus.txt", r);
     $status = fgets($fp, filesize("spielstatus.txt")+1);
     fclose($fp);

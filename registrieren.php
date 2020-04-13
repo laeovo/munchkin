@@ -1,97 +1,76 @@
 <?php
-    if (isset($_COOKIE["spielerName"])) {
-        echo "<html><head><meta http-equiv=\"refresh\" content=\"0; URL=http://www.leo.vornberger.net/munchkin/munchkin.php\"></head><body></body></html>";
-    }
-    else {
+    if (isset($_POST["name"])) {
         $fp = fopen("spielstatus.txt", r);
         $status = fgets($fp, filesize("spielstatus.txt")+1);
         fclose($fp);
         
-        if ($status == "spielLaeuft") {
-    ?>
-            <html>
-                <head>
-                    <title>Munchkin</title>
-                    </head>
-                <body>
-                    <p>Es l&auml;uft bereits ein Spiel; Sorry :/</p>
-                </body>
-            </html>
-<?php
-        }
-        else {
-    ?>
-            <html>
-                <head>
-                    <title>Munchkin</title>
-                    </head>
-                <body>
-                    <form action="registrieren.php" method="post"><input type="text" name="name" /><input type="submit" value="Loslegen" /></form><br />
-                </body>
-            </html>
-<?php
+        if ($status != "spielLaeuft") {
+            setcookie("spielerName", $_POST["name"], time()+86400);
+            $fp = fopen("spieler.txt", "a+");
+            $data = fgets($fp, filesize("spieler.txt"));
+            $bisherigeSpieler = explode("/", $data);
+            $anzahlBisherigeSpieler = count($bisherigeSpieler);
+            if ($data == "") {
+                $anzahlBisherigeSpieler = 0;
+            }
+            setcookie("spielerId", $anzahlBisherigeSpieler, time()+86400);
+            if ($anzahlBisherigeSpieler > 0) {
+                fputs($fp, "/");
+            }
+            fputs($fp, $_POST["name"] . ";1");
+            fclose($fp);
         }
     }
+    
+    if (isset($_COOKIE["spielerName"])) {
+        ?>
+<html>
+    <head>
+        <title>Munchkin</title>
+        <script type="text/JavaScript">
+            function automatischAktualisieren() {
+                var ticker = setInterval(aktualisieren, 200);
+                setTimeout(function() {
+                    clearInterval(ticker);
+                }, 60000);
+            }
+
+            function aktualisieren() {
+                console.log("aktualisieren()");
+                const xhr = new XMLHttpRequest();
+                xhr.onload = function () {
+                    const status = this.responseText;
+                    if (status == "spielLaeuft") {
+                        link = window.document.getElementById("link");
+                        link.setAttribute("href", "munchkin.php");
+                        link.setAttribute("style", "color: #fff; text-decoration: none; cursor: pointer;");
+                        window.document.getElementById("inhalt").setAttribute("style", "cursor: pointer; width: 250px; height: 50px; margin: 0px auto; background-color: green; line-height: 50px;");
+                    }
+                }
+                xhr.open("GET", "spielstatus.txt");
+                xhr.send();
+            }
+            </script>
+        </head>
+    <body onload="automatischAktualisieren()" style="font-family: Avenir, Sans-Serif">
+        <div id="inhalt" align="center" style="cursor: ; width: 250px; height: 50px; margin: 0px auto; background-color: #aaa; line-height: 50px;">
+            <a id="link" href="" style="color: #777; text-decoration: none; cursor: default;">Los gehts!</a>
+            </div>
+        </body>
+    </html>
+<?php
+    }
+    else {
+        // Kein Cookie: entweder Eingabe oder Nichts
+        echo "<html>";
+        echo "    <head>";
+        echo "        <title>Munchkin</title>";
+        echo "        </head>";
+        echo "    <body>";
+        echo "        <div id=\"inhalt\">";
+        echo "            <form id=\"eingabe\" action=\"registrieren.php\" method=\"post\"><input type=\"text\" name=\"name\" /><input type=\"submit\" value=\"Loslegen\" /></form><br />";
+        echo "            </div>";
+        echo "        </body>";
+        echo "    </html>";
+    }
     ?>
-//
-//<?php
-//
-//    if (isset($_POST["name"])) {
-//        setcookie("spielerName", $_POST["name"], time()+86400);
-//        $fp = fopen("spieler.txt", "a+");
-//        $data = fgets($fp, filesize("spieler.txt"));
-//        $bisherigeSpieler = explode("/", $data);
-//        $anzahlBisherigeSpieler = count($bisherigeSpieler);
-//        if ($data == "") {
-//            $anzahlBisherigeSpieler = 0;
-//        }
-//        setcookie("spielerId", $anzahlBisherigeSpieler, time()+86400);
-//        if ($anzahlBisherigeSpieler > 0) {
-//            fputs($fp, "/");
-//        }
-//        fputs($fp, $_POST["name"] . ";1");
-//        fclose($fp);
-//    }
-//    else {
-//        setcookie("spielerName", "---", time()-1);
-//        setcookie("spielerId", "---", time()-1);
-//    }
-//    ?>
-//<html>
-//    <head>
-//        <title>Munchkin - anmelden</title>
-//        <script type="text/JavaScript" src="kartenBewegen.js"></script>
-//        <script type="text/JavaScript" src="aktualisieren.js"></script>
-//        <script type="text/JavaScript">
-//            function starten() {
-//                const xhr = new XMLHttpRequest();
-//                xhr.open("GET", "start.php");
-//                xhr.send();
-//            }
-//
-//            function spielerResetten() {
-//                const xhr = new XMLHttpRequest();
-//                xhr.onload = function() {
-//                    window.document.getElementById("spieler").innerHTML = this.responseText;
-//                }
-//                xhr.open("GET", "spielerResetten.php");
-//                xhr.send();
-//            }
-//            </script>
-//        </head>
-//    <body>
-//        <?php
-//            if (isset($_POST["name"])) {
-//                echo "<input type=\"submit\" value=\"start.php\" onclick=\"starten()\" /><a href=\"munchkin.php\">Los gehts!</a>";
-//            }
-//            else {
-//                echo "<form action=\"registrieren.php\" method=\"post\"><input type=\"text\" name=\"name\" /><input type=\"submit\" value=\"Loslegen\" /></form><br />";
-//                echo "<input type=\"submit\" value=\"reset spieler.txt\" onclick=\"spielerResetten()\" /> Spieler: <span id=\"spieler\" color=\"red\">";
-//                $fp = fopen("spieler.txt", r);
-//                $spieler = fgets($fp, filesize("spieler.txt")+1);
-//                fclose($fp);
-//                echo $spieler . "</span>";
-//            }
-//            ?>
-//        </body>
-//    </html>
