@@ -7,71 +7,81 @@
             // start.php aufrufen
         }
     
-    function spielerZuruecksetzen() {
-        dateiSetzen("spieler.txt", "");
-    }
-    
-    function spielSchliessen() {
-        dateiSetzen("spielstatus.txt", "spielLaeuft");
-    }
-    
-    function spielOeffnen() {
-        dateiSetzen("spielstatus.txt", "");
-    }
-    
-    function dateiSetzen(dateiName, neuerStatus) {
-        const xhr = new XMLHttpRequest();
-        xhr.onload = function () {
-            if (dateName == "spielstatus.txt") {
-                startStoppButtonSetzen();
-            }
-            else if (dateiName == "spieler.txt") {
-                spielerAktualisieren();
-            }
+        function spielerZuruecksetzen() {
+            dateiSetzen("spieler.txt", "");
         }
-        xhr.open("POST", "dateiSetzen.php");
-        xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-        xhr.send("neuerStatus=" + neuerStatus + "&datei=" + dateiName);
-    }
-    
-    function startStoppButtonSetzen() {
-        var button = window.document.getElementById("startStopp");
-        const xhr = new XMLHttpRequest();
-        xhr.onload = function () {
-            const status = this.responseText;
-            if (status == "spielLaeuft") {
-                button.setAttribute("value", "Spiel &ouml;ffnen");
-                button.setAttribute("onclick", "spielOeffnen()");
-            }
-            else {
-                button.setAttribute("value", "Spiel schlie&szlig;en");
-                button.setAttribute("onclick", "spielSchliessen()");
-            }
+        
+        function spielSchliessen() {
+            dateiSetzen("spielstatus.txt", "spielLaeuft");
         }
-        xhr.open("GET", "../spielstatus.txt");
-        xhr.send();
-    }
-    
-    function spielerAutomatischAktualisieren() {
-        setInterval(spielerAktualisieren, 100);
-    }
-    
-    function spielerAktualisieren() {
-        var button = window.document.getElementById("startStopp");
-        const xhr = new XMLHttpRequest();
-        xhr.onload = function () {
-            const spielerString = this.responseText;
-            window.document.getElementById("spieler").innerHTML = spielerString;
+        
+        function spielOeffnen() {
+            dateiSetzen("spielstatus.txt", "");
         }
-        xhr.open("GET", "../spieler.txt");
-        xhr.send();
-    }
+        
+        function dateiSetzen(dateiName, neuerStatus) {
+            const xhr = new XMLHttpRequest();
+            xhr.onload = function () {
+                if (dateiName == "spielstatus.txt") {
+                    startStoppButtonSetzen();
+                }
+                else if (dateiName == "spieler.txt") {
+                    spielerAktualisieren();
+                }
+            }
+            xhr.open("POST", "dateiSetzen.php");
+            xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            xhr.send("neuerInhalt=" + neuerStatus + "&datei=" + dateiName);
+        }
+        
+        function startStoppButtonSetzen() {
+            console.log("Start stopp button setzen");
+            var button = window.document.getElementById("startStopp");
+            const xhr = new XMLHttpRequest();
+            xhr.onload = function () {
+                const status = this.responseText;
+                if (status == "spielLaeuft") {
+                    button.setAttribute("value", "Spiel &ouml;ffnen");
+                    button.setAttribute("onclick", "spielOeffnen()");
+                }
+                else {
+                    button.setAttribute("value", "Spiel schliessen");
+                    button.setAttribute("onclick", "spielSchliessen()");
+                }
+            }
+            xhr.open("GET", "../spielstatus.txt");
+            xhr.send();
+        }
+        
+        function automatischAktualisieren() {
+            console.log("automatisch aktualisieren");
+            // setInterval(spielerAktualisieren, 100);
+            var ticker = setInterval(startStoppButtonSetzen, 100);
+            setTimeout(function() {
+                clearInterval(ticker);
+                hinweis = document.createElement("p");
+                hinweis.innerHTML = "Aktualisierung angehalten.";
+                window.document.getElementById("hinweis").appendChild(hinweis);
+            }, 60000)
+        }
+        
+        function spielerAktualisieren() {
+            var button = window.document.getElementById("startStopp");
+            const xhr = new XMLHttpRequest();
+            xhr.onload = function () {
+                const spielerString = this.responseText;
+                window.document.getElementById("spieler").innerHTML = spielerString;
+            }
+            xhr.open("GET", "../spieler.txt");
+            xhr.send();
+        }
         </script>
-    <body onload="startStoppButtonSetzen(), spielerAutomatischAktualisieren()">
-        <input type="submit" value="Karten zurücksetzen" onclick="kartenZuruecksetzen()" />
-        <input type="submit" value="Spieler zurücksetzen" onclick="spielerZuruecksetzen()" />
+    <body onload="automatischAktualisieren()">
+        <input type="submit" value="Karten zur&uuml;cksetzen" onclick="kartenZuruecksetzen()" />
+        <input type="submit" value="Spieler zur&uuml;cksetzen" onclick="spielerZuruecksetzen()" />
         <input id="startStopp" type="submit" />
-        <p id="spieler"></p>>
+        <p id="spieler"></p>
+        <div id="hinweis"></div>
         </body>
     </html>
 

@@ -1,7 +1,8 @@
 <?php
-    $neuerStatus = $_POST["neuerStatus"];
+    $neuerInhalt = $_POST["neuerInhalt"];
     $dateiname = "../" . $_POST["datei"];
     $fp = fopen($dateiname, w);
-    fputs($fp, $neuerStatus);
+    fputs($fp, $neuerInhalt);
     fclose($fp);
+    echo $neuerInhalt;
     ?>
