@@ -1,10 +1,12 @@
 <?php
+    $cookieGesetzt = false;
     if (isset($_POST["name"])) {
         $fp = fopen("spielstatus.txt", r);
         $status = fgets($fp, filesize("spielstatus.txt")+1);
         fclose($fp);
         
         if ($status != "spielLaeuft") {
+            $cookieGesetzt = true;
             setcookie("spielerName", $_POST["name"], time()+86400);
             $fp = fopen("spieler.txt", "a+");
             $data = fgets($fp, filesize("spieler.txt"));
@@ -22,26 +24,27 @@
         }
     }
     
-    if (isset($_COOKIE["spielerName"])) {
+    if ($cookieGesetzt || isset($_COOKIE["spielerName"])) {
         ?>
 <html>
     <head>
         <title>Munchkin</title>
         <script type="text/JavaScript">
+            var ticker;
             function automatischAktualisieren() {
-                var ticker = setInterval(aktualisieren, 200);
+                ticker = setInterval(aktualisieren, 200);
                 setTimeout(function() {
                     clearInterval(ticker);
                 }, 60000);
             }
 
             function aktualisieren() {
-                console.log("aktualisieren()");
                 const xhr = new XMLHttpRequest();
                 xhr.onload = function () {
                     const status = this.responseText;
                     if (status == "spielLaeuft") {
-                        link = window.document.getElementById("link");
+                        clearInterval(ticker);
+                        var link = window.document.getElementById("link");
                         link.setAttribute("href", "munchkin.php");
                         link.setAttribute("style", "color: #fff; text-decoration: none; cursor: pointer;");
                         window.document.getElementById("inhalt").setAttribute("style", "cursor: pointer; background-color: green; line-height: 50px;");
@@ -65,16 +68,47 @@
 <?php
     }
     else {
-        // Kein Cookie: entweder Eingabe oder Nichts
-        echo "<html>";
-        echo "    <head>";
-        echo "        <title>Munchkin</title>";
-        echo "        </head>";
-        echo "    <body>";
-        echo "        <div id=\"inhalt\">";
-        echo "            <form id=\"eingabe\" action=\"registrieren.php\" method=\"post\"><input type=\"text\" name=\"name\" /><input type=\"submit\" value=\"Loslegen\" /></form><br />";
-        echo "            </div>";
-        echo "        </body>";
-        echo "    </html>";
+    ?>
+<html>
+    <head>
+        <title>Munchkin</title>
+        <script type="text/JavaScript">
+            var ticker;
+            function automatischAktualisieren() {
+                ticker = setInterval(aktualisieren, 200);
+                setTimeout(function() {
+                    clearInterval(ticker);
+                }, 60000);
+            }
+
+            function aktualisieren() {
+                console.log("aktualisieren()");
+                const xhr = new XMLHttpRequest();
+                xhr.onload = function () {
+                    const status = this.responseText;
+                    if (status == "spielLaeuft") {
+                        var formular = window.document.getElementById("formular");
+                        window.document.getElementById("inhalt").removeChild(formular);
+                        clearInterval(ticker);
+                        var text = document.createElement("p");
+                        text.innerHTML = "Munchkin - gerade spielt schon jemand anders :/";
+                        window.document.getElementById("inhalt").appendChild(text);
+                        
+                    }
+                }
+                xhr.open("GET", "spielstatus.txt");
+                xhr.send();
+            }
+            </script>
+        </head>
+    <body onload="aktualisieren(), automatischAktualisieren()" style="font-family: Avenir, Sans-Serif" align="center">
+        <div style="width: 400px; heigt: 50px; position: absolute; top: 50vh; left: 50vw; transform: translate(-50%, -50%);" id="inhalt">
+            <form id="formular" action="registrieren.php" method="post">
+                <input type="text" name="name" /><input type="submit" value="Anmelden" />
+                </form>
+            </div>
+        </body>
+    </html>
+<?php
     }
     ?>
