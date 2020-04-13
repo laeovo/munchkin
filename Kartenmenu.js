@@ -19,7 +19,7 @@ function mitteKarteMenu(kartenId) {
     vordergrundErstellen(kartenId);
     buttonErstellen("Karte ablegen", "KarteAblegen", "vordergrundEntfernen(), karteAblegen(" + kartenId + ", 'mitte')", "buttons");
     buttonErstellen("Karte aufnehmen", "KarteAufnehmen", "vordergrundEntfernen(), karteAufnehmen(" + kartenId + ")", "buttons");
-    // Button erstellen, mit dem man eine Karte flaggen kann
+    buttonErstellen("Karte flaggen", "KarteFlaggen", "vordergrundEntfernen(), karteFlaggen(" + kartenId + ")", "buttons");
 }
 
 function vordergrundErstellen(kartenId) {
@@ -120,4 +120,14 @@ function karteAufMitspielerSpielenMenu(kartenId, positionVorher) {
 function aufMitspielerSpielenMenuAusblenden(kartenId, positionVorher) {
     window.document.getElementById("buttonKarteAufMitspielerSpielen").removeChild(window.document.getElementById("buttonsKarteAufMitspielerSpielen"));
     window.document.getElementById("buttonKarteAufMitspielerSpielenSchaltflaeche").setAttribute("onclick", "karteAufMitspielerSpielenMenu(" + kartenId + ", '" + positionVorher + "')");
+}
+
+function karteFlaggen(kartenId) {
+    var div = window.document.getElementById("mitteKarte" + kartenId);
+    if (div.style.top == "20px") {
+        div.style.top = "0px";
+    }
+    else {
+        div.style.top = "20px";
+    }
 }
