@@ -4,25 +4,30 @@
         </head>
     <script type="text/Javascript">
         function kartenZuruecksetzen() {
-            
+            // start.php aufrufen
         }
     
     function spielerZuruecksetzen() {
-        
+        dateiSetzen("spieler.txt", "");
     }
     
     function spielSchliessen() {
-        dateiSetzen("spielLaeuft");
+        dateiSetzen("spielstatus.txt", "spielLaeuft");
     }
     
     function spielOeffnen() {
-        dateiSetzen("");
+        dateiSetzen("spielstatus.txt", "");
     }
     
     function dateiSetzen(dateiName, neuerStatus) {
         const xhr = new XMLHttpRequest();
         xhr.onload = function () {
-            
+            if (dateName == "spielstatus.txt") {
+                startStoppButtonSetzen();
+            }
+            else if (dateiName == "spieler.txt") {
+                spielerAktualisieren();
+            }
         }
         xhr.open("POST", "dateiSetzen.php");
         xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
@@ -46,11 +51,27 @@
         xhr.open("GET", "../spielstatus.txt");
         xhr.send();
     }
+    
+    function spielerAutomatischAktualisieren() {
+        setInterval(spielerAktualisieren, 100);
+    }
+    
+    function spielerAktualisieren() {
+        var button = window.document.getElementById("startStopp");
+        const xhr = new XMLHttpRequest();
+        xhr.onload = function () {
+            const spielerString = this.responseText;
+            window.document.getElementById("spieler").innerHTML = spielerString;
+        }
+        xhr.open("GET", "../spieler.txt");
+        xhr.send();
+    }
         </script>
-    <body onload="startStoppButtonSetzen()">
+    <body onload="startStoppButtonSetzen(), spielerAutomatischAktualisieren()">
         <input type="submit" value="Karten zurücksetzen" onclick="kartenZuruecksetzen()" />
         <input type="submit" value="Spieler zurücksetzen" onclick="spielerZuruecksetzen()" />
         <input id="startStopp" type="submit" />
+        <p id="spieler"></p>>
         </body>
     </html>
 
