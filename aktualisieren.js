@@ -82,7 +82,7 @@ function spielstandAufblinken(spielerId, farbe) {
 
 function automatischeKartenAktualisierung() {
     kartenAktualisieren();
-    kartenIntervall = setInterval(kartenAktualisieren, 1000);
+    kartenIntervall = setInterval(kartenAktualisieren, 3000);
 }
 
 function kartenAktualisieren() {
