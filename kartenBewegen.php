@@ -1,8 +1,4 @@
 <?php
-    echo "kartenBewegen.php:\n";
-    echo "  von = " . $_POST["von"] . "\n";
-    echo "  nach = " . $_POST["nach"] . "\n";
-    echo "  karte = " . $_POST["karte"] . "\n";
     $anzahlTuerkartenGesamt = 162; // TODO: muss ganz am Ende angepasst werden
     
     /**
