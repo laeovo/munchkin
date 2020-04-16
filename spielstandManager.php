@@ -30,7 +30,7 @@
                 echo "Spieler " . $spielerId . " (" . $nameDesSpielersMitDerNeuenStufe . ") ist jetzt auf Stufe " . $neueStufe . ".";
             }
             else {
-                echo "Datei 'spieler.txt' kann nicht geöffnet werden";
+                echo "Datei 'spieler.txt' kann nicht gesperrt werden";
             }
         }
     }

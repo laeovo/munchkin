@@ -18,6 +18,8 @@
     
     $karte = "";
     
+    /////////// Quelle
+    
     if ($von == "nachziehstapel") {
         $stapel = "nachziehstapel" . $_POST["stapel"];
         $stapelDatei = $stapel . ".txt";
@@ -71,6 +73,8 @@
         fputs($fp, $neueKartenVon);
         fclose($fp);
     }
+    
+    //////////// Ziel
     
     $nach = $_POST["nach"];
     if ($nach == "ablagestapel") {
@@ -139,24 +143,25 @@
     }
 
     function stapelMischen($dateiName) {
-        $fp = fopen($dateiName, r);
-        $alterStapel = fgets($fp, filesize($dateiName)+1);
-        fclose($fp);
+        $fp = fopen($dateiName, "r+");
+        if (flock($fp, LOCK_EX)) {
+            $alterStapel = fgets($fp, filesize($dateiName)+1);
 
-        $karten = explode(";", $alterStapel);
-        shuffle($karten);
+            $karten = explode(";", $alterStapel);
+            shuffle($karten);
 
-        $neuerStapel = "";
-        for ($i = 0; $i < count ($karten); $i++) {
-            $neuerStapel .= $karten[$i];
-            if ($i != count($karten)-1) {
-                $neuerStapel .= ";";
+            $neuerStapel = "";
+            for ($i = 0; $i < count ($karten); $i++) {
+                $neuerStapel .= $karten[$i];
+                if ($i != count($karten)-1) {
+                    $neuerStapel .= ";";
+                }
             }
-        }
 
-        $fp = fopen($dateiName, w);
-        fputs($fp, $neuerStapel);
-        fclose($fp);
+            ftruncate($fp, 0);
+            fputs($fp, $neuerStapel);
+            fclose($fp);
+        }
     }
     
     ?>
