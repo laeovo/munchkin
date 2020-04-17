@@ -25,6 +25,7 @@
         $karteExistiertNochInDerQuelle = true; // Die oberste Karte existiert immer.
         $stapel = "nachziehstapel" . $_POST["stapel"];
         $stapelDatei = $stapel . ".txt";
+        $vonDatei = $stapelDatei;
         
         $fpQuelleStapel = fopen($stapelDatei, "a+");
         if (flock($fpQuelleStapel, LOCK_EX)) {
