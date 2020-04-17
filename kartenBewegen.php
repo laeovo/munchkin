@@ -1,5 +1,6 @@
 <?php
     $anzahlTuerkartenGesamt = 162; // TODO: muss ganz am Ende angepasst werden
+    echo "Hier ist was angekommen\n";
     
     /**
      Vom Stapel ziehen:
@@ -95,7 +96,6 @@
         $fpZiel = fopen($nachDatei, "a+");
         if (flock($fpZiel, LOCK_EX)) {
             $bisherigeKartenNach = fgets($fpZiel, 4096);
-            echo "BisherigeKartenNach: " . $bisherigeKartenNach . "\n";
             if ($bisherigeKartenNach != "") {
                 fwrite($fpZiel, ";");
             }
