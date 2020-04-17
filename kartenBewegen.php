@@ -1,6 +1,5 @@
 <?php
     $anzahlTuerkartenGesamt = 162; // TODO: muss ganz am Ende angepasst werden
-    echo "Hier ist was angekommen\n";
     
     /**
      Vom Stapel ziehen:
