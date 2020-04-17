@@ -17,7 +17,7 @@ function tuerkarteOffenZiehen() {
     }
     xhr.open("POST", "kartenBewegen.php");
     xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    xhr.send("von=nachziehstapel&stapel=Schatz&nach=mitte");
+    xhr.send("von=nachziehstapel&stapel=Tuer&nach=mitte");
 }
 
 function schatzkarteVerdecktZiehen() {
