@@ -2,7 +2,7 @@
     if (isset($_COOKIE["spielerId"])) {
         $spielerId = $_COOKIE["spielerId"];
         if (isset($_POST["deltaStufe"])) {
-            $fp = fopen("spieler.txt", "r+");
+            $fp = fopen("spieler.txt", "a+");
             if (flock($fp, LOCK_EX)) {
                 $data = fgets($fp, 4096);
                 $spieler = explode("/", $data);
