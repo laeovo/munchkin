@@ -3,7 +3,7 @@
         $spielerId = $_COOKIE["spielerId"];
         if (isset($_POST["deltaStufe"])) {
             $fp = fopen("spieler.txt", "a+");
-            if (flock($fp, LOCK_EX)) {
+//            if (flock($fp, LOCK_EX)) {
                 $data = fgets($fp, 4096);
                 $spieler = explode("/", $data);
                 $nameDesSpielersMitDerNeuenStufe = explode(";", $spieler[$spielerId])[0];
@@ -26,13 +26,13 @@
                 
                 ftruncate($fp, 0);
                 fputs($fp, $dataNeu);
-                flock($fp, LOCK_UN);
+//                flock($fp, LOCK_UN);
                 fclose($fp);
                 echo "Spieler " . $spielerId . " (" . $nameDesSpielersMitDerNeuenStufe . ") ist jetzt auf Stufe " . $neueStufe . ".";
-            }
-            else {
-                echo "Datei 'spieler.txt' kann nicht gesperrt werden";
-            }
+//            }
+//            else {
+//                echo "Datei 'spieler.txt' kann nicht gesperrt werden";
+//            }
         }
     }
     ?>

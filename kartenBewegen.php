@@ -28,7 +28,7 @@
         $vonDatei = $stapelDatei;
         
         $fpQuelleStapel = fopen($stapelDatei, "a+");
-        if (flock($fpQuelleStapel, LOCK_EX)) {
+//        if (flock($fpQuelleStapel, LOCK_EX)) {
             $alterstapel = fgets($fpQuelleStapel, 4096);
             $karten = explode(";", $alterstapel);
             $karte = $karten[0];
@@ -52,15 +52,15 @@
             
             ftruncate($fpQuelleStapel, 0);
             fwrite($fpQuelleStapel, $neuerStapel);
-            flock($fpQuelleStapel, LOCK_UN);
+//            flock($fpQuelleStapel, LOCK_UN);
             fclose($fpQuelleStapel);
-        }
+//        }
     }
     else {
         $karte = $_POST["karte"];
 
         $fpQuelle = fopen($vonDatei, "a+");
-        if (flock($fpQuelle, LOCK_EX)) {
+//        if (flock($fpQuelle, LOCK_EX)) {
             $bisherigeKartenVonString = fgets($fpQuelle, 4096);
             $bisherigeKartenVon = explode(";", $bisherigeKartenVonString);
 
@@ -78,9 +78,9 @@
             }
             ftruncate($fpQuelle, 0);
             fwrite($fpQuelle, $neueKartenVon);
-            flock($fpQuelle, LOCK_UN);
+//            flock($fpQuelle, LOCK_UN);
             fclose($fpQuelle);
-        }
+//        }
     }
     
     //////////// Ziel
@@ -96,18 +96,18 @@
         }
         $nachDatei = $nach . ".txt";
         $fpZiel = fopen($nachDatei, "a+");
-        if (flock($fpZiel, LOCK_EX)) {
+//        if (flock($fpZiel, LOCK_EX)) {
             $bisherigeKartenNach = fgets($fpZiel, 4096);
             if ($bisherigeKartenNach != "") {
                 fwrite($fpZiel, ";");
             }
             fwrite($fpZiel, $karte);
-            flock($fpZiel, LOCK_UN);
+//            flock($fpZiel, LOCK_UN);
             fclose($fpZiel);
-        }
-        else {
-            echo "Die Datei '" . $nachDatei . "' konnte nicht gesperrt werden.\n";
-        }
+//        }
+//        else {
+//            echo "Die Datei '" . $nachDatei . "' konnte nicht gesperrt werden.\n";
+//        }
 
         echo "Die Karte " . $karte . " wurde von " . $vonDatei . " nach " . $nachDatei . " bewegt.";
     }
