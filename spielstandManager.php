@@ -26,6 +26,7 @@
                 
                 ftruncate($fp, 0);
                 fputs($fp, $dataNeu);
+                flock($fp, LOCK_UN);
                 fclose($fp);
                 echo "Spieler " . $spielerId . " (" . $nameDesSpielersMitDerNeuenStufe . ") ist jetzt auf Stufe " . $neueStufe . ".";
             }
