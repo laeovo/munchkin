@@ -56,8 +56,9 @@ function spielerAktualisieren() {
             }
         }
     };
-    xhr.open("GET", "spieler.txt");
-    xhr.send();
+    xhr.open("POST", "getDatei.php");
+    xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xhr.send("datei=spieler.txt");
 }
 
 function spielstandAufblinken(spielerId, farbe) {
@@ -267,8 +268,9 @@ function kartenregionAktualisieren(dateiname, klasse, kontainer, menuAktion) {
             mitte = aktuelleKarten;
         }
     }
-    xhr.open("GET", dateiname);
-    xhr.send();
+    xhr.open("POST", "getDatei.php");
+    xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xhr.send("datei=" + dateiname);
 }
 
 function ablagestapelAktualisieren() {
@@ -285,8 +287,9 @@ function ablagestapelTuerAktualisieren() {
             window.document.getElementById("ablagestapelTuerBild").src = "karten/" + karten[karten.length-1] + ".jpg";
         }
     }
-    xhr.open("GET", "ablagestapelTuer.txt");
-    xhr.send();
+    xhr.open("POST", "getDatei.php");
+    xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xhr.send("datei=ablagestapelTuer.txt");
 }
 
 function ablagestapelSchatzAktualisieren() {
@@ -298,8 +301,9 @@ function ablagestapelSchatzAktualisieren() {
             window.document.getElementById("ablagestapelSchatzBild").src = "karten/" + karten[karten.length-1] + ".jpg";
         }
     }
-    xhr.open("GET", "ablagestapelSchatz.txt");
-    xhr.send();
+    xhr.open("POST", "getDatei.php");
+    xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xhr.send("datei=ablagestapelSchatz.txt");
 }
 
 function stop() {

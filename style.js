@@ -207,6 +207,7 @@ function spielstaendeErstellen() {
         spielerUntenRechtsInfo.style.right = "0px";
         spielerUntenRechtsInfo.style.bottom = (2*abstandZwischenKarten + 1.6*(breiteSpielerUntenRechtsHandkarten+breiteSpielerUntenRechtsOffeneKarten) + bottomOffsetFremdeHandkarten) + "px";
     };
-    xhr.open("GET", "spieler.txt");
-    xhr.send();
+    xhr.open("POST", "getDatei.php");
+    xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xhr.send("datei=spieler.txt");
 }

@@ -91,8 +91,9 @@ function karteWeitergebenMenu(kartenId, positionVorher) {
         buttonErstellen(spieler[(getEigeneId()+3)%4].split(";")[0], "KarteAnSpielerUntenRechtsWeitergeben", "vordergrundEntfernen(), karteWeitergeben(" + kartenId + ", " + (getEigeneId()+3)%4 + ", '" + positionVorher + "')", "buttonsKarteWeitergeben");
         
     };
-    xhr.open("GET", "spieler.txt");
-    xhr.send();
+    xhr.open("POST", "getDatei.php");
+    xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xhr.send("datei=spieler.txt");
 }
 
 function weitergebenMenuAusblenden(kartenId, positionVorher) {
@@ -119,8 +120,9 @@ function karteAufMitspielerSpielenMenu(kartenId, positionVorher) {
         buttonErstellen(spieler[(getEigeneId()+3)%4].split(";")[0], "KarteAnSpielerUntenRechtsAufMitspielerSpielen", "vordergrundEntfernen(), karteAufMitspielerSpielen(" + kartenId + ", " + (getEigeneId()+3)%4 + ", '" + positionVorher + "')", "buttonsKarteAufMitspielerSpielen");
         
     };
-    xhr.open("GET", "spieler.txt");
-    xhr.send();
+    xhr.open("POST", "getDatei.php");
+    xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xhr.send("datei=spieler.txt");
 }
 
 function aufMitspielerSpielenMenuAusblenden(kartenId, positionVorher) {
