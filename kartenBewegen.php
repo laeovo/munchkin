@@ -33,6 +33,7 @@
             $karten = explode(";", $alterstapel);
             $karte = $karten[0];
             
+            // TODO: Was passiert hier?
 //            if ($alterstapel == "") {
 //                echo "Stapel ist leer.\n";
 //                stapelAuffuellen($stapel);
