@@ -4,7 +4,7 @@
         </head>
     <script type="text/Javascript">
         function spielerZuruecksetzen() {
-            dateiSetzen("spieler.txt", "");
+            dateiSetzen("2spieler.txt", "");
         }
         
         function spielSchliessen() {
@@ -21,7 +21,7 @@
                 if (dateiName == "spielstatus.txt") {
                     startStoppButtonSetzen();
                 }
-                else if (dateiName == "spieler.txt") {
+                else if (dateiName == "2spieler.txt") {
                     spielerAktualisieren();
                 }
             }
@@ -70,7 +70,7 @@
             }
             xhr.open("POST", "../getDatei.php");
             xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-            xhr.send("datei=spieler.txt");
+            xhr.send("datei=2spieler.txt");
         }
     
         function kartenZuruecksetzen() {

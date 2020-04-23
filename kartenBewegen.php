@@ -14,7 +14,7 @@
      */
     
     $von = $_POST["von"];
-    $vonDatei = $von . ".txt";
+    $vonDatei = "2" . $von . ".txt";
     
     $karte = "";
     $karteExistiertNochInDerQuelle = false;
@@ -24,7 +24,7 @@
     if ($von == "nachziehstapel") {
         $karteExistiertNochInDerQuelle = true; // Die oberste Karte existiert immer.
         $stapel = "nachziehstapel" . $_POST["stapel"];
-        $stapelDatei = $stapel . ".txt";
+        $stapelDatei = "2" . $stapel . ".txt";
         $vonDatei = $stapelDatei;
         
         $fpQuelleStapel = fopen($stapelDatei, "a+");
@@ -94,7 +94,7 @@
                 $nach .= "Schatz";
             }
         }
-        $nachDatei = $nach . ".txt";
+        $nachDatei = "2" . $nach . ".txt";
         $fpZiel = fopen($nachDatei, "a+");
 //        if (flock($fpZiel, LOCK_EX)) {
             $bisherigeKartenNach = fgets($fpZiel, 4096);
@@ -118,8 +118,8 @@
     
 //    function stapelAuffuellen($stapel) {
 //        // Annahme: der Ablagestapel hat mindestens sechs Karten
-//        $ablagestapelDatei = "ablagestapel" . $stapel . ".txt";
-//        $nachziehstapelDatei = "nachziehstapel" . $stapel . ".txt";
+//        $ablagestapelDatei = "2ablagestapel" . $stapel . ".txt";
+//        $nachziehstapelDatei = "2nachziehstapel" . $stapel . ".txt";
 //
 //        $fpAblagestapel = fopen($ablagestapelDatei, "a+");
 //        if (flock($fpAblagestapel, LOCK_EX)) {
@@ -158,8 +158,8 @@
 //    }
 //
 //    function nachziehstapelMischen() {
-//        stapelMischen("nachziehstapelTuer.txt");
-//        stapelMischen("nachziehstapelSchatz.txt");
+//        stapelMischen("2nachziehstapelTuer.txt");
+//        stapelMischen("2nachziehstapelSchatz.txt");
 //    }
 //
 //    function stapelMischen($dateiName) {

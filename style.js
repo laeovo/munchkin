@@ -209,5 +209,5 @@ function spielstaendeErstellen() {
     };
     xhr.open("POST", "getDatei.php");
     xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    xhr.send("datei=spieler.txt");
+    xhr.send("datei=2spieler.txt");
 }
