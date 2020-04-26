@@ -313,7 +313,7 @@ function stop() {
 }
 
 function autostop() {
-    var minuten = 10; // TODO ändern
+    var minuten = 180;
     setTimeout(function() {
         console.log("Automatischer Stop nach " + minuten + " Minuten");
         stop();
