@@ -111,19 +111,19 @@ function kartenregionAktualisierenWrapper(region) {
         kartenregionAktualisieren("karten" + (getEigeneId()+1)%4 + "verdeckt.txt", "spielerObenLinksHandkarte", "spielerObenLinksHandkarten", ""); // TODO Aktion zum Ziehen hinzufügen, auch bei den anderen Spielern
     }
     else if (region == "offeneKartenObenLinks") {
-        kartenregionAktualisieren("karten" + (getEigeneId()+1)%4 + "offen.txt", "spielerObenLinksOffeneKarte", "spielerObenLinksOffeneKarten", "fremdeOffeneKarteMenu"); // TODO Aktion zum Klauen hinzufügen, auch bei den anderen Spielern
+        kartenregionAktualisieren("karten" + (getEigeneId()+1)%4 + "offen.txt", "spielerObenLinksOffeneKarte", "spielerObenLinksOffeneKarten", "fremdeOffeneKarteMenu");
     }
     else if (region == "handkartenObenRechts") {
         kartenregionAktualisieren("karten" + (getEigeneId()+2)%4 + "verdeckt.txt", "spielerObenRechtsHandkarte", "spielerObenRechtsHandkarten", "");
     }
     else if (region == "offeneKartenObenRechts") {
-        kartenregionAktualisieren("karten" + (getEigeneId()+2)%4 + "offen.txt", "spielerObenRechtsOffeneKarte", "spielerObenRechtsOffeneKarten", "");
+        kartenregionAktualisieren("karten" + (getEigeneId()+2)%4 + "offen.txt", "spielerObenRechtsOffeneKarte", "spielerObenRechtsOffeneKarten", "fremdeOffeneKarteMenu");
     }
     else if (region == "handkartenUntenRechts") {
         kartenregionAktualisieren("karten" + (getEigeneId()+3)%4 + "verdeckt.txt", "spielerUntenRechtsHandkarte", "spielerUntenRechtsHandkarten", "");
     }
     else if (region == "offeneKartenUntenRechts") {
-        kartenregionAktualisieren("karten" + (getEigeneId()+3)%4 + "offen.txt", "spielerUntenRechtsOffeneKarte", "spielerUntenRechtsOffeneKarten", "");
+        kartenregionAktualisieren("karten" + (getEigeneId()+3)%4 + "offen.txt", "spielerUntenRechtsOffeneKarte", "spielerUntenRechtsOffeneKarten", "fremdeOffeneKarteMenu");
     }
     else if (region == "mitte") {
         kartenregionAktualisieren("mitte.txt", "mitteKarte", "mitte", "mitteKarteMenu");
