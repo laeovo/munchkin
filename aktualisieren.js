@@ -1,6 +1,7 @@
 const maximaleSpieldauerStunden = 0.5;
 const maximaleSpieldauerMillisekunden = maximaleSpieldauerStunden * 3600000;
 
+// Intervalle zum Aktualisieren, werden nachher gesetzt. Müssen global sein, um angehalten werden zu können
 var spielerIntervall;
 var kartenIntervall;
 
@@ -18,6 +19,7 @@ var spielerUntenRechtsOffeneKarten = [];
 
 var mitte = [];
 
+// wird benötigt, um die Rückseite der Handkarten der anderen Spieler zu bestimmen
 const anzahlTuerkarten = 162;
 
 function getEigeneId() {
@@ -62,7 +64,6 @@ function spielerAktualisieren() {
 }
 
 function spielstandAufblinken(spielerId, farbe) {
-    // TODO blinken kann noch optimiert werden
     if (farbe == "rot") {
         for (let f = 0; f <= 20; f++) { // muss let sein, sonst funktioniert es nicht... :(
             setTimeout(function() {
@@ -198,10 +199,12 @@ function kartenregionAktualisieren(dateiname, klasse, kontainer, menuAktion) {
             neuerKarteninhalt = document.createElement("img");
             if (kontainer == "spielerObenLinksHandkarten" || kontainer == "spielerObenRechtsHandkarten" || kontainer == "spielerUntenRechtsHandkarten") {
                 if (neueKarten[i] < anzahlTuerkarten) {
-                    neuerKarteninhalt.setAttribute("src", "karten/tuerkarte.jpg");
+//                    neuerKarteninhalt.setAttribute("src", "karten/tuerkarte.jpg");
+                    neuerKarteninhalt.setAttribute("src", "karten/" + neueKarten[i] + ".jpg"); // TODO: rausnehmen, damit Spieler nachher nicht die Karten der anderen sehen können
                 }
                 else {
-                    neuerKarteninhalt.setAttribute("src", "karten/schatzkarte.jpg");
+//                    neuerKarteninhalt.setAttribute("src", "karten/schatzkarte.jpg");
+                    neuerKarteninhalt.setAttribute("src", "karten/" + neueKarten[i] + ".jpg"); // TODO: rausnehmen, damit Spieler nachher nicht die Karten der anderen sehen können
                 }
             }
             else {

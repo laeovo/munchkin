@@ -7,7 +7,7 @@
         <script type="text/JavaScript" src="spielstandManipulieren.js"></script>
         <link rel="stylesheet" txpe="text/css" href="style.css" />
         </head>
-    <body onload="ablagestapelAktualisieren(), automatischeSpielerAktualisierung(), automatischeKartenAktualisierung(), autostop()">
+    <body onload="automatischeSpielerAktualisierung(), automatischeKartenAktualisierung(), autostop()">
         
         <div id="stapel">
             <div id="ablagestapelTuer" class="stapelKarte"><img id="ablagestapelTuerBild" style="max-width: 100%; max-height: 100%" /></div>
