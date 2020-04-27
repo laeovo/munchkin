@@ -108,19 +108,19 @@ function kartenregionAktualisierenWrapper(region) {
         kartenregionAktualisieren("karten" + getEigeneId() + "offen.txt", "eigeneOffeneKarte", "eigeneOffeneKarten", "eigeneOffeneKarteMenu");
     }
     else if (region == "handkartenObenLinks") {
-        kartenregionAktualisieren("karten" + (getEigeneId()+1)%4 + "verdeckt.txt", "spielerObenLinksHandkarte", "spielerObenLinksHandkarten", ""); // TODO Aktion zum Ziehen hinzufügen, auch bei den anderen Spielern
+        kartenregionAktualisieren("karten" + (getEigeneId()+1)%4 + "verdeckt.txt", "spielerObenLinksHandkarte", "spielerObenLinksHandkarten", "fremdeHandkarteMenu");
     }
     else if (region == "offeneKartenObenLinks") {
         kartenregionAktualisieren("karten" + (getEigeneId()+1)%4 + "offen.txt", "spielerObenLinksOffeneKarte", "spielerObenLinksOffeneKarten", "fremdeOffeneKarteMenu");
     }
     else if (region == "handkartenObenRechts") {
-        kartenregionAktualisieren("karten" + (getEigeneId()+2)%4 + "verdeckt.txt", "spielerObenRechtsHandkarte", "spielerObenRechtsHandkarten", "");
+        kartenregionAktualisieren("karten" + (getEigeneId()+2)%4 + "verdeckt.txt", "spielerObenRechtsHandkarte", "spielerObenRechtsHandkarten", "fremdeHandkarteMenu");
     }
     else if (region == "offeneKartenObenRechts") {
         kartenregionAktualisieren("karten" + (getEigeneId()+2)%4 + "offen.txt", "spielerObenRechtsOffeneKarte", "spielerObenRechtsOffeneKarten", "fremdeOffeneKarteMenu");
     }
     else if (region == "handkartenUntenRechts") {
-        kartenregionAktualisieren("karten" + (getEigeneId()+3)%4 + "verdeckt.txt", "spielerUntenRechtsHandkarte", "spielerUntenRechtsHandkarten", "");
+        kartenregionAktualisieren("karten" + (getEigeneId()+3)%4 + "verdeckt.txt", "spielerUntenRechtsHandkarte", "spielerUntenRechtsHandkarten", "fremdeHandkarteMenu");
     }
     else if (region == "offeneKartenUntenRechts") {
         kartenregionAktualisieren("karten" + (getEigeneId()+3)%4 + "offen.txt", "spielerUntenRechtsOffeneKarte", "spielerUntenRechtsOffeneKarten", "fremdeOffeneKarteMenu");
@@ -220,6 +220,18 @@ function kartenregionAktualisieren(dateiname, klasse, kontainer, menuAktion) {
                 }
                 else if (kontainer == "spielerUntenRechtsOffeneKarten") {
                     neuerKarteninhalt.setAttribute("onclick", menuAktion + "(" + neueKarten[i] + ", " + (getEigeneId()+3)%4 + ")");
+                }
+            }
+            else if (menuAktion == "fremdeHandkarteMenu") {
+                console.log("Es gibt eine fremde Handkarte");
+                if (kontainer == "spielerObenLinksHandkarten") {
+                    neuerKarteninhalt.setAttribute("onclick", menuAktion + "(" + (getEigeneId()+1)%4 + ")");
+                }
+                else if (kontainer == "spielerObenRechtsHandkarten") {
+                    neuerKarteninhalt.setAttribute("onclick", menuAktion + "(" + (getEigeneId()+2)%4 + ")");
+                }
+                else if (kontainer == "spielerUntenRechtsHandkarten") {
+                    neuerKarteninhalt.setAttribute("onclick", menuAktion + "(" + (getEigeneId()+3)%4 + ")");
                 }
             }
             else {

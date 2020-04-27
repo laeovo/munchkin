@@ -1,3 +1,7 @@
+function getRandomInt(max) {
+    return Math.floor(Math.random() * Math.floor(max));
+}
+
 function tuerkarteVerdecktZiehen() {
     const xhr = new XMLHttpRequest();
     xhr.onload = function() {
@@ -176,7 +180,7 @@ function offeneKarteKlauen(kartenId, spielerId) {
     const xhr = new XMLHttpRequest();
     xhr.onload = function() {
         console.log(this.responseText);
-        kartenregionAktualisierenWrapper("eigeneHandkarten");
+        kartenregionAktualisierenWrapper("eigeneOffeneKarten");
         
         if ((spielerId-getEigeneId())%4 == 1) {
             kartenregionAktualisierenWrapper("offeneKartenObenLinks");
@@ -191,4 +195,42 @@ function offeneKarteKlauen(kartenId, spielerId) {
     xhr.open("POST", "kartenBewegen.php");
     xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xhr.send("von=karten" + spielerId + "offen&nach=karten" + getEigeneId() + "offen&karte=" + kartenId);
+}
+
+function handkarteKlauen(spielerId) {
+    verfuegbareKarten = [];
+    switch((spielerId-getEigeneId())%4) {
+        case 0:
+            // Dann würde man von sich selber ziehen --> geht nicht.
+            break;
+        case 1:
+            verfuegbareKarten = spielerObenLinksHandkarten;
+            break;
+        case 2:
+            verfuegbareKarten = spielerObenRechtsHandkarten;
+            break;
+        case 3:
+            verfuegbareKarten = spielerUntenRechtsHandkarten;
+            break;
+    }
+    const karte = verfuegbareKarten[getRandomInt[verfuegbareKarten.length]];
+        
+    const xhr = new XMLHttpRequest();
+    xhr.onload = function() {
+        console.log(this.responseText);
+        kartenregionAktualisierenWrapper("eigeneHandkarten");
+        
+        if ((spielerId-getEigeneId())%4 == 1) {
+            kartenregionAktualisierenWrapper("handkartenObenLinks");
+        }
+        else if ((spielerId-getEigeneId())%4 == 2) {
+            kartenregionAktualisierenWrapper("handkartenObenRechts");
+        }
+        else if ((spielerId-getEigeneId())%4 == 3) {
+            kartenregionAktualisierenWrapper("handkartenUntenRechts");
+        }
+    }
+    xhr.open("POST", "kartenBewegen.php");
+    xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xhr.send("von=karten" + spielerId + "verdeckt&nach=karten" + getEigeneId() + "verdeckt&karte=" + karte);
 }

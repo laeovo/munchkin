@@ -28,6 +28,36 @@ function fremdeOffeneKarteMenu(kartenId, spielerId) {
     buttonErstellen("Karte klauen", "KarteKlauen", "vordergrundEntfernen(), offeneKarteKlauen(" + kartenId + ", " + spielerId + ")", "buttons");
 }
 
+function fremdeHandkarteMenu(spielerId) {
+    leerenVordergrundErstellen((spielerId-getEigeneId())%4);
+    buttonErstellen("Karte klauen", "KarteKlauen", "vordergrundEntfernen(), handkarteKlauen(" + spielerId + ")", "button");
+}
+
+function leerenVordergrundErstellen(position) {
+    // position ist hier eine Zahl in [1,3]; 1 = oben links, 2 = oben rechts, 3 = unten rechts
+    vordergrund = document.createElement("div");
+    vordergrund.setAttribute("id", "karteImVordergrund");
+    vordergrund.setAttribute("onclick", "vordergrundEntfernen()");
+    vordergrund.style.cursor = "pointer";
+    
+    buttonDiv = document.createElement("div");
+    buttonDiv.setAttribute("id", "button");
+    switch(position) {
+        case 1:
+            buttonDiv.setAttribute("style", "position: absolute; top: 0px; left: 0px;");
+            break;
+        case 2:
+            buttonDiv.setAttribute("style", "position: absolute; top: 0px; right: 0px;");
+            break;
+        case 3:
+            buttonDiv.setAttribute("style", "position: absolute; bottom: 0px; right: 0px;");
+            break;
+    }
+
+    vordergrund.appendChild(buttonDiv);
+    window.document.body.appendChild(vordergrund);
+}
+
 function vordergrundErstellen(kartenId) {
     grosseKarte = document.createElement("div");
     grosseKarte.setAttribute("id", "karteImVordergrund");
