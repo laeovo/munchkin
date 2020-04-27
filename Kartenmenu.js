@@ -38,8 +38,13 @@ function leerenVordergrundErstellen(position) {
     // position ist hier eine Zahl in [1,3]; 1 = oben links, 2 = oben rechts, 3 = unten rechts
     vordergrund = document.createElement("div");
     vordergrund.setAttribute("id", "karteImVordergrund");
-    vordergrund.setAttribute("onclick", "vordergrundEntfernen()");
     vordergrund.style.cursor = "pointer";
+    
+    hintergrund = document.createElement("div");
+    hintergrund.setAttribute("id", "hintergrundZumKlicken");
+    hintergrund.setAttribute("style", "position: fixed; top: 0px; left: 0px; width: 100%; height: 100%; background-color: rgba(50,50,50,0.5); cursor: pointer;");
+    hintergrund.setAttribute("onclick", "vordergrundEntfernen()");
+    vordergrund.appendChild(hintergrund);
     
     buttonDiv = document.createElement("div");
     buttonDiv.setAttribute("id", "button");
@@ -62,7 +67,12 @@ function leerenVordergrundErstellen(position) {
 function vordergrundErstellen(kartenId) {
     grosseKarte = document.createElement("div");
     grosseKarte.setAttribute("id", "karteImVordergrund");
-    grosseKarte.setAttribute("onclick", ""); // TODO: onclick für den Hintergrund machen und vom Bild wegnehmen
+    
+    hintergrund = document.createElement("div");
+    hintergrund.setAttribute("id", "hintergrundZumKlicken");
+    hintergrund.setAttribute("style", "position: fixed; top: 0px; left: 0px; width: 100%; height: 100%; background-color: rgba(50,50,50,0.5); cursor: pointer;");
+    hintergrund.setAttribute("onclick", "vordergrundEntfernen()");
+    grosseKarte.appendChild(hintergrund);
     
     buttonDiv = document.createElement("div");
     buttonDiv.setAttribute("id", "buttons");
@@ -74,7 +84,6 @@ function vordergrundErstellen(kartenId) {
     grosseKarteBild.src = "karten/" + kartenId + ".jpg";
     grosseKarteBild.width = "375";
     grosseKarteBild.setAttribute("class", "karte");
-    grosseKarteBild.setAttribute("onclick", "vordergrundEntfernen()");
     
     grosseKarteBildDiv.appendChild(grosseKarteBild);
     grosseKarteBildDiv.appendChild(buttonDiv);
