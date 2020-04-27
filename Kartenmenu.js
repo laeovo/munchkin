@@ -29,7 +29,6 @@ function fremdeOffeneKarteMenu(kartenId, spielerId) {
 }
 
 function fremdeHandkarteMenu(spielerId) {
-    console.log("menuFremdeHandkarte, id = " + spielerId);
     var position = (spielerId-getEigeneId()+4) % 4;
     leerenVordergrundErstellen(position);
     buttonErstellen("Karte klauen", "KarteKlauen", "vordergrundEntfernen(), handkarteKlauen(" + spielerId + ")", "button");
