@@ -213,7 +213,7 @@ function handkarteKlauen(spielerId) {
             verfuegbareKarten = spielerUntenRechtsHandkarten;
             break;
     }
-    const karte = verfuegbareKarten[getRandomInt[verfuegbareKarten.length]];
+    const karte = verfuegbareKarten[getRandomInt(verfuegbareKarten.length)];
         
     const xhr = new XMLHttpRequest();
     xhr.onload = function() {

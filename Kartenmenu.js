@@ -29,7 +29,9 @@ function fremdeOffeneKarteMenu(kartenId, spielerId) {
 }
 
 function fremdeHandkarteMenu(spielerId) {
-    leerenVordergrundErstellen((spielerId-getEigeneId())%4);
+    console.log("menuFremdeHandkarte, id = " + spielerId);
+    var position = (spielerId-getEigeneId()+4) % 4;
+    leerenVordergrundErstellen(position);
     buttonErstellen("Karte klauen", "KarteKlauen", "vordergrundEntfernen(), handkarteKlauen(" + spielerId + ")", "button");
 }
 
@@ -99,7 +101,10 @@ function buttonErstellen(buttonText, buttonId, onclickAktion, kontainer) {
 }
 
 function vordergrundEntfernen() {
-    window.document.body.removeChild(window.document.getElementById("karteImVordergrund"));
+    vordergrund = window.document.getElementById("karteImVordergrund");
+    if (vordergrund) {
+        window.document.body.removeChild(vordergrund);
+    }
 }
 
 function karteWeitergebenMenu(kartenId, positionVorher) {

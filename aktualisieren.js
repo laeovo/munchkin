@@ -223,7 +223,6 @@ function kartenregionAktualisieren(dateiname, klasse, kontainer, menuAktion) {
                 }
             }
             else if (menuAktion == "fremdeHandkarteMenu") {
-                console.log("Es gibt eine fremde Handkarte");
                 if (kontainer == "spielerObenLinksHandkarten") {
                     neuerKarteninhalt.setAttribute("onclick", menuAktion + "(" + (getEigeneId()+1)%4 + ")");
                 }

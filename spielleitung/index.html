@@ -3,6 +3,8 @@
         <title>Munchkin - Spielleitung</title>
         </head>
     <script type="text/Javascript">
+        var spielerTicker;
+        var ticker;
         function spielerZuruecksetzen() {
             dateiSetzen("2spieler.txt", "");
         }
@@ -51,9 +53,10 @@
         
         function automatischAktualisieren() {
             console.log("automatisch aktualisieren");
-            setInterval(spielerAktualisieren, 100);
-            var ticker = setInterval(startStoppButtonSetzen, 100);
+            spielerTicker = setInterval(spielerAktualisieren, 100);
+            ticker = setInterval(startStoppButtonSetzen, 100);
             setTimeout(function() {
+                clearInterval(spielerTicker);
                 clearInterval(ticker);
                 hinweis = document.createElement("p");
                 hinweis.innerHTML = "Aktualisierung angehalten.";
