@@ -199,7 +199,7 @@ function offeneKarteKlauen(kartenId, spielerId) {
 
 function handkarteKlauen(spielerId) {
     verfuegbareKarten = [];
-    switch((spielerId-getEigeneId())%4) {
+    switch((spielerId-getEigeneId()+4)%4) {
         case 0:
             // Dann würde man von sich selber ziehen --> geht nicht.
             break;
