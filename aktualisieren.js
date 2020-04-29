@@ -199,18 +199,42 @@ function kartenregionAktualisieren(dateiname, klasse, kontainer, menuAktion) {
             neuerKarteninhalt = document.createElement("img");
             if (kontainer == "spielerObenLinksHandkarten" || kontainer == "spielerObenRechtsHandkarten" || kontainer == "spielerUntenRechtsHandkarten") {
                 if (neueKarten[i] < anzahlTuerkarten) {
-//                    neuerKarteninhalt.setAttribute("src", "karten/tuerkarte.jpg");
-                    neuerKarteninhalt.setAttribute("src", "karten/" + neueKarten[i] + ".jpg"); // TODO: rausnehmen, damit Spieler nachher nicht die Karten der anderen sehen können
+                    neuerKarteninhalt.setAttribute("src", "karten/tuerkarte.jpg");
                 }
                 else {
-//                    neuerKarteninhalt.setAttribute("src", "karten/schatzkarte.jpg");
-                    neuerKarteninhalt.setAttribute("src", "karten/" + neueKarten[i] + ".jpg"); // TODO: rausnehmen, damit Spieler nachher nicht die Karten der anderen sehen können
+                    neuerKarteninhalt.setAttribute("src", "karten/schatzkarte.jpg");
                 }
             }
             else {
                 neuerKarteninhalt.setAttribute("src", "karten/" + neueKarten[i] + ".jpg");
             }
-            neuerKarteninhalt.setAttribute("width", breiteMitteKarten);
+            if (kontainer == "eigeneHandkarten") {
+                neuerKarteninhalt.setAttribute("width", breiteEigeneHandkarten);
+            }
+            else if (kontainer == "eigeneOffeneKarten") {
+                neuerKarteninhalt.setAttribute("width", breiteEigeneOffeneKarten);
+            }
+            else if (kontainer == "spielerObenLinksHandkarten") {
+                neuerKarteninhalt.setAttribute("width", breiteSpielerObenLinksHandkarten);
+            }
+            else if (kontainer == "spielerObenLinksOffeneKarten") {
+                neuerKarteninhalt.setAttribute("width", breiteSpielerObenLinksOffeneKarten);
+            }
+            else if (kontainer == "spielerObenRechtsHandkarten") {
+                neuerKarteninhalt.setAttribute("width", breiteSpielerObenRechtsHandkarten);
+            }
+            else if (kontainer == "spielerObenRechtsOffeneKarten") {
+                neuerKarteninhalt.setAttribute("width", breiteSpielerObenRechtsOffeneKarten);
+            }
+            else if (kontainer == "spielerUntenRechtsHandkarten") {
+                neuerKarteninhalt.setAttribute("width", breiteSpielerUntenRechtsHandkarten);
+            }
+            else if (kontainer == "spielerUntenRechtsOffeneKarten") {
+                neuerKarteninhalt.setAttribute("width", breiteSpielerUntenRechtsOffeneKarten);
+            }
+            else if (kontainer == "mitte") {
+                neuerKarteninhalt.setAttribute("width", breiteMitteKarten);
+            }
             if (menuAktion == "fremdeOffeneKarteMenu") {
                 if (kontainer == "spielerObenLinksOffeneKarten") {
                     neuerKarteninhalt.setAttribute("onclick", menuAktion + "(" + neueKarten[i] + ", " + (getEigeneId()+1)%4 + ")");
