@@ -134,13 +134,13 @@ function karteWeitergeben(kartenId, spielerId, positionVorher) {
             kartenregionAktualisierenWrapper("eigeneOffeneKarten");
         }
         
-        if ((spielerId-getEigeneId())%4 == 1) {
+        if ((spielerId-getEigeneId()+4)%4 == 1) {
             kartenregionAktualisierenWrapper("handkartenObenLinks");
         }
-        else if ((spielerId-getEigeneId())%4 == 2) {
+        else if ((spielerId-getEigeneId()+4)%4 == 2) {
             kartenregionAktualisierenWrapper("handkartenObenRechts");
         }
-        else if ((spielerId-getEigeneId())%4 == 3) {
+        else if ((spielerId-getEigeneId()+4)%4 == 3) {
             kartenregionAktualisierenWrapper("handkartenUntenRechts");
         }
     }
@@ -161,13 +161,13 @@ function karteAufMitspielerSpielen(kartenId, spielerId, positionVorher) {
             kartenregionAktualisierenWrapper("eigeneOffeneKarten");
         }
         
-        if ((spielerId-getEigeneId())%4 == 1) {
+        if ((spielerId-getEigeneId()+4)%4 == 1) {
             kartenregionAktualisierenWrapper("offeneKartenObenLinks");
         }
-        else if ((spielerId-getEigeneId())%4 == 2) {
+        else if ((spielerId-getEigeneId()+4)%4 == 2) {
             kartenregionAktualisierenWrapper("offeneKartenObenRechts");
         }
-        else if ((spielerId-getEigeneId())%4 == 3) {
+        else if ((spielerId-getEigeneId()+4)%4 == 3) {
             kartenregionAktualisierenWrapper("offeneKartenUntenRechts");
         }
     }
@@ -182,13 +182,13 @@ function offeneKarteKlauen(kartenId, spielerId) {
         console.log(this.responseText);
         kartenregionAktualisierenWrapper("eigeneOffeneKarten");
         
-        if ((spielerId-getEigeneId())%4 == 1) {
+        if ((spielerId-getEigeneId()+4)%4 == 1) {
             kartenregionAktualisierenWrapper("offeneKartenObenLinks");
         }
-        else if ((spielerId-getEigeneId())%4 == 2) {
+        else if ((spielerId-getEigeneId()+4)%4 == 2) {
             kartenregionAktualisierenWrapper("offeneKartenObenRechts");
         }
-        else if ((spielerId-getEigeneId())%4 == 3) {
+        else if ((spielerId-getEigeneId()+4)%4 == 3) {
             kartenregionAktualisierenWrapper("offeneKartenUntenRechts");
         }
     }
@@ -220,13 +220,13 @@ function handkarteKlauen(spielerId) {
         console.log(this.responseText);
         kartenregionAktualisierenWrapper("eigeneHandkarten");
         
-        if ((spielerId-getEigeneId())%4 == 1) {
+        if ((spielerId-getEigeneId()+4)%4 == 1) {
             kartenregionAktualisierenWrapper("handkartenObenLinks");
         }
-        else if ((spielerId-getEigeneId())%4 == 2) {
+        else if ((spielerId-getEigeneId()+4)%4 == 2) {
             kartenregionAktualisierenWrapper("handkartenObenRechts");
         }
-        else if ((spielerId-getEigeneId())%4 == 3) {
+        else if ((spielerId-getEigeneId()+4)%4 == 3) {
             kartenregionAktualisierenWrapper("handkartenUntenRechts");
         }
     }
