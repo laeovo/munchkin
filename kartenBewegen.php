@@ -93,6 +93,7 @@
         
         //////////// Ziel
         if ($karteExistiertNochInDerQuelle) {
+            $karte = explode($karte, "x")[0];
             $nach = $_POST["nach"];
             if ($nach == "ablagestapel") {
                 if (intval($karte) < $anzahlTuerkartenGesamt) {
