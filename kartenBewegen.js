@@ -234,3 +234,14 @@ function handkarteKlauen(spielerId) {
     xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xhr.send("von=karten" + spielerId + "verdeckt&nach=karten" + getEigeneId() + "verdeckt&karte=" + karte);
 }
+
+function karteDrehen(kartenId, neueDrehung) {
+    const xhr = new XMLHttpRequest();
+    xhr.onload = function() {
+        console.log(this.responseText);
+        kartenregionAktualisierenWrapper("eigeneOffeneKarten");
+    }
+    xhr.open("POST", "kartenBewegen.php");
+    xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xhr.send("von=karten" + getEigeneId() + "offen&karte=" + kartenId + "&neueDrehung=" + neueDrehung);
+}
