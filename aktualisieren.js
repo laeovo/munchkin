@@ -33,6 +33,18 @@ function getEigeneId() {
     return -1;
 }
 
+function eigeneKarteIstImRucksack(kartenId) {
+    for (var i = 0; i < eigeneOffeneKarten.length; i++) {
+        const karte = eigeneOffeneKarten[i].split("x")[0];
+        if (karte == kartenId) {
+            if (eigeneOffeneKarten[i].split("x").length > 1) {
+                return true;
+            }
+        }
+    }
+    return false;
+}
+
 function automatischeSpielerAktualisierung() {
     spielerIntervall = setInterval(spielerAktualisieren, 3000);
 }

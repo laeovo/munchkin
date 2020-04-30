@@ -12,6 +12,12 @@ function eigeneOffeneKarteMenu(kartenId) {
     buttonErstellen("Karte in die Mitte spielen", "KarteSpielen", "vordergrundEntfernen(), karteSpielen(" + kartenId + ", 'offen')", "buttons");
     buttonErstellen("Karte ablegen", "KarteAblegen", "vordergrundEntfernen(), karteAblegen(" + kartenId + ", 'offen')", "buttons");
     buttonErstellen("Karte aufnehmen", "KarteAufnehmen", "vordergrundEntfernen(), karteAufnehmen(" + kartenId + ", 'offen')", "buttons");
+    if (eigeneKarteIstImRucksack(kartenId)) {
+        buttonErstellen("Karte aus dem Rucksack auspacken", "KarteDrehen", "vordergrundEntfernen(), karteDrehen(" + kartenId + ", '')", "buttons");
+    }
+    else {
+        buttonErstellen("Karte in den Rucksack packen", "KarteDrehen", "vordergrundEntfernen(), karteDrehen(" + kartenId + ", 'x')", "buttons");
+    }
     buttonErstellen("Karte auf jemanden spielen", "KarteAufMitspielerSpielen", "karteAufMitspielerSpielenMenu(" + kartenId + ", 'offen')", "buttons");
     buttonErstellen("Karte an jemanden abgeben", "KarteWeitergeben", "karteWeitergebenMenu(" + kartenId + ", 'offen')", "buttons");
 }
