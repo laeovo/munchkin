@@ -218,7 +218,7 @@ function kartenregionAktualisieren(dateiname, klasse, kontainer, menuAktion) {
                 }
             }
             else {
-                neuerKarteninhalt.setAttribute("src", "karten/" + neueKarten[i] + ".jpg");
+                neuerKarteninhalt.setAttribute("src", "karten/" + neueKarten[i].split("x")[0] + ".jpg");
             }
             if (kontainer == "eigeneHandkarten") {
                 neuerKarteninhalt.setAttribute("width", breiteEigeneHandkarten);
@@ -249,13 +249,13 @@ function kartenregionAktualisieren(dateiname, klasse, kontainer, menuAktion) {
             }
             if (menuAktion == "fremdeOffeneKarteMenu") {
                 if (kontainer == "spielerObenLinksOffeneKarten") {
-                    neuerKarteninhalt.setAttribute("onclick", menuAktion + "(" + neueKarten[i] + ", " + (getEigeneId()+1)%4 + ")");
+                    neuerKarteninhalt.setAttribute("onclick", menuAktion + "(" + neueKarten[i].split("x")[0] + ", " + (getEigeneId()+1)%4 + ")");
                 }
                 else if (kontainer == "spielerObenRechtsOffeneKarten") {
-                    neuerKarteninhalt.setAttribute("onclick", menuAktion + "(" + neueKarten[i] + ", " + (getEigeneId()+2)%4 + ")");
+                    neuerKarteninhalt.setAttribute("onclick", menuAktion + "(" + neueKarten[i].split("x")[0] + ", " + (getEigeneId()+2)%4 + ")");
                 }
                 else if (kontainer == "spielerUntenRechtsOffeneKarten") {
-                    neuerKarteninhalt.setAttribute("onclick", menuAktion + "(" + neueKarten[i] + ", " + (getEigeneId()+3)%4 + ")");
+                    neuerKarteninhalt.setAttribute("onclick", menuAktion + "(" + neueKarten[i].split("x")[0] + ", " + (getEigeneId()+3)%4 + ")");
                 }
             }
             else if (menuAktion == "fremdeHandkarteMenu") {
@@ -270,7 +270,7 @@ function kartenregionAktualisieren(dateiname, klasse, kontainer, menuAktion) {
                 }
             }
             else {
-                neuerKarteninhalt.setAttribute("onclick", menuAktion + "(" + neueKarten[i] + ")");
+                neuerKarteninhalt.setAttribute("onclick", menuAktion + "(" + neueKarten[i].split("x")[0] + ")");
             }
             window.document.getElementById(klasse + neueKarten[i]).appendChild(neuerKarteninhalt);
         }
