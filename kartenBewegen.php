@@ -26,10 +26,11 @@
         $karte = "";
         $karteExistiertNochInDerQuelle = false;
         
+<<<<<<< HEAD
         /////////// Quelle
         
         if ($von == "nachziehstapel") {
-            $karteExistiertNochInDerQuelle = true; // Die oberste Karte existiert immer.
+            $karteExistiertNochInDerQuelle = true; // Die oberste Karte existiert immer - und sei es, dass der Stapel aufgefüllt wurde
             $stapel = "nachziehstapel" . $_POST["stapel"];
             $stapelDatei = "2" . $stapel . ".txt";
             $vonDatei = $stapelDatei;
@@ -39,7 +40,17 @@
                 $alterstapel = fgets($fpQuelleStapel, 4096);
                 $karten = explode(";", $alterstapel);
                 $karte = $karten[0];
-                
+
+                // TODO: Was passiert hier?
+                if ($alterstapel == "") {
+                    echo "Stapel ist leer.\n";
+                    stapelAuffuellen($stapel);
+                    
+                    $alterstapel = fgets($fpQuelleStapel, 4096);
+                    $karten = explode(";", $alterstapel);
+                    $karte = $karten[0];
+                }
+
                 $neuerStapel = "";
                 for ($i = 1; $i < count($karten); $i++) {
                     $neuerStapel .= $karten[$i];
