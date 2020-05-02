@@ -26,7 +26,6 @@
         $karte = "";
         $karteExistiertNochInDerQuelle = false;
         
-<<<<<<< HEAD
         /////////// Quelle
         
         if ($von == "nachziehstapel") {
@@ -45,7 +44,7 @@
                 if ($alterstapel == "") {
                     echo "Stapel ist leer.\n";
                     stapelAuffuellen($stapel);
-                    
+
                     $alterstapel = fgets($fpQuelleStapel, 4096);
                     $karten = explode(";", $alterstapel);
                     $karte = $karten[0];
