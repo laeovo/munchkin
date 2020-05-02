@@ -34,14 +34,14 @@
             $karte = $karten[0];
             
             // TODO: Was passiert hier?
-//            if ($alterstapel == "") {
-//                echo "Stapel ist leer.\n";
-//                stapelAuffuellen($stapel);
-//
-//                $alterstapel = fgets($fpQuelleStapel, 4096);
-//                $karten = explode(";", $alterstapel);
-//                $karte = $karten[0];
-//            }
+            if ($alterstapel == "") {
+                echo "Stapel ist leer.\n";
+                stapelAuffuellen($stapel);
+
+                $alterstapel = fgets($fpQuelleStapel, 4096);
+                $karten = explode(";", $alterstapel);
+                $karte = $karten[0];
+            }
             
             $neuerStapel = "";
             for ($i = 1; $i < count($karten); $i++) {
