@@ -291,7 +291,10 @@ function kartenregionAktualisieren(dateiname, klasse, kontainer, menuAktion) {
             else {
                 neuerKarteninhalt.setAttribute("onclick", menuAktion + "(" + neueKarten[i].split("x")[0] + ")");
             }
-            window.document.getElementById(klasse + neueKarten[i]).appendChild(neuerKarteninhalt);
+            window.document.getElementById(klasse + neueKarten[i].split("x")[0]).appendChild(neuerKarteninhalt);
+            if (neueKarten[i].split("x").length == 2) {
+                objektDrehen(neueKarte, true);
+            }
         }
         
         // alte Karten entfernen
@@ -390,10 +393,28 @@ function autostop() {
 }
 
 function objektDrehen(objekt, drehung) {
+    var bild = objekt.children[0];
+    const kontainerId = objekt.parentNode.id;
     if (drehung) {
-        objekt.style.transform = "rotate(90deg)";
+        bild.style.transform = "rotate(90deg)";
+        if (kontainerId == "eigeneOffeneKarten") {
+            objekt.style.padding = "0px " + 0.3*breiteEigeneOffeneKarten + "px";
+        }
+        else if (kontainerId == "spielerObenLinksOffeneKarten") {
+            objekt.style.padding = "0px " + 0.3*breiteSpielerObenLinksOffeneKarten + "px";
+        }
+        else if (kontainerId == "spielerObenRechtsOffeneKarten") {
+            objekt.style.padding = "0px " + 0.3*breiteSpielerObenRechtsOffeneKarten + "px";
+        }
+        else if (kontainerId == "spielerUntenRechtsOffeneKarten") {
+            objekt.style.padding = "0px " + 0.3*breiteSpielerUntenRechtsOffeneKarten + "px";
+        }
+        else {
+            // TODO: ???
+        }
     }
     else {
-        objekt.style.transform = "rotate(0deg)";
+        bild.style.transform = "rotate(0deg)";
+        objekt.style.padding = "0px";
     }
 }
