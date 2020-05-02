@@ -188,23 +188,42 @@ function kartenregionAktualisieren(dateiname, klasse, kontainer, menuAktion) {
         }
         
         for (var i = 0; i < kartenLautServer.length; i++) {
-            if (kartenLautBrowser.includes(kartenLautServer[i])) {
-                unveraenderteKarten.push(kartenLautServer[i]);
+            const karteLautServer = kartenLautServer[i];
+            if (kartenLautBrowser.includes(karteLautServer)) {
+                unveraenderteKarten.push(karteLautServer);
+            }
+            else if (kartenLautBrowser.includes(karteLautServer + "x")) {
+                // Karte ist im Browser gedreht, im Server aber nicht mehr
+                objektDrehen(window.document.getElementById(klasse + karteLautServer), false);
+                unveraenderteKarten.push(karteLautServer);
+            }
+            else if (kartenLautBrowser.includes(karteLautServer.split("x")[0])) {
+                // Karte wurde im Server gedreht, im Browser aber noch nicht
+                objektDrehen(window.document.getElementById(klasse + karteLautServer.split("x")[0]), true);
+                unveraenderteKarten.push(karteLautServer);
             }
             else {
                 neueKarten.push(kartenLautServer[i]);
             }
         }
         for (var i = 0; i < kartenLautBrowser.length; i++) {
-            if (!kartenLautServer.includes(kartenLautBrowser[i])) {
-                gespielteKarten.push(kartenLautBrowser[i]);
+            const karteLautBrowser = kartenLautBrowser[i].split("x")[0];
+            var karteImServerEnthalten = false;
+            for (var j = 0; j < kartenLautServer.length; j++) {
+                const karteLautServer = kartenLautServer[j].split("x")[0];
+                if (karteLautServer == karteLautBrowser) {
+                    karteImServerEnthalten = true;
+                }
+            }
+            if (!karteImServerEnthalten) {
+                gespielteKarten.push(karteLautBrowser);
             }
         }
         // Neue Karten hinzufügen
         const anzahlBisherigeKarten = unveraenderteKarten.length + gespielteKarten.length;
         for (var i = 0; i < neueKarten.length; i++) {
             neueKarte = document.createElement("div");
-            neueKarte.setAttribute("id", klasse + neueKarten[i]);
+            neueKarte.setAttribute("id", klasse + neueKarten[i].split("x")[0]);
             neueKarte.setAttribute("class", "karte " + klasse);
             window.document.getElementById(kontainer).appendChild(neueKarte);
             
@@ -368,4 +387,13 @@ function autostop() {
         console.log("Automatischer Stop nach " + minuten + " Minuten");
         stop();
     }, 60000*minuten);
+}
+
+function objektDrehen(objekt, drehung) {
+    if (drehung) {
+        objekt.style.transform = "rotate(90deg)";
+    }
+    else {
+        objekt.style.transform = "rotate(0deg)";
+    }
 }

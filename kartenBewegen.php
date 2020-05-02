@@ -147,7 +147,7 @@
             flock($fp, LOCK_UN);
             fclose($fp);
         }
-        echo "Die Karte " . $karte . "wurde gedreht.";
+        echo "Die Karte " . $karte . " wurde gedreht.";
     }
     
     
