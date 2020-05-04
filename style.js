@@ -154,14 +154,15 @@ function spielstaendeErstellen() {
         eigenesGeschlechtDiv.setAttribute("class", "geschlecht");
         eigenesGeschlechtDiv.setAttribute("align", "center");
         eigenesGeschlechtDiv.style.float = "left";
+        eigenesGeschlechtDiv.setAttribute("onclick", "toggleGeschlecht()");
         eigenesGeschlechtHidden = document.createElement("div");
         eigenesGeschlechtHidden.setAttribute("id", "geschlechtHidden" + getEigeneId());
         eigenesGeschlechtHidden.innerHTML = spieler[getEigeneId()].split(";")[2];
-        eigenesGeschlechtHidden.style.display = "hidden";
+        eigenesGeschlechtHidden.style.display = "none";
         eigenesGeschlechtDiv.appendChild(eigenesGeschlechtHidden);
         eigenesGeschlecht = document.createElement("div");
         eigenesGeschlecht.setAttribute("id", "geschlecht" + getEigeneId());
-        if (spieler[getEigeneId()].split(";")[2]; == "w") {
+        if (spieler[getEigeneId()].split(";")[2] == "w") {
             eigenesGeschlecht.innerHTML = "&#9792;";
         }
         else {
