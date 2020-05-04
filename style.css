@@ -176,11 +176,15 @@ body {
     padding-right: 10px;
 }
 
-.punktestand {
+.punktestand, .geschlecht {
     width: 50px;
     height: 50px;
     line-height: 50px;
     font-size: 1.5em;
+}
+
+#eigenesGeschlecht:hover {
+    background-color: rgba(100,100,100,0.35);
 }
 
 #spielstandKlicker, #spielstandErhoehen, #spielstandErniedrigen {

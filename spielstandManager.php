@@ -1,38 +1,51 @@
 <?php
     if (isset($_COOKIE["spielerId"])) {
         $spielerId = $_COOKIE["spielerId"];
-        if (isset($_POST["deltaStufe"])) {
-            $fp = fopen("2spieler.txt", "a+");
-            if (flock($fp, LOCK_EX)) {
-                $data = fgets($fp, 4096);
-                $spieler = explode("/", $data);
-                $nameDesSpielersMitDerNeuenStufe = explode(";", $spieler[$spielerId])[0];
-                
-                $dataNeu = "";
-                $neueStufe = "";
-                for ($i = 0; $i < count($spieler); $i++) {
-                    if ($i == $spielerId) {
-                        $alteStufe = explode(";", $spieler[$spielerId])[1];
-                        $neueStufe = ($alteStufe + $_POST["deltaStufe"]) . "";
-                        $dataNeu = $dataNeu . $nameDesSpielersMitDerNeuenStufe . ";" . $neueStufe;
+        $fp = fopen("2spieler.txt", "a+");
+        if (flock($fp, LOCK_EX)) {
+            $data = fgets($fp, 4096);
+            $spieler = explode("/", $data);
+            
+            $dataNeu = "";
+            for ($i = 0; $i < count($spieler); $i++) {
+                if ($i == $spielerId) {
+                    $name = explode(";", $spieler[$i])[0];
+                    $stufe = explode(";", $spieler[$i])[1];
+                    $neueStufe = $stufe;
+                    $geschlecht = explode(";", $spieler[$i])[2];
+                    $neuesGeschlecht = $geschlecht;
+                    if (isset($_POST["deltaStufe"])) {
+                        $neueStufe = ($stufe + $_POST["deltaStufe"]) . "";
+                        $dataNeu = $dataNeu . $name . ";" . $neueStufe . ";" . $geschlecht;
                     }
-                    else {
-                        $dataNeu = $dataNeu . $spieler[$i];
+                    elseif (isset($_POST["geschlecht"])) {
+                        if ($_POST["geschlecht"] == "toggle") {
+                            if ($geschlecht == "w") {
+                                $neuesGeschlecht = "m";
+                            }
+                            else {
+                                $neuesGeschlecht = "w";
+                            }
+                            $dataNeu = $dataNeu . $name . ";" . $stufe . ";" . $neuesGeschlecht;
+                        }
                     }
-                    if ($i != count($spieler) - 1) {
-                        $dataNeu = $dataNeu . "/";
-                    }
+                    echo "Spieler " . $spielerId . " (" . $name . ") ist jetzt auf Stufe " . $neueStufe . " und hat das Geschlecht '" . $neuesGeschlecht . "'.";
                 }
-                
-                ftruncate($fp, 0);
-                fputs($fp, $dataNeu);
-                flock($fp, LOCK_UN);
-                fclose($fp);
-                echo "Spieler " . $spielerId . " (" . $nameDesSpielersMitDerNeuenStufe . ") ist jetzt auf Stufe " . $neueStufe . ".";
+                else {
+                    $dataNeu = $dataNeu . $spieler[$i];
+                }
+                if ($i != 3) {
+                    $dataNeu = $dataNeu . "/";
+                }
             }
-            else {
-                echo "Datei 'spieler.txt' kann nicht gesperrt werden";
-            }
+
+            ftruncate($fp, 0);
+            fputs($fp, $dataNeu);
+            flock($fp, LOCK_UN);
+            fclose($fp);
+        }
+        else {
+            echo "Datei 'spieler.txt' kann nicht gesperrt werden";
         }
     }
     ?>

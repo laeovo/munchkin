@@ -1,6 +1,3 @@
-const maximaleSpieldauerStunden = 0.5;
-const maximaleSpieldauerMillisekunden = maximaleSpieldauerStunden * 3600000;
-
 // Intervalle zum Aktualisieren, werden nachher gesetzt. Müssen global sein, um angehalten werden zu können
 var spielerIntervall;
 var kartenIntervall;
@@ -58,15 +55,27 @@ function spielerAktualisieren() {
             const spielerDaten = spieler[i].split(';');
             const name = spielerDaten[0];
             const neueStufe = spielerDaten[1];
-            var anzeige = window.document.getElementById("punktestand" + i);
-            if (anzeige.innerHTML != neueStufe) {
-                if (parseInt(anzeige.innerHTML) < neueStufe) {
+            var anzeigeStufe = window.document.getElementById("punktestand" + i);
+            if (anzeigeStufe.innerHTML != neueStufe) {
+                if (parseInt(anzeigeStufe.innerHTML) < neueStufe) {
                     spielstandAufblinken(i, "gruen");
                 }
                 else {
                     spielstandAufblinken(i, "rot");
                 }
-                anzeige.innerHTML = neueStufe;
+                anzeigeStufe.innerHTML = neueStufe; // darf erst jetzt passieren, damit der Stufenvergleich weiter oben hinhaut
+            }
+            const neuesGeschlecht = spielerDaten[2];
+            var anzeigeGeschlecht = window.document.getElementById("geschlechtHidden" + i);
+            if (anzeigeGeschlecht.innerHTML != neuesGeschlecht) {
+                anzeigeGeschlecht.innerHTML = neuesGeschlecht;
+                if (neuesGeschlecht == "w") {
+                    window.document.getElementById("geschlecht" + i).innerHTML = "&#9792;";
+                }
+                else {
+                    window.document.getElementById("geschlecht" + i).innerHTML = "&#9794;";
+                }
+                geschlechtBlinken(i);
             }
         }
     };
@@ -91,6 +100,15 @@ function spielstandAufblinken(spielerId, farbe) {
                 window.document.getElementById("punktestand" + spielerId).style.backgroundColor = "rgba(0, 255, 0, " + wert + ")";
             }, f * 50);
         }
+    }
+}
+
+function geschlechtBlinken(spielerId) {
+    for (let f = 0; f <= 20; f++) { // muss let sein, sonst funktioniert es nicht... :(
+        setTimeout(function() {
+            var wert = 1- (f * 0.05);
+            window.document.getElementById("geschlecht" + spielerId).style.backgroundColor = "rgba(0, 0, 255, " + wert + ")";
+        }, f * 50);
     }
 }
 
