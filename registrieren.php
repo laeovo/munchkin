@@ -19,7 +19,7 @@
             if ($anzahlBisherigeSpieler > 0) {
                 fputs($fp, "/");
             }
-            fputs($fp, $_POST["name"] . ";1");
+            fputs($fp, $_POST["name"] . ";1;" . $_POST["geschlecht"]);
             fclose($fp);
         }
     }
@@ -104,6 +104,8 @@
     <body onload="aktualisieren(), automatischAktualisieren()" style="font-family: Avenir, Sans-Serif" align="center">
         <div style="width: 400px; heigt: 50px; position: absolute; top: 50vh; left: 50vw; transform: translate(-50%, -50%);" id="inhalt">
             <form id="formular" action="registrieren.php" method="post">
+                <input type="radio" name="geschlecht" value="w" id="w" /><label for="w">&#9792;</label>
+                <input type="radio" name="geschlecht" value="m" id="m" /><label for="m">&#9794;</label>
                 <input type="text" name="name" /><input type="submit" value="Anmelden" />
                 </form>
             </div>
