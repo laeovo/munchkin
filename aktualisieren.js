@@ -30,11 +30,11 @@ function getEigeneId() {
     return -1;
 }
 
-function eigeneKarteIstImRucksack(kartenId) {
-    for (var i = 0; i < eigeneOffeneKarten.length; i++) {
-        const karte = eigeneOffeneKarten[i].split("x")[0];
+function karteIstGeflaggt(kartenId, kontainer) {
+    for (var i = 0; i < kontainer.length; i++) {
+        const karte = kontainer[i].split("x")[0];
         if (karte == kartenId) {
-            if (eigeneOffeneKarten[i].split("x").length > 1) {
+            if (kontainer[i].split("x").length > 1) {
                 return true;
             }
         }
@@ -211,13 +211,13 @@ function kartenregionAktualisieren(dateiname, klasse, kontainer, menuAktion) {
                 unveraenderteKarten.push(karteLautServer);
             }
             else if (kartenLautBrowser.includes(karteLautServer + "x")) {
-                // Karte ist im Browser gedreht, im Server aber nicht mehr
-                objektDrehen(window.document.getElementById(klasse + karteLautServer), false);
+                // Karte ist im Browser geflaggt, im Server aber nicht mehr
+                objektFlaggen(window.document.getElementById(klasse + karteLautServer), false);
                 unveraenderteKarten.push(karteLautServer);
             }
             else if (kartenLautBrowser.includes(karteLautServer.split("x")[0])) {
-                // Karte wurde im Server gedreht, im Browser aber noch nicht
-                objektDrehen(window.document.getElementById(klasse + karteLautServer.split("x")[0]), true);
+                // Karte wurde im Server geflaggt, im Browser aber noch nicht
+                objektFlaggen(window.document.getElementById(klasse + karteLautServer.split("x")[0]), true);
                 unveraenderteKarten.push(karteLautServer);
             }
             else {
@@ -311,7 +311,7 @@ function kartenregionAktualisieren(dateiname, klasse, kontainer, menuAktion) {
             }
             window.document.getElementById(klasse + neueKarten[i].split("x")[0]).appendChild(neuerKarteninhalt);
             if (neueKarten[i].split("x").length == 2) {
-                objektDrehen(neueKarte, true);
+                objektFlaggen(neueKarte, true);
             }
         }
         
@@ -410,10 +410,10 @@ function autostop() {
     }, 60000*minuten);
 }
 
-function objektDrehen(objekt, drehung) {
+function objektFlaggen(objekt, jaodernein) {
     var bild = objekt.children[0];
     const kontainerId = objekt.parentNode.id;
-    if (drehung) {
+    if (jaodernein) {
         bild.style.transform = "rotate(90deg)";
         if (kontainerId == "eigeneOffeneKarten") {
             objekt.style.padding = "0px " + 0.3*breiteEigeneOffeneKarten + "px";

@@ -12,11 +12,11 @@ function eigeneOffeneKarteMenu(kartenId) {
     buttonErstellen("Karte in die Mitte spielen", "KarteSpielen", "vordergrundEntfernen(), karteSpielen(" + kartenId + ", 'offen')", "buttons");
     buttonErstellen("Karte ablegen", "KarteAblegen", "vordergrundEntfernen(), karteAblegen(" + kartenId + ", 'offen')", "buttons");
     buttonErstellen("Karte aufnehmen", "KarteAufnehmen", "vordergrundEntfernen(), karteAufnehmen(" + kartenId + ", 'offen')", "buttons");
-    if (eigeneKarteIstImRucksack(kartenId)) {
-        buttonErstellen("Karte aus dem Rucksack auspacken", "KarteDrehen", "vordergrundEntfernen(), karteDrehen(" + kartenId + ", '')", "buttons");
+    if (karteIstGeflaggt(kartenId, eigeneOffeneKarten)) {
+        buttonErstellen("Karte aus dem Rucksack auspacken", "KarteFlaggen", "vordergrundEntfernen(), karteFlaggen(" + kartenId + ", '')", "buttons");
     }
     else {
-        buttonErstellen("Karte in den Rucksack packen", "KarteDrehen", "vordergrundEntfernen(), karteDrehen(" + kartenId + ", 'x')", "buttons");
+        buttonErstellen("Karte in den Rucksack packen", "KarteFlaggen", "vordergrundEntfernen(), karteFlaggen(" + kartenId + ", 'x')", "buttons");
     }
     buttonErstellen("Karte auf jemanden spielen", "KarteAufMitspielerSpielen", "karteAufMitspielerSpielenMenu(" + kartenId + ", 'offen')", "buttons");
     buttonErstellen("Karte an jemanden abgeben", "KarteWeitergeben", "karteWeitergebenMenu(" + kartenId + ", 'offen')", "buttons");
@@ -26,7 +26,12 @@ function mitteKarteMenu(kartenId) {
     vordergrundErstellen(kartenId);
     buttonErstellen("Karte ablegen", "KarteAblegen", "vordergrundEntfernen(), karteAblegen(" + kartenId + ", 'mitte')", "buttons");
     buttonErstellen("Karte aufnehmen", "KarteAufnehmen", "vordergrundEntfernen(), karteAufnehmen(" + kartenId + ", 'mitte')", "buttons");
-    buttonErstellen("Karte flaggen", "KarteFlaggen", "vordergrundEntfernen(), karteFlaggen(" + kartenId + ")", "buttons");
+    if (karteIstGeflaggt(kartenId, mitte)) {
+        buttonErstellen("Karte entflaggen", "KarteFlaggen", "vordergrundEntfernen(), karteFlaggen(" + kartenId + ", '')", "buttons");
+    }
+    else {
+        buttonErstellen("Karte flaggen", "KarteFlaggen", "vordergrundEntfernen(), karteFlaggen(" + kartenId + ", 'x')", "buttons");
+    }
 }
 
 function fremdeOffeneKarteMenu(kartenId, spielerId) {
@@ -177,14 +182,4 @@ function karteAufMitspielerSpielenMenu(kartenId, positionVorher) {
 function aufMitspielerSpielenMenuAusblenden(kartenId, positionVorher) {
     window.document.getElementById("buttonKarteAufMitspielerSpielen").removeChild(window.document.getElementById("buttonsKarteAufMitspielerSpielen"));
     window.document.getElementById("buttonKarteAufMitspielerSpielenSchaltflaeche").setAttribute("onclick", "karteAufMitspielerSpielenMenu(" + kartenId + ", '" + positionVorher + "')");
-}
-
-function karteFlaggen(kartenId) {
-    var div = window.document.getElementById("mitteKarte" + kartenId);
-    if (div.style.top == "20px") {
-        div.style.top = "0px";
-    }
-    else {
-        div.style.top = "20px";
-    }
 }
