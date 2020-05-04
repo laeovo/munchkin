@@ -414,21 +414,24 @@ function objektFlaggen(objekt, jaodernein) {
     var bild = objekt.children[0];
     const kontainerId = objekt.parentNode.id;
     if (jaodernein) {
-        bild.style.transform = "rotate(90deg)";
         if (kontainerId == "eigeneOffeneKarten") {
+            bild.style.transform = "rotate(90deg)";
             objekt.style.padding = "0px " + 0.3*breiteEigeneOffeneKarten + "px";
         }
         else if (kontainerId == "spielerObenLinksOffeneKarten") {
+            bild.style.transform = "rotate(90deg)";
             objekt.style.padding = "0px " + 0.3*breiteSpielerObenLinksOffeneKarten + "px";
         }
         else if (kontainerId == "spielerObenRechtsOffeneKarten") {
+            bild.style.transform = "rotate(90deg)";
             objekt.style.padding = "0px " + 0.3*breiteSpielerObenRechtsOffeneKarten + "px";
         }
         else if (kontainerId == "spielerUntenRechtsOffeneKarten") {
+            bild.style.transform = "rotate(90deg)";
             objekt.style.padding = "0px " + 0.3*breiteSpielerUntenRechtsOffeneKarten + "px";
         }
-        else {
-            // TODO: ???
+        else if (kontainerId == "mitte") {
+            objekt.style.padding = "20px 0px 0px 0px";
         }
     }
     else {
