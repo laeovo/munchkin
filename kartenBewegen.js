@@ -2,6 +2,8 @@ function getRandomInt(max) {
     return Math.floor(Math.random() * Math.floor(max));
 }
 
+// TODO: Diese Funktionn sehen alle gleich aus!
+
 function tuerkarteVerdecktZiehen() {
     const xhr = new XMLHttpRequest();
     xhr.onload = function() {
