@@ -151,9 +151,11 @@ function spielstaendeErstellen() {
         eigenerName.innerHTML = spieler[getEigeneId()].split(";")[0];
         eigenesGeschlechtDiv = document.createElement("div");
         eigenesGeschlechtDiv.setAttribute("id", "geschlechtDiv" + getEigeneId());
+        eigenesGeschlechtDiv.setAttribute("id", "eigenesGeschlecht");
         eigenesGeschlechtDiv.setAttribute("class", "geschlecht");
         eigenesGeschlechtDiv.setAttribute("align", "center");
         eigenesGeschlechtDiv.style.float = "left";
+        eigenesGeschlechtDiv.style.cursor = "pointer";
         eigenesGeschlechtDiv.setAttribute("onclick", "toggleGeschlecht()");
         eigenesGeschlechtHidden = document.createElement("div");
         eigenesGeschlechtHidden.setAttribute("id", "geschlechtHidden" + getEigeneId());
@@ -189,12 +191,33 @@ function spielstaendeErstellen() {
         spielerObenLinksName.setAttribute("class", "spielerName");
         spielerObenLinksName.style.float = "left";
         spielerObenLinksName.innerHTML = spieler[(getEigeneId()+1)%4].split(";")[0];
+        spielerObenLinksGeschlechtDiv = document.createElement("div");
+        spielerObenLinksGeschlechtDiv.setAttribute("id", "geschlechtDiv" + (getEigeneId()+1)%4);
+        spielerObenLinksGeschlechtDiv.setAttribute("class", "geschlecht");
+        spielerObenLinksGeschlechtDiv.setAttribute("align", "center");
+        spielerObenLinksGeschlechtDiv.style.float = "left";
+        spielerObenLinksGeschlechtHidden = document.createElement("div");
+        spielerObenLinksGeschlechtHidden.setAttribute("id", "geschlechtHidden" + (getEigeneId()+1)%4);
+        spielerObenLinksGeschlechtHidden.innerHTML = spieler[(getEigeneId()+1)%4].split(";")[2];
+        spielerObenLinksGeschlechtHidden.style.display = "none";
+        spielerObenLinksGeschlechtDiv.appendChild(spielerObenLinksGeschlechtHidden);
+        spielerObenLinksGeschlecht = document.createElement("div");
+        spielerObenLinksGeschlecht.setAttribute("id", "geschlecht" + (getEigeneId()+1)%4);
+        if (spieler[(getEigeneId()+1)%4].split(";")[2] == "w") {
+            spielerObenLinksGeschlecht.innerHTML = "&#9792;";
+        }
+        else {
+            spielerObenLinksGeschlecht.innerHTML = "&#9794;";
+        }
+        spielerObenLinksGeschlechtDiv.appendChild(spielerObenLinksGeschlecht);
         
         spielerObenLinksInfo = window.document.getElementById("spielerObenLinksInfo");
         spielerObenLinksInfo.appendChild(spielerObenLinksPunktestand);
         spielerObenLinksInfo.appendChild(spielerObenLinksName);
+        spielerObenLinksInfo.appendChild(spielerObenLinksGeschlechtDiv);
         spielerObenLinksInfo.style.left = "0px";
         spielerObenLinksInfo.style.top = (2*abstandZwischenKarten + 1.6*(breiteSpielerObenLinksHandkarten+breiteSpielerObenLinksOffeneKarten) + topOffsetFremdeHandkarten) + "px";
+        
         
         spielerObenRechtsPunktestand = document.createElement("div");
         spielerObenRechtsPunktestand.setAttribute("id", "punktestand" + (getEigeneId()+2)%4);
@@ -207,12 +230,33 @@ function spielstaendeErstellen() {
         spielerObenRechtsName.setAttribute("class", "spielerName");
         spielerObenRechtsName.style.float = "right";
         spielerObenRechtsName.innerHTML = spieler[(getEigeneId()+2)%4].split(";")[0];
+        spielerObenRechtsGeschlechtDiv = document.createElement("div");
+        spielerObenRechtsGeschlechtDiv.setAttribute("id", "geschlechtDiv" + (getEigeneId()+2)%4);
+        spielerObenRechtsGeschlechtDiv.setAttribute("class", "geschlecht");
+        spielerObenRechtsGeschlechtDiv.setAttribute("align", "center");
+        spielerObenRechtsGeschlechtDiv.style.float = "right";
+        spielerObenRechtsGeschlechtHidden = document.createElement("div");
+        spielerObenRechtsGeschlechtHidden.setAttribute("id", "geschlechtHidden" + (getEigeneId()+2)%4);
+        spielerObenRechtsGeschlechtHidden.innerHTML = spieler[(getEigeneId()+2)%4].split(";")[2];
+        spielerObenRechtsGeschlechtHidden.style.display = "none";
+        spielerObenRechtsGeschlechtDiv.appendChild(spielerObenRechtsGeschlechtHidden);
+        spielerObenRechtsGeschlecht = document.createElement("div");
+        spielerObenRechtsGeschlecht.setAttribute("id", "geschlecht" + (getEigeneId()+2)%4);
+        if (spieler[(getEigeneId()+2)%4].split(";")[2] == "w") {
+            spielerObenRechtsGeschlecht.innerHTML = "&#9792;";
+        }
+        else {
+            spielerObenRechtsGeschlecht.innerHTML = "&#9794;";
+        }
+        spielerObenRechtsGeschlechtDiv.appendChild(spielerObenRechtsGeschlecht);
         
         spielerObenRechtsInfo = window.document.getElementById("spielerObenRechtsInfo");
         spielerObenRechtsInfo.appendChild(spielerObenRechtsPunktestand);
         spielerObenRechtsInfo.appendChild(spielerObenRechtsName);
+        spielerObenRechtsInfo.appendChild(spielerObenRechtsGeschlechtDiv);
         spielerObenRechtsInfo.style.right = "0px";
         spielerObenRechtsInfo.style.top = (2*abstandZwischenKarten + 1.6*(breiteSpielerObenRechtsHandkarten+breiteSpielerObenRechtsOffeneKarten) + topOffsetFremdeHandkarten) + "px";
+        
         
         spielerUntenRechtsPunktestand = document.createElement("div");
         spielerUntenRechtsPunktestand.setAttribute("id", "punktestand" + (getEigeneId()+3)%4);
@@ -225,10 +269,30 @@ function spielstaendeErstellen() {
         spielerUntenRechtsName.setAttribute("class", "spielerName");
         spielerUntenRechtsName.style.float = "right";
         spielerUntenRechtsName.innerHTML = spieler[(getEigeneId()+3)%4].split(";")[0];
+        spielerUntenRechtsGeschlechtDiv = document.createElement("div");
+        spielerUntenRechtsGeschlechtDiv.setAttribute("id", "geschlechtDiv" + (getEigeneId()+3)%4);
+        spielerUntenRechtsGeschlechtDiv.setAttribute("class", "geschlecht");
+        spielerUntenRechtsGeschlechtDiv.setAttribute("align", "center");
+        spielerUntenRechtsGeschlechtDiv.style.float = "right";
+        spielerUntenRechtsGeschlechtHidden = document.createElement("div");
+        spielerUntenRechtsGeschlechtHidden.setAttribute("id", "geschlechtHidden" + (getEigeneId()+3)%4);
+        spielerUntenRechtsGeschlechtHidden.innerHTML = spieler[(getEigeneId()+3)%4].split(";")[2];
+        spielerUntenRechtsGeschlechtHidden.style.display = "none";
+        spielerUntenRechtsGeschlechtDiv.appendChild(spielerUntenRechtsGeschlechtHidden);
+        spielerUntenRechtsGeschlecht = document.createElement("div");
+        spielerUntenRechtsGeschlecht.setAttribute("id", "geschlecht" + (getEigeneId()+3)%4);
+        if (spieler[(getEigeneId()+3)%4].split(";")[2] == "w") {
+            spielerUntenRechtsGeschlecht.innerHTML = "&#9792;";
+        }
+        else {
+            spielerUntenRechtsGeschlecht.innerHTML = "&#9794;";
+        }
+        spielerUntenRechtsGeschlechtDiv.appendChild(spielerUntenRechtsGeschlecht);
         
         spielerUntenRechtsInfo = window.document.getElementById("spielerUntenRechtsInfo");
         spielerUntenRechtsInfo.appendChild(spielerUntenRechtsPunktestand);
         spielerUntenRechtsInfo.appendChild(spielerUntenRechtsName);
+        spielerUntenRechtsInfo.appendChild(spielerUntenRechtsGeschlechtDiv);
         spielerUntenRechtsInfo.style.right = "0px";
         spielerUntenRechtsInfo.style.bottom = (2*abstandZwischenKarten + 1.6*(breiteSpielerUntenRechtsHandkarten+breiteSpielerUntenRechtsOffeneKarten) + bottomOffsetFremdeHandkarten) + "px";
     };

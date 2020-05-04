@@ -11,7 +11,9 @@
                 if ($i == $spielerId) {
                     $name = explode(";", $spieler[$i])[0];
                     $stufe = explode(";", $spieler[$i])[1];
+                    $neueStufe = $stufe;
                     $geschlecht = explode(";", $spieler[$i])[2];
+                    $neuesGeschlecht = $geschlecht;
                     if (isset($_POST["deltaStufe"])) {
                         $neueStufe = ($stufe + $_POST["deltaStufe"]) . "";
                         $dataNeu = $dataNeu . $name . ";" . $neueStufe . ";" . $geschlecht;
@@ -27,6 +29,7 @@
                             $dataNeu = $dataNeu . $name . ";" . $stufe . ";" . $neuesGeschlecht;
                         }
                     }
+                    echo "Spieler " . $spielerId . " (" . $name . ") ist jetzt auf Stufe " . $neueStufe . " und hat das Geschlecht '" . $neuesGeschlecht . "'.";
                 }
                 else {
                     $dataNeu = $dataNeu . $spieler[$i];
@@ -40,7 +43,6 @@
             fputs($fp, $dataNeu);
             flock($fp, LOCK_UN);
             fclose($fp);
-            echo "Spieler " . $spielerId . " (" . $nameDesSpielersMitDerNeuenStufe . ") ist jetzt auf Stufe " . $neueStufe . ".";
         }
         else {
             echo "Datei 'spieler.txt' kann nicht gesperrt werden";

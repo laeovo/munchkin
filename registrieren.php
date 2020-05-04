@@ -19,6 +19,7 @@
             if ($anzahlBisherigeSpieler > 0) {
                 fputs($fp, "/");
             }
+            echo "Geschlecht: " . $_POST["geschlecht"];
             fputs($fp, $_POST["name"] . ";1;" . $_POST["geschlecht"]);
             fclose($fp);
         }

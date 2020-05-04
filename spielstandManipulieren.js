@@ -1,7 +1,7 @@
 function spielerSteigtAuf() {
     const aufsteigenRequest = new XMLHttpRequest();
     aufsteigenRequest.onload = function() {
-        console.log(aufsteigenRequest.responseText);
+        console.log(this.responseText);
         spielerAktualisieren();
     };
     aufsteigenRequest.open("POST", "spielstandManager.php");
@@ -12,7 +12,7 @@ function spielerSteigtAuf() {
 function spielerSteigtAb() {
     const absteigenRequest = new XMLHttpRequest();
     absteigenRequest.onload = function() {
-        console.log(absteigenRequest.responseText);
+        console.log(this.responseText);
         spielerAktualisieren();
     };
     absteigenRequest.open("POST", "spielstandManager.php");
@@ -23,7 +23,7 @@ function spielerSteigtAb() {
 function toggleGeschlecht() {
     const xhr = new XMLHttpRequest();
     xhr.onload = function() {
-        console.log(absteigenRequest.responseText);
+        console.log(this.responseText);
         spielerAktualisieren();
     };
     xhr.open("POST", "spielstandManager.php");

@@ -43,26 +43,27 @@ function spielerAktualisieren() {
             const spielerDaten = spieler[i].split(';');
             const name = spielerDaten[0];
             const neueStufe = spielerDaten[1];
-            const neuesGeschlecht = spielerDaten[2];
             var anzeigeStufe = window.document.getElementById("punktestand" + i);
             if (anzeigeStufe.innerHTML != neueStufe) {
+                anzeigeStufe.innerHTML = neueStufe;
                 if (parseInt(anzeigeStufe.innerHTML) < neueStufe) {
                     spielstandAufblinken(i, "gruen");
                 }
                 else {
                     spielstandAufblinken(i, "rot");
                 }
-                anzeigeStufe.innerHTML = neueStufe;
             }
+            const neuesGeschlecht = spielerDaten[2];
             var anzeigeGeschlecht = window.document.getElementById("geschlechtHidden" + i);
-            if (anzeigeGeschlecht.innerHTML != neueStufe) {
-                if (parseInt(anzeigeGeschlecht.innerHTML) < neueStufe) {
-                    spielstandAufblinken(i, "gruen");
+            if (anzeigeGeschlecht.innerHTML != neuesGeschlecht) {
+                anzeigeGeschlecht.innerHTML = neuesGeschlecht;
+                if (neuesGeschlecht == "w") {
+                    window.document.getElementById("geschlecht" + i).innerHTML = "&#9792;";
                 }
                 else {
-                    spielstandAufblinken(i, "rot");
+                    window.document.getElementById("geschlecht" + i).innerHTML = "&#9794;";
                 }
-                anzeigeGeschlecht.innerHTML = neueStufe;
+                geschlechtBlinken(i);
             }
         }
     };
@@ -87,6 +88,15 @@ function spielstandAufblinken(spielerId, farbe) {
                 window.document.getElementById("punktestand" + spielerId).style.backgroundColor = "rgba(0, 255, 0, " + wert + ")";
             }, f * 50);
         }
+    }
+}
+
+function geschlechtBlinken(spielerId) {
+    for (let f = 0; f <= 20; f++) { // muss let sein, sonst funktioniert es nicht... :(
+        setTimeout(function() {
+            var wert = 1- (f * 0.05);
+            window.document.getElementById("geschlecht" + spielerId).style.backgroundColor = "rgba(0, 0, 255, " + wert + ")";
+        }, f * 50);
     }
 }
 
