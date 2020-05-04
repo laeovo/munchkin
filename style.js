@@ -149,10 +149,31 @@ function spielstaendeErstellen() {
         eigenerName.setAttribute("class", "spielerName");
         eigenerName.style.float = "left";
         eigenerName.innerHTML = spieler[getEigeneId()].split(";")[0];
+        eigenesGeschlechtDiv = document.createElement("div");
+        eigenesGeschlechtDiv.setAttribute("id", "geschlechtDiv" + getEigeneId());
+        eigenesGeschlechtDiv.setAttribute("class", "geschlecht");
+        eigenesGeschlechtDiv.setAttribute("align", "center");
+        eigenesGeschlechtDiv.style.float = "left";
+        eigenesGeschlechtHidden = document.createElement("div");
+        eigenesGeschlechtHidden.setAttribute("id", "geschlechtHidden" + getEigeneId());
+        eigenesGeschlechtHidden.innerHTML = spieler[getEigeneId()].split(";")[2];
+        eigenesGeschlechtHidden.style.display = "hidden";
+        eigenesGeschlechtDiv.appendChild(eigenesGeschlechtHidden);
+        eigenesGeschlecht = document.createElement("div");
+        eigenesGeschlecht.setAttribute("id", "geschlecht" + getEigeneId());
+        if (spieler[getEigeneId()].split(";")[2]; == "w") {
+            eigenesGeschlecht.innerHTML = "&#9792;";
+        }
+        else {
+            eigenesGeschlecht.innerHTML = "&#9794;";
+        }
+        eigenesGeschlechtDiv.appendChild(eigenesGeschlecht);
+        
         
         eigeneInfo = window.document.getElementById("eigeneInfo");
         eigeneInfo.appendChild(eigenerPunktestand);
         eigeneInfo.appendChild(eigenerName);
+        eigeneInfo.appendChild(eigenesGeschlechtDiv);
         eigeneInfo.style.left = "0px";
         eigeneInfo.style.bottom = (2*abstandZwischenKarten + 1.6*(breiteEigeneHandkarten+breiteEigeneOffeneKarten) + bottomOffsetEigeneHandkarten) + "px";
         

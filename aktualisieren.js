@@ -46,15 +46,26 @@ function spielerAktualisieren() {
             const spielerDaten = spieler[i].split(';');
             const name = spielerDaten[0];
             const neueStufe = spielerDaten[1];
-            var anzeige = window.document.getElementById("punktestand" + i);
-            if (anzeige.innerHTML != neueStufe) {
-                if (parseInt(anzeige.innerHTML) < neueStufe) {
+            const neuesGeschlecht = spielerDaten[2];
+            var anzeigeStufe = window.document.getElementById("punktestand" + i);
+            if (anzeigeStufe.innerHTML != neueStufe) {
+                if (parseInt(anzeigeStufe.innerHTML) < neueStufe) {
                     spielstandAufblinken(i, "gruen");
                 }
                 else {
                     spielstandAufblinken(i, "rot");
                 }
-                anzeige.innerHTML = neueStufe;
+                anzeigeStufe.innerHTML = neueStufe;
+            }
+            var anzeigeGeschlecht = window.document.getElementById("geschlechtHidden" + i);
+            if (anzeigeGeschlecht.innerHTML != neueStufe) {
+                if (parseInt(anzeigeGeschlecht.innerHTML) < neueStufe) {
+                    spielstandAufblinken(i, "gruen");
+                }
+                else {
+                    spielstandAufblinken(i, "rot");
+                }
+                anzeigeGeschlecht.innerHTML = neueStufe;
             }
         }
     };
