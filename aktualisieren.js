@@ -30,6 +30,18 @@ function getEigeneId() {
     return -1;
 }
 
+function karteIstGeflaggt(kartenId, kontainer) {
+    for (var i = 0; i < kontainer.length; i++) {
+        const karte = kontainer[i].split("x")[0];
+        if (karte == kartenId) {
+            if (kontainer[i].split("x").length > 1) {
+                return true;
+            }
+        }
+    }
+    return false;
+}
+
 function automatischeSpielerAktualisierung() {
     spielerIntervall = setInterval(spielerAktualisieren, 3000);
 }
@@ -194,23 +206,42 @@ function kartenregionAktualisieren(dateiname, klasse, kontainer, menuAktion) {
         }
         
         for (var i = 0; i < kartenLautServer.length; i++) {
-            if (kartenLautBrowser.includes(kartenLautServer[i])) {
-                unveraenderteKarten.push(kartenLautServer[i]);
+            const karteLautServer = kartenLautServer[i];
+            if (kartenLautBrowser.includes(karteLautServer)) {
+                unveraenderteKarten.push(karteLautServer);
+            }
+            else if (kartenLautBrowser.includes(karteLautServer + "x")) {
+                // Karte ist im Browser geflaggt, im Server aber nicht mehr
+                objektFlaggen(window.document.getElementById(klasse + karteLautServer), false);
+                unveraenderteKarten.push(karteLautServer);
+            }
+            else if (kartenLautBrowser.includes(karteLautServer.split("x")[0])) {
+                // Karte wurde im Server geflaggt, im Browser aber noch nicht
+                objektFlaggen(window.document.getElementById(klasse + karteLautServer.split("x")[0]), true);
+                unveraenderteKarten.push(karteLautServer);
             }
             else {
                 neueKarten.push(kartenLautServer[i]);
             }
         }
         for (var i = 0; i < kartenLautBrowser.length; i++) {
-            if (!kartenLautServer.includes(kartenLautBrowser[i])) {
-                gespielteKarten.push(kartenLautBrowser[i]);
+            const karteLautBrowser = kartenLautBrowser[i].split("x")[0];
+            var karteImServerEnthalten = false;
+            for (var j = 0; j < kartenLautServer.length; j++) {
+                const karteLautServer = kartenLautServer[j].split("x")[0];
+                if (karteLautServer == karteLautBrowser) {
+                    karteImServerEnthalten = true;
+                }
+            }
+            if (!karteImServerEnthalten) {
+                gespielteKarten.push(karteLautBrowser);
             }
         }
         // Neue Karten hinzufügen
         const anzahlBisherigeKarten = unveraenderteKarten.length + gespielteKarten.length;
         for (var i = 0; i < neueKarten.length; i++) {
             neueKarte = document.createElement("div");
-            neueKarte.setAttribute("id", klasse + neueKarten[i]);
+            neueKarte.setAttribute("id", klasse + neueKarten[i].split("x")[0]);
             neueKarte.setAttribute("class", "karte " + klasse);
             window.document.getElementById(kontainer).appendChild(neueKarte);
             
@@ -224,7 +255,7 @@ function kartenregionAktualisieren(dateiname, klasse, kontainer, menuAktion) {
                 }
             }
             else {
-                neuerKarteninhalt.setAttribute("src", "karten/" + neueKarten[i] + ".jpg");
+                neuerKarteninhalt.setAttribute("src", "karten/" + neueKarten[i].split("x")[0] + ".jpg");
             }
             if (kontainer == "eigeneHandkarten") {
                 neuerKarteninhalt.setAttribute("width", breiteEigeneHandkarten);
@@ -255,13 +286,13 @@ function kartenregionAktualisieren(dateiname, klasse, kontainer, menuAktion) {
             }
             if (menuAktion == "fremdeOffeneKarteMenu") {
                 if (kontainer == "spielerObenLinksOffeneKarten") {
-                    neuerKarteninhalt.setAttribute("onclick", menuAktion + "(" + neueKarten[i] + ", " + (getEigeneId()+1)%4 + ")");
+                    neuerKarteninhalt.setAttribute("onclick", menuAktion + "(" + neueKarten[i].split("x")[0] + ", " + (getEigeneId()+1)%4 + ")");
                 }
                 else if (kontainer == "spielerObenRechtsOffeneKarten") {
-                    neuerKarteninhalt.setAttribute("onclick", menuAktion + "(" + neueKarten[i] + ", " + (getEigeneId()+2)%4 + ")");
+                    neuerKarteninhalt.setAttribute("onclick", menuAktion + "(" + neueKarten[i].split("x")[0] + ", " + (getEigeneId()+2)%4 + ")");
                 }
                 else if (kontainer == "spielerUntenRechtsOffeneKarten") {
-                    neuerKarteninhalt.setAttribute("onclick", menuAktion + "(" + neueKarten[i] + ", " + (getEigeneId()+3)%4 + ")");
+                    neuerKarteninhalt.setAttribute("onclick", menuAktion + "(" + neueKarten[i].split("x")[0] + ", " + (getEigeneId()+3)%4 + ")");
                 }
             }
             else if (menuAktion == "fremdeHandkarteMenu") {
@@ -276,9 +307,12 @@ function kartenregionAktualisieren(dateiname, klasse, kontainer, menuAktion) {
                 }
             }
             else {
-                neuerKarteninhalt.setAttribute("onclick", menuAktion + "(" + neueKarten[i] + ")");
+                neuerKarteninhalt.setAttribute("onclick", menuAktion + "(" + neueKarten[i].split("x")[0] + ")");
             }
-            window.document.getElementById(klasse + neueKarten[i]).appendChild(neuerKarteninhalt);
+            window.document.getElementById(klasse + neueKarten[i].split("x")[0]).appendChild(neuerKarteninhalt);
+            if (neueKarten[i].split("x").length == 2) {
+                objektFlaggen(neueKarte, true);
+            }
         }
         
         // alte Karten entfernen
@@ -374,4 +408,34 @@ function autostop() {
         console.log("Automatischer Stop nach " + minuten + " Minuten");
         stop();
     }, 60000*minuten);
+}
+
+function objektFlaggen(objekt, jaodernein) {
+    var bild = objekt.children[0];
+    const kontainerId = objekt.parentNode.id;
+    if (jaodernein) {
+        if (kontainerId == "eigeneOffeneKarten") {
+            bild.style.transform = "rotate(90deg)";
+            objekt.style.padding = "0px " + 0.3*breiteEigeneOffeneKarten + "px";
+        }
+        else if (kontainerId == "spielerObenLinksOffeneKarten") {
+            bild.style.transform = "rotate(90deg)";
+            objekt.style.padding = "0px " + 0.3*breiteSpielerObenLinksOffeneKarten + "px";
+        }
+        else if (kontainerId == "spielerObenRechtsOffeneKarten") {
+            bild.style.transform = "rotate(90deg)";
+            objekt.style.padding = "0px " + 0.3*breiteSpielerObenRechtsOffeneKarten + "px";
+        }
+        else if (kontainerId == "spielerUntenRechtsOffeneKarten") {
+            bild.style.transform = "rotate(90deg)";
+            objekt.style.padding = "0px " + 0.3*breiteSpielerUntenRechtsOffeneKarten + "px";
+        }
+        else if (kontainerId == "mitte") {
+            objekt.style.padding = "20px 0px 0px 0px";
+        }
+    }
+    else {
+        bild.style.transform = "rotate(0deg)";
+        objekt.style.padding = "0px";
+    }
 }

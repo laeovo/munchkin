@@ -236,3 +236,27 @@ function handkarteKlauen(spielerId) {
     xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xhr.send("von=karten" + spielerId + "verdeckt&nach=karten" + getEigeneId() + "verdeckt&karte=" + karte);
 }
+
+function karteFlaggen(kartenId, neueFlag) {
+    const xhr = new XMLHttpRequest();
+    xhr.onload = function() {
+        console.log(this.responseText);
+        if (mitte.includes(kartenId.toString()) || mitte.includes(kartenId.toString() + "x")) {
+            kartenregionAktualisierenWrapper("mitte");
+        }
+        else if (eigeneOffeneKarten.includes(kartenId.toString()) || eigeneOffeneKarten.includes(kartenId.toString() + "x")) {
+            kartenregionAktualisierenWrapper("eigeneOffeneKarten");
+        }
+    }
+    xhr.open("POST", "kartenBewegen.php");
+    xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    if (mitte.includes(kartenId.toString()) || mitte.includes(kartenId.toString() + "x")) {
+        xhr.send("von=mitte&karte=" + kartenId + "&neueFlag=" + neueFlag);
+    }
+    else if (eigeneOffeneKarten.includes(kartenId.toString()) || eigeneOffeneKarten.includes(kartenId.toString() + "x")) {
+        xhr.send("von=karten" + getEigeneId() + "offen&karte=" + kartenId + "&neueFlag=" + neueFlag);
+    }
+    else {
+        console.log("Die Karte " + kartenId + " ist weder in mitte.txt noch in eigeneOffeneKarten");
+    }
+}
