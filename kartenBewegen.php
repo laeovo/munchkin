@@ -76,7 +76,7 @@
 
                 $neueKartenVon = "";
                 for ($i = 0; $i < count($bisherigeKartenVon); $i++) {
-                    if ($bisherigeKartenVon[$i] != $karte) {
+                    if (explode("x", $bisherigeKartenVon[$i])[0] != explode("x", $karte)[0]) {
                         if ($neueKartenVon != "") {
                             $neueKartenVon .= ";";
                         }
