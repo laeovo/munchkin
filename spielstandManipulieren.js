@@ -19,3 +19,14 @@ function spielerSteigtAb() {
     absteigenRequest.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     absteigenRequest.send("deltaStufe=-1");
 }
+
+function toggleGeschlecht() {
+    const xhr = new XMLHttpRequest();
+    xhr.onload = function() {
+        console.log(absteigenRequest.responseText);
+        spielerAktualisieren();
+    };
+    xhr.open("POST", "spielstandManager.php");
+    xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xhr.send("geschlecht=toggle");
+}
