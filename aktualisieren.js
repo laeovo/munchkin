@@ -45,13 +45,13 @@ function spielerAktualisieren() {
             const neueStufe = spielerDaten[1];
             var anzeigeStufe = window.document.getElementById("punktestand" + i);
             if (anzeigeStufe.innerHTML != neueStufe) {
-                anzeigeStufe.innerHTML = neueStufe;
                 if (parseInt(anzeigeStufe.innerHTML) < neueStufe) {
                     spielstandAufblinken(i, "gruen");
                 }
                 else {
                     spielstandAufblinken(i, "rot");
                 }
+                anzeigeStufe.innerHTML = neueStufe; // darf erst jetzt passieren, damit der Stufenvergleich weiter oben hinhaut
             }
             const neuesGeschlecht = spielerDaten[2];
             var anzeigeGeschlecht = window.document.getElementById("geschlechtHidden" + i);
