@@ -1,6 +1,3 @@
-const maximaleSpieldauerStunden = 0.5;
-const maximaleSpieldauerMillisekunden = maximaleSpieldauerStunden * 3600000;
-
 // Intervalle zum Aktualisieren, werden nachher gesetzt. Müssen global sein, um angehalten werden zu können
 var spielerIntervall;
 var kartenIntervall;
