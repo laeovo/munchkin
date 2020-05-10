@@ -10,7 +10,7 @@
      Karte flaggen:
         von = "spieler(...)offen" / "mitte"
         karte = Zahl in [0, $anzahlKartenGesamt-1]
-        neueFlagg = "" / "x" ( = "normal" / "geflaggt")
+        neueFlag = "" / "x" ( = "normal" / "geflaggt")
      
      Alles andere:
         von = "spieler(...)offen" / "spieler(...)verdeckt" / "mitte"
@@ -32,8 +32,8 @@
         
         if ($von == "nachziehstapel") {
             $karteExistiertNochInDerQuelle = true; // Die oberste Karte existiert immer - und sei es, dass der Stapel aufgefüllt wurde
-            $stapel = "nachziehstapel" . $_POST["stapel"];
-            $stapelDatei = "3" . $stapel . ".txt";
+            $stapel = $_POST["stapel"];
+            $stapelDatei = "3" . "nachziehstapel" . $stapel . ".txt";
             $vonDatei = $stapelDatei;
             
             $fpQuelleStapel = fopen($stapelDatei, "a+");
@@ -42,12 +42,52 @@
                 $karten = explode(";", $alterstapel);
                 $karte = $karten[0];
 
-                // TODO: Was passiert hier?
-                if ($alterstapel == "") {
+                if ($karte == "") {
                     echo "Stapel ist leer.\n";
-                    stapelAuffuellen($stapel);
+                    // Annahme: der Ablagestapel hat mindestens sechs Karten
+                    $ablagestapelDatei = "3" . "ablagestapel" . $stapel . ".txt";
+                    $nachziehstapelDatei = "3" . "nachziehstapel" . $stapel . ".txt";
 
-                    $alterstapel = fgets($fpQuelleStapel, 4096);
+                    $fpAblagestapel = fopen($ablagestapelDatei, "a+");
+                    if (flock($fpAblagestapel, LOCK_EX)) {
+                        $alterAblagestapel = fgets($fpAblagestapel, 4096);
+
+                        $kartenAblagestapel = explode(";", $alterAblagestapel);
+                        $neueNachziehkarten = [];
+                        $neuerAblagestapel = "";
+
+                        for ($i = 0; $i < count($kartenAblagestapel); $i++) {
+                            if ($i < count($kartenAblagestapel)-5) {
+                                array_push($neueNachziehkarten, $kartenAblagestapel[$i]);
+                            }
+                            else {
+                                $neuerAblagestapel .= $kartenAblagestapel[$i];
+                                if ($i != count($kartenAblagestapel)-1) {
+                                    $neuerAblagestapel .= ";";
+                                }
+                            }
+                        }
+                        shuffle($neueNachziehkarten);
+                        $neuerNachziehstapel = "";
+                        for ($i = 0; $i < count($neueNachziehkarten); $i++) {
+                            $neuerNachziehstapel .= $neueNachziehkarten[$i];
+                            if ($i != count($neueNachziehkarten)-1) {
+                                $neuerNachziehstapel .= ";";
+                            }
+                        }
+                        fwrite($fpQuelleStapel, $neuerNachziehstapel);
+                        fflush($fpQuelleStapel);
+
+                        ftruncate($fpAblagestapel, 0);
+                        fwrite($fpAblagestapel, $neuerAblagestapel);
+                        flock($fpAblagestapel, LOCK_UN);
+                        fclose($fpAblagestapel);
+                    }
+                    else {
+                        echo "Die Datei des Ablagestapels konnte nicht gesperrt werden.\n";
+                    }
+
+                    $alterstapel = $neuerNachziehstapel;
                     $karten = explode(";", $alterstapel);
                     $karte = $karten[0];
                 }
@@ -155,53 +195,6 @@
         else {
             echo "Die Karte " . $karte . " wurde entflaggt.";
         }
-    }
-    
-    
-    function stapelAuffuellen($stapel) {
-        // Annahme: der Ablagestapel hat mindestens sechs Karten
-        $ablagestapelDatei = "3" . "ablagestapel" . $stapel . ".txt";
-        $nachziehstapelDatei = "3" . "nachziehstapel" . $stapel . ".txt";
-
-        $fpAblagestapel = fopen($ablagestapelDatei, "a+");
-        if (flock($fpAblagestapel, LOCK_EX)) {
-            $alterAblagestapel = fgets($fpAblagestapel, 4096);
-
-            $karten = explode(";", $alterAblagestapel);
-            $neuerNachziehstapel = "";
-            $neuerAblagestapel = "";
-
-            for ($i = 0; $i < count($karten); $i++) {
-                if ($i < count($karten)-5) {
-                    $neuerNachziehstapel .= $karten[$i];
-                    if ($i != count($karten)-6) {
-                        $neuerNachziehstapel .= ";";
-                    }
-                }
-                else {
-                    $neuerAblagestapel .= $karten[$i];
-                    if ($i != count($karten)-1) {
-                        $neuerAblagestapel .= ";";
-                    }
-                }
-            }
-
-            $fpNachziehstapel = fopen($nachziehstapelDatei, w);
-            fwrite($fpNachziehstapel, $neuerNachziehstapel);
-            fclose($fpNachziehstapel);
-
-            ftruncate($fpAblagestapel, 0);
-            fwrite($fpAblagestapel, $neuerAblagestapel);
-            flock($fpAblagestapel, LOCK_UN);
-            fclose($fpAblagestapel);
-        }
-
-        nachziehstapelMischen();
-    }
-
-    function nachziehstapelMischen() {
-        stapelMischen("3" . "nachziehstapelTuer.txt");
-        stapelMischen("3" . "nachziehstapelSchatz.txt");
     }
 
     function stapelMischen($dateiName) {
