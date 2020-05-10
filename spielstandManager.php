@@ -1,7 +1,7 @@
 <?php
     if (isset($_COOKIE["spielerId"])) {
         $spielerId = $_COOKIE["spielerId"];
-        $fp = fopen("2spieler.txt", "a+");
+        $fp = fopen("3" . "spieler.txt", "a+");
         if (flock($fp, LOCK_EX)) {
             $data = fgets($fp, 4096);
             $spieler = explode("/", $data);
@@ -45,7 +45,7 @@
             fclose($fp);
         }
         else {
-            echo "Datei 'spieler.txt' kann nicht gesperrt werden";
+            echo "Datei '3spieler.txt' kann nicht gesperrt werden";
         }
     }
     ?>

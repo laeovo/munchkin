@@ -6,7 +6,7 @@
         var spielerTicker;
         var ticker;
         function spielerZuruecksetzen() {
-            dateiSetzen("2spieler.txt", "");
+            dateiSetzen("3" + "spieler.txt", "");
         }
         
         function spielSchliessen() {
@@ -23,7 +23,7 @@
                 if (dateiName == "spielstatus.txt") {
                     startStoppButtonSetzen();
                 }
-                else if (dateiName == "2spieler.txt") {
+                else if (dateiName == "3" + "spieler.txt") {
                     spielerAktualisieren();
                 }
             }
@@ -73,7 +73,7 @@
             }
             xhr.open("POST", "../getDatei.php");
             xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-            xhr.send("datei=2spieler.txt");
+            xhr.send("datei=" + "3" + "spieler.txt");
         }
     
         function kartenZuruecksetzen() {

@@ -32,36 +32,36 @@
             }
         }
         
-        $fp = fopen("../2nachziehstapelTuer.txt", w);
+        $fp = fopen("../" . "3" . "nachziehstapelTuer.txt", w);
         fputs($fp, $tuerkartenString);
         fclose($fp);
-        $fp = fopen("../2nachziehstapelSchatz.txt", w);
+        $fp = fopen("../" . "3" . "nachziehstapelSchatz.txt", w);
         fputs($fp, $schatzkartenString);
         fclose($fp);
         
         // Andere Stapel leeren
-        $fp = fopen("../2ablagestapelTuer.txt", w);
+        $fp = fopen("../" . "3" . "ablagestapelTuer.txt", w);
         fputs($fp, "");
         fclose($fp);
-        $fp = fopen("../2ablagestapelSchatz.txt", w);
+        $fp = fopen("../" . "3" . "ablagestapelSchatz.txt", w);
         fputs($fp, "");
         fclose($fp);
         
         // Mitte iniziieren
-        $fp = fopen("../2mitte.txt", w);
+        $fp = fopen("../" . "3" . "mitte.txt", w);
         fputs($fp, "");
         fclose($fp);
         
         // Dateien für Spieler anlegen
-        $fp = fopen("../2spieler.txt", r);
-        $data = fgets($fp, filesize("../2spieler.txt")+1);
+        $fp = fopen("../" . "3" . "spieler.txt", r);
+        $data = fgets($fp, filesize("../" . "3" . "spieler.txt")+1);
         fclose($fp);
         $spieler = explode("/", $data);
         for ($i = 0; $i < 4; $i++) {
-            $fp = fopen("../2karten" . $i . "verdeckt.txt", w);
+            $fp = fopen("../" . "3" . "karten" . $i . "verdeckt.txt", w);
             fputs($fp, "");
             fclose($fp);
-            $fp = fopen("../2karten" . $i . "offen.txt", w);
+            $fp = fopen("../" . "3" . "karten" . $i . "offen.txt", w);
             fputs($fp, "");
             fclose($fp);
         }
