@@ -17,7 +17,7 @@ var spielerUntenRechtsOffeneKarten = [];
 var mitte = [];
 
 // wird benötigt, um die Rückseite der Handkarten der anderen Spieler zu bestimmen
-const anzahlTuerkarten = 162;
+const anzahlTuerkarten = 10;
 
 function getEigeneId() {
     const cookies = document.cookie.split("; ");
