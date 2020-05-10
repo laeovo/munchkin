@@ -81,7 +81,7 @@ function spielerAktualisieren() {
     };
     xhr.open("POST", "getDatei.php");
     xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    xhr.send("datei=2spieler.txt");
+    xhr.send("datei=" + "3" + "spieler.txt");
 }
 
 function spielstandAufblinken(spielerId, farbe) {
@@ -360,7 +360,7 @@ function kartenregionAktualisieren(dateiname, klasse, kontainer, menuAktion) {
     }
     xhr.open("POST", "getDatei.php");
     xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    xhr.send("datei=2" + dateiname);
+    xhr.send("datei=" + "3" + dateiname);
 }
 
 function ablagestapelAktualisieren() {
@@ -379,7 +379,7 @@ function ablagestapelTuerAktualisieren() {
     }
     xhr.open("POST", "getDatei.php");
     xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    xhr.send("datei=2ablagestapelTuer.txt");
+    xhr.send("datei=" + "3" + "ablagestapelTuer.txt");
 }
 
 function ablagestapelSchatzAktualisieren() {
@@ -393,7 +393,7 @@ function ablagestapelSchatzAktualisieren() {
     }
     xhr.open("POST", "getDatei.php");
     xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    xhr.send("datei=2ablagestapelSchatz.txt");
+    xhr.send("datei=" + "3" + "ablagestapelSchatz.txt");
 }
 
 function stop() {

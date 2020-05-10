@@ -8,8 +8,8 @@
         if ($status != "spielLaeuft") {
             $cookieGesetzt = true;
             setcookie("spielerName", $_POST["name"], time()+86400);
-            $fp = fopen("2spieler.txt", "a+");
-            $data = fgets($fp, filesize("2spieler.txt"));
+            $fp = fopen("3" . "spieler.txt", "a+");
+            $data = fgets($fp, filesize("3" . "spieler.txt"));
             $bisherigeSpieler = explode("/", $data);
             $anzahlBisherigeSpieler = count($bisherigeSpieler);
             if ($data == "") {
