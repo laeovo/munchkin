@@ -195,28 +195,5 @@
             echo "Die Karte " . $karte . " wurde entflaggt.";
         }
     }
-
-    function stapelMischen($dateiName) {
-        $fp = fopen($dateiName, "a+");
-        if (flock($fp, LOCK_EX)) { // ist wahrscheinlich nicht nötig, da diese Funktion nur von dem Scope aufgerufen werden kann, in dem die Daten bereits gelockt ist. Sollte aber auch nicht schaden.
-            $alterStapel = fgets($fp, 4096);
-
-            $karten = explode(";", $alterStapel);
-            shuffle($karten);
-
-            $neuerStapel = "";
-            for ($i = 0; $i < count ($karten); $i++) {
-                $neuerStapel .= $karten[$i];
-                if ($i != count($karten)-1) {
-                    $neuerStapel .= ";";
-                }
-            }
-
-            ftruncate($fp, 0);
-            fwrite($fp, $neuerStapel);
-            flock($fp, LOCK_UN);
-            fclose($fp);
-        }
-    }
     
     ?>
