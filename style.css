@@ -161,6 +161,12 @@ body {
     top: -100px;
 }
 
+#ablagestapel {
+    width: 200px;
+    height: 0px;
+    overflow: scroll;
+}
+
 .spielerInfo {
     background-color: rgba(200,200,200,0.75);
     height: 50px;

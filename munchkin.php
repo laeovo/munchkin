@@ -13,7 +13,7 @@
     <body onload="automatischeSpielerAktualisierung(), automatischeKartenAktualisierung(), autostop()">
         
         <div id="stapel">
-            <div id="ablagestapelTuer" class="stapelKarte"><img id="ablagestapelTuerBild" style="max-width: 100%; max-height: 100%" onclick="ablagestapelMenu('Schatz')" /></div>
+            <div id="ablagestapelTuer" class="stapelKarte"><img id="ablagestapelTuerBild" style="max-width: 100%; max-height: 100%" onclick="ablagestapelMenu('Tuer')" /></div>
             <div id="nachziehstapelTuer" class="stapelKarte"><img src="karten/tuerkarte_oben.jpg" style="max-width: 100%; max-height: 50%" onclick="tuerkarteOffenZiehen()" /><img src="karten/tuerkarte_unten.jpg" style="max-width: 100%; max-height: 50%" onclick="tuerkarteVerdecktZiehen()" /></div>
             <div id="nachziehstapelSchatz" class="stapelKarte"><img src="karten/schatzkarte_oben.jpg" style="max-width: 100%; max-height: 50%" onclick="schatzkarteOffenZiehen()" /><img src="karten/schatzkarte_unten.jpg" style="max-width: 100%; max-height: 50%" onclick="schatzkarteVerdecktZiehen()" /></div>
             <div id="ablagestapelSchatz" class="stapelKarte"><img id="ablagestapelSchatzBild" style="max-width: 100%; max-height: 100%" onclick="ablagestapelMenu('Schatz')" /></div>

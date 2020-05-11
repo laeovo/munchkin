@@ -53,12 +53,25 @@ function ablagestapelMenu(stapel) {
         if (data != "") {
             vordergrund = document.createElement("div");
             vordergrund.setAttribute("id", "vordergrund");
-            
             vordergrund.appendChild(hintergrundErstellen());
+            
+            stapel = document.createElement("div");
+            stapel.setAttribute("id", "ablagestapel");
+            
             for (var i = 0; i < karten.length; i++) {
-                const karte = karten[i];
-                console.log("Karte im Ablagestapel: " + karte);
+                var karteNr = karten[i];
+                console.log("Karte im Ablagestapel: " + karteNr);
+                karteDiv = document.createElement("div");
+                karteDiv.setAttribute("id", "ablagestapelKarte" + karteNr);
+                karteBild = document.createElement("img");
+                karteBild.setAttribute("src", "karten/" + karteNr + ".jpg");
+                karteBild.setAttribute("width", "200");
+                karteBild.style.cursor = "pointer";
+                stapel.style.height = (i+1)*1.6*200 + "px";
+                karteDiv.appendChild(karteBild);
+                stapel.appendChild(karteDiv);
             }
+            vordergrund.appendChild(stapel);
             window.document.body.appendChild(vordergrund);
         }
     };
