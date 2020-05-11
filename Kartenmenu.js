@@ -52,11 +52,14 @@ function ablagestapelMenu(stapel) {
         const karten = data.split(';');
         if (data != "") {
             vordergrund = document.createElement("div");
-            vordergrund.setAttribute("id", "ablagestapel");
+            vordergrund.setAttribute("id", "vordergrund");
+            
             vordergrund.appendChild(hintergrundErstellen());
             for (var i = 0; i < karten.length; i++) {
-                // Karte zum Stapel hinzufügen
+                const karte = karten[i];
+                console.log("Karte im Ablagestapel: " + karte);
             }
+            window.document.body.appendChild(vordergrund);
         }
     };
     xhr.open("POST", "getDatei.php");
