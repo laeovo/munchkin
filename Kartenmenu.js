@@ -45,17 +45,25 @@ function fremdeHandkarteMenu(spielerId) {
     buttonErstellen("Karte klauen", "KarteKlauen", "vordergrundEntfernen(), handkarteKlauen(" + spielerId + ")", "button");
 }
 
+function ablagestapelMenu(stapel) {
+    
+}
+
+function hintergrundErstellen() {
+    hintergrund = document.createElement("div");
+    hintergrund.setAttribute("id", "hintergrundZumKlicken");
+    hintergrund.setAttribute("style", "position: fixed; top: 0px; left: 0px; width: 100%; height: 100%; background-color: rgba(50,50,50,0.5); cursor: pointer;");
+    hintergrund.setAttribute("onclick", "vordergrundEntfernen()");
+    return hintergrund;
+}
+
 function leerenVordergrundErstellen(position) {
     // position ist hier eine Zahl in [1,3]; 1 = oben links, 2 = oben rechts, 3 = unten rechts
     vordergrund = document.createElement("div");
     vordergrund.setAttribute("id", "karteImVordergrund");
     vordergrund.style.cursor = "pointer";
     
-    hintergrund = document.createElement("div");
-    hintergrund.setAttribute("id", "hintergrundZumKlicken");
-    hintergrund.setAttribute("style", "position: fixed; top: 0px; left: 0px; width: 100%; height: 100%; background-color: rgba(50,50,50,0.5); cursor: pointer;");
-    hintergrund.setAttribute("onclick", "vordergrundEntfernen()");
-    vordergrund.appendChild(hintergrund);
+    vordergrund.appendChild(hintergrundErstellen());
     
     buttonDiv = document.createElement("div");
     buttonDiv.setAttribute("id", "button");
@@ -79,11 +87,7 @@ function vordergrundErstellen(kartenId) {
     grosseKarte = document.createElement("div");
     grosseKarte.setAttribute("id", "karteImVordergrund");
     
-    hintergrund = document.createElement("div");
-    hintergrund.setAttribute("id", "hintergrundZumKlicken");
-    hintergrund.setAttribute("style", "position: fixed; top: 0px; left: 0px; width: 100%; height: 100%; background-color: rgba(50,50,50,0.5); cursor: pointer;");
-    hintergrund.setAttribute("onclick", "vordergrundEntfernen()");
-    grosseKarte.appendChild(hintergrund);
+    grosseKarte.appendChild(hintergrundErstellen());
     
     buttonDiv = document.createElement("div");
     buttonDiv.setAttribute("id", "buttons");
