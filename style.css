@@ -145,6 +145,16 @@ body {
     transform: translate(-50%, -50%);
 }
 
+#ablagestapel {
+    position: absolute;
+    top: 0px;
+    left: 50vw;
+    width: 200px;
+    height: 100%;
+    transform: translate(-50%, 0);
+    overflow: scroll;
+}
+
 #grosseKarteBild {
     cursor: pointer;
 }
@@ -159,12 +169,6 @@ body {
     position: relative;
     left: 300px;
     top: -100px;
-}
-
-#ablagestapel {
-    width: 200px;
-    height: 0px;
-    overflow: scroll;
 }
 
 .spielerInfo {

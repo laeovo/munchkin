@@ -59,7 +59,7 @@ function ablagestapelMenu(stapel) {
             stapel.setAttribute("id", "ablagestapel");
             
             for (var i = 0; i < karten.length; i++) {
-                var karteNr = karten[i];
+                var karteNr = karten[karten.length-i-1];
                 console.log("Karte im Ablagestapel: " + karteNr);
                 karteDiv = document.createElement("div");
                 karteDiv.setAttribute("id", "ablagestapelKarte" + karteNr);
@@ -67,7 +67,7 @@ function ablagestapelMenu(stapel) {
                 karteBild.setAttribute("src", "karten/" + karteNr + ".jpg");
                 karteBild.setAttribute("width", "200");
                 karteBild.style.cursor = "pointer";
-                stapel.style.height = (i+1)*1.6*200 + "px";
+//                stapel.style.height = (i+1)*1.6*200 + "px";
                 karteDiv.appendChild(karteBild);
                 stapel.appendChild(karteDiv);
             }
