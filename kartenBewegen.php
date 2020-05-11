@@ -17,7 +17,6 @@
         nach = "spieler(...)offen" / "spieler(...)verdeckt" / "mitte" / "ablagestapel"
         karte = Zahl in [0, $anzahlKartenGesamt-1]
      
-     TODO: Geflaggte Karten müssen auch weiter gelegt werden. Bisher ist die Meldung immer "Karte wurde bereits bewegt"
      */
     
     $von = $_POST["von"];
