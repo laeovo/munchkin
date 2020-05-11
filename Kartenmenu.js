@@ -46,7 +46,22 @@ function fremdeHandkarteMenu(spielerId) {
 }
 
 function ablagestapelMenu(stapel) {
-    
+    const xhr = new XMLHttpRequest();
+    xhr.onload = function() {
+        const data = this.responseText;
+        const karten = data.split(';');
+        if (data != "") {
+            vordergrund = document.createElement("div");
+            vordergrund.setAttribute("id", "ablagestapel");
+            vordergrund.appendChild(hintergrundErstellen());
+            for (var i = 0; i < karten.length; i++) {
+                // Karte zum Stapel hinzufügen
+            }
+        }
+    };
+    xhr.open("POST", "getDatei.php");
+    xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xhr.send("datei=" + "3" + "ablagestapel" + stapel + ".txt");
 }
 
 function hintergrundErstellen() {
@@ -60,7 +75,7 @@ function hintergrundErstellen() {
 function leerenVordergrundErstellen(position) {
     // position ist hier eine Zahl in [1,3]; 1 = oben links, 2 = oben rechts, 3 = unten rechts
     vordergrund = document.createElement("div");
-    vordergrund.setAttribute("id", "karteImVordergrund");
+    vordergrund.setAttribute("id", "vordergrund");
     vordergrund.style.cursor = "pointer";
     
     vordergrund.appendChild(hintergrundErstellen());
@@ -85,7 +100,7 @@ function leerenVordergrundErstellen(position) {
 
 function vordergrundErstellen(kartenId) {
     grosseKarte = document.createElement("div");
-    grosseKarte.setAttribute("id", "karteImVordergrund");
+    grosseKarte.setAttribute("id", "vordergrund");
     
     grosseKarte.appendChild(hintergrundErstellen());
     
@@ -124,7 +139,7 @@ function buttonErstellen(buttonText, buttonId, onclickAktion, kontainer) {
 }
 
 function vordergrundEntfernen() {
-    vordergrund = window.document.getElementById("karteImVordergrund");
+    vordergrund = window.document.getElementById("vordergrund");
     if (vordergrund) {
         window.document.body.removeChild(vordergrund);
     }
