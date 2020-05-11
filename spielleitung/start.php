@@ -9,7 +9,7 @@
     }
     else {
         // Türstapel iniziieren
-        $anzahlTuerkartenImSpiel = 10;
+        $anzahlTuerkartenImSpiel = 162;
         $anzahlSchatzkartenImSpiel = 121;
         
         $tuerkarten = range(0, $anzahlTuerkartenImSpiel-1);
