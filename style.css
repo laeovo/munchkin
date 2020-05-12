@@ -1,13 +1,9 @@
 body {
-    font-family: "Avenir", "sans-serif";
+    font-family: "Avenir", "Calibri", "Sans-Serif";
     overflow: hidden;
     padding: 0px;
     background-image: url("hintergrund.jpg");
     background-size: cover;
-}
-
-#spielerStufe0, #spielerStufe1, #spielerStufe2, #spielerStufe3 {
-    border: 1px dotted grey;
 }
 
 .karte {
@@ -65,11 +61,8 @@ body {
 }
 
 #ablagestapelTuer, #nachziehstapelTuer, #nachziehstapelSchatz, #ablagestapelSchatz {
-    cursor: pointer;
-}
-
-#ablagestapelTuer, #nachziehstapelTuer, #nachziehstapelSchatz, #ablagestapelSchatz {
     float: left;
+    cursor: pointer;
 }
 
 #stapel {
@@ -190,10 +183,6 @@ body {
     font-size: 1.5em;
 }
 
-#eigenesGeschlecht:hover {
-    background-color: rgba(100,100,100,0.35);
-}
-
 #spielstandKlicker, #spielstandErhoehen, #spielstandErniedrigen {
     width: 30px;
 }
@@ -213,6 +202,6 @@ body {
     background-color: rgba(100,100,100,0);
 }
 
-#spielstandErhoehen:hover, #spielstandErniedrigen:hover {
+#spielstandErhoehen:hover, #spielstandErniedrigen:hover, #eigenesGeschlecht:hover {
     background-color: rgba(100,100,100,0.35);
 }
