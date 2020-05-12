@@ -52,6 +52,13 @@
         }
         
         function automatischAktualisieren() {
+            const xhr = new XMLHttpRequest();
+            xhr.onload = function() {
+                console.log(this.responseText);
+                window.document.getElementById("spielerInput").value = this.responseText;
+            }
+            xhr.open("GET", "../" + "3" + "spieler.txt");
+            xhr.send();
             console.log("automatisch aktualisieren");
             spielerTicker = setInterval(spielerAktualisieren, 100);
             ticker = setInterval(startStoppButtonSetzen, 100);
@@ -81,12 +88,19 @@
             xhr.open("GET", "start.php");
             xhr.send();
         }
+    
+        function spielerAendern() {
+            console.log("Value: " + window.document.getElementById("spielerInput").value);
+            dateiSetzen("3" + "spieler.txt", window.document.getElementById("spielerInput").value);
+            spielerAktualisieren();
+        }
         </script>
     <body onload="automatischAktualisieren()">
         <input type="submit" value="Karten zur&uuml;cksetzen" onclick="kartenZuruecksetzen()" />
         <input type="submit" value="Spieler zur&uuml;cksetzen" onclick="spielerZuruecksetzen()" />
         <input id="startStopp" type="submit" />
         <p id="spieler"></p>
+        <form><input type="text" id="spielerInput" /><input type="submit" value="Spieler ändern" onclick="spielerAendern()" /></form>
         <div id="hinweis"></div>
         </body>
     </html>
