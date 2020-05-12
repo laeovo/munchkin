@@ -45,7 +45,7 @@ function fremdeHandkarteMenu(spielerId) {
     buttonErstellen("Karte klauen", "KarteKlauen", "vordergrundEntfernen(), handkarteKlauen(" + spielerId + ")", "button");
 }
 
-function ablagestapelMenu(stapel) {
+function ablagestapelMenu(vonStapel) {
     const xhr = new XMLHttpRequest();
     xhr.onload = function() {
         const data = this.responseText;
@@ -60,14 +60,13 @@ function ablagestapelMenu(stapel) {
             
             for (var i = 0; i < karten.length; i++) {
                 var karteNr = karten[karten.length-i-1];
-                console.log("Karte im Ablagestapel: " + karteNr);
                 karteDiv = document.createElement("div");
                 karteDiv.setAttribute("id", "ablagestapelKarte" + karteNr);
                 karteBild = document.createElement("img");
                 karteBild.setAttribute("src", "karten/" + karteNr + ".jpg");
                 karteBild.setAttribute("width", "200");
                 karteBild.style.cursor = "pointer";
-                karteBild.setAttribute("onclick", "buttonErstellen('Karte auf die Hand nehmen', 'Aufnehmen', 'karteVomAblagestapelZiehen('" + stapel + "', '" + karteNr + "')', 'ablagestapelKarte'" + karteNr + ")");
+                karteBild.setAttribute("onclick", "vordergrundEntfernen(), karteVomAblagestapelZiehen('" + vonStapel + "', '" + karteNr + "')");
                 karteDiv.appendChild(karteBild);
                 stapel.appendChild(karteDiv);
             }
@@ -77,7 +76,7 @@ function ablagestapelMenu(stapel) {
     };
     xhr.open("POST", "getDatei.php");
     xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    xhr.send("datei=" + "3" + "ablagestapel" + stapel + ".txt");
+    xhr.send("datei=" + "3" + "ablagestapel" + vonStapel + ".txt");
 }
 
 function hintergrundErstellen() {

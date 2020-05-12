@@ -57,7 +57,7 @@ function karteVomAblagestapelZiehen(stapel, kartenId) {
     }
     xhr.open("POST", "kartenBewegen.php");
     xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    xhr.send("von=" + "ablagestapel" + stapel + "&nach=karten" + getEigeneId() + "verdeckt"); // TODO: wirklich verdeckt?
+    xhr.send("von=" + "ablagestapel" + stapel + "&nach=karten" + getEigeneId() + "verdeckt&karte=" + kartenId); // TODO: wirklich verdeckt?
 }
 
 function karteAblegen(kartenId, positionVorher) {
