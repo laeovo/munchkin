@@ -67,7 +67,7 @@ function ablagestapelMenu(stapel) {
                 karteBild.setAttribute("src", "karten/" + karteNr + ".jpg");
                 karteBild.setAttribute("width", "200");
                 karteBild.style.cursor = "pointer";
-//                stapel.style.height = (i+1)*1.6*200 + "px";
+                karteBild.setAttribute("onclick", "buttonErstellen('Karte auf die Hand nehmen', 'Aufnehmen', 'karteVomAblagestapelZiehen('" + stapel + "', '" + karteNr + "')', 'ablagestapelKarte'" + karteNr + ")");
                 karteDiv.appendChild(karteBild);
                 stapel.appendChild(karteDiv);
             }

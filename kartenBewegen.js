@@ -48,6 +48,18 @@ function schatzkarteOffenZiehen() {
     xhr.send("von=nachziehstapel&stapel=Schatz&nach=mitte");
 }
 
+function karteVomAblagestapelZiehen(stapel, kartenId) {
+    const xhr = new XMLHttpRequest();
+    xhr.onload = function() {
+        console.log(this.responseText);
+        ablagestapelAktualisieren();
+        kartenregionAktualisierenWrapper("eigeneHandkarten");
+    }
+    xhr.open("POST", "kartenBewegen.php");
+    xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xhr.send("von=" + "ablagestapel" + stapel + "&nach=karten" + getEigeneId() + "verdeckt"); // TODO: wirklich verdeckt?
+}
+
 function karteAblegen(kartenId, positionVorher) {
     const xhr = new XMLHttpRequest();
     xhr.onload = function() {
