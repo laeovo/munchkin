@@ -364,6 +364,7 @@ function kartenregionAktualisieren(dateiname, klasse, kontainer, menuAktion) {
 }
 
 function ablagestapelAktualisieren() {
+    // TODO: Eine Funktion aus diesen drei machen, und auch leere Ablagestapel aktualisieren
     ablagestapelTuerAktualisieren();
     ablagestapelSchatzAktualisieren();
 }
