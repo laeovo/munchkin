@@ -127,7 +127,8 @@ function kartenAktualisieren() {
     kartenregionAktualisierenWrapper("handkartenUntenRechts");
     kartenregionAktualisierenWrapper("offeneKartenUntenRechts");
     kartenregionAktualisierenWrapper("mitte");
-    ablagestapelAktualisieren();
+    ablagestapelAktualisieren("Tuer");
+    ablagestapelAktualisieren("Schatz");
 }
 
 function kartenregionAktualisierenWrapper(region) {
@@ -363,38 +364,21 @@ function kartenregionAktualisieren(dateiname, klasse, kontainer, menuAktion) {
     xhr.send("datei=" + "3" + dateiname);
 }
 
-function ablagestapelAktualisieren() {
-    // TODO: Eine Funktion aus diesen drei machen, und auch leere Ablagestapel aktualisieren
-    ablagestapelTuerAktualisieren();
-    ablagestapelSchatzAktualisieren();
-}
-
-function ablagestapelTuerAktualisieren() {
+function ablagestapelAktualisieren(stapel) {
     const xhr = new XMLHttpRequest();
     xhr.onload = function() {
         const kartenString = this.responseText;
         const karten = kartenString.split(";");
         if (karten != "") { // Der Fall ohne Ablagestapel tritt nur am Anfang auf, da ansonsten immer mindestens fünf Karten pro Ablagestapel da liegen.
-            window.document.getElementById("ablagestapelTuerBild").src = "karten/" + karten[karten.length-1] + ".jpg";
+            window.document.getElementById("ablagestapel" + stapel + "Bild").src = "karten/" + karten[karten.length-1] + ".jpg";
+        }
+        else {
+            window.document.getElementById("ablagestapel" + stapel + "Bild").src = "karten/leererAblagestapel.png";
         }
     }
     xhr.open("POST", "getDatei.php");
     xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    xhr.send("datei=" + "3" + "ablagestapelTuer.txt");
-}
-
-function ablagestapelSchatzAktualisieren() {
-    const xhr = new XMLHttpRequest();
-    xhr.onload = function() {
-        const kartenString = this.responseText;
-        const karten = kartenString.split(";");
-        if (karten != "") { // Der Fall ohne Ablagestapel tritt nur am Anfang auf, da ansonsten immer mindestens fünf Karten pro Ablagestapel da liegen.
-            window.document.getElementById("ablagestapelSchatzBild").src = "karten/" + karten[karten.length-1] + ".jpg";
-        }
-    }
-    xhr.open("POST", "getDatei.php");
-    xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    xhr.send("datei=" + "3" + "ablagestapelSchatz.txt");
+    xhr.send("datei=" + "3" + "ablagestapel" + stapel + ".txt");
 }
 
 function stop() {

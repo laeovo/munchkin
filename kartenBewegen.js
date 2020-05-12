@@ -52,7 +52,7 @@ function karteVomAblagestapelZiehen(stapel, kartenId) {
     const xhr = new XMLHttpRequest();
     xhr.onload = function() {
         console.log(this.responseText);
-        ablagestapelAktualisieren();
+        ablagestapelAktualisieren(stapel);
         kartenregionAktualisierenWrapper("eigeneHandkarten");
     }
     xhr.open("POST", "kartenBewegen.php");
@@ -73,7 +73,12 @@ function karteAblegen(kartenId, positionVorher) {
         else if (positionVorher == "mitte") {
             kartenregionAktualisierenWrapper("mitte");
         }
-        ablagestapelAktualisieren();
+        if (kartenId < anzahlTuerkarten) {
+            ablagestapelAktualisieren("Tuer");
+        }
+        else {
+            ablagestapelAktualisieren("Schatz");
+        }
     }
     xhr.open("POST", "kartenBewegen.php");
     xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
