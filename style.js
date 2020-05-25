@@ -14,7 +14,7 @@ var bottomOffsetFremdeHandkarten = 0;
 var abstandZwischenKarten = 10;
 
 const breiteFremdeHandkarten = 70;
-const breiteFremdeOffeneKarten = 100;
+const breiteFremdeOffeneKarten = 85;
 
 groesseEigeneHandkartenAnpassen(100);
 groesseEigeneOffeneKartenAnpassen(100);
