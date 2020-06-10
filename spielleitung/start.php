@@ -8,7 +8,7 @@
         // nichts tun!
     }
     else {
-        // Türstapel iniziieren
+        // Türstapel iniziieren TODO: weitere Karten einpflegen
         $anzahlTuerkartenImSpiel = 161;
         $anzahlSchatzkartenImSpiel = 121;
         
