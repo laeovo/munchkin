@@ -4,6 +4,7 @@
         <script type="text/JavaScript" src="aktualisieren.js"></script>
         <script type="text/JavaScript" src="kartenBewegen.js"></script>
         <script type="text/JavaScript" src="Kartenmenu.js"></script>
+        <script type="text/JavaScript" src="einstellungen.js"></script>
         <script type="text/JavaScript" src="spielstandManipulieren.js"></script>
         <?php
             if (!isset($_COOKIE["spielerId"])) { echo "<meta http-equiv=\"refresh\" content=\"0; URL=http://www.leo.vornberger.net/munchkin/registrieren.php\">"; }
@@ -32,7 +33,7 @@
         <div id="eigeneOffeneKarten"></div>
         
         <div id="eigeneInfo" class="spielerInfo">
-            <div id="einstellungenButton">
+            <div id="einstellungenButton" onclick="einstellungenOeffnen()">
                 &#9881;
                 </div>
             <div id="spielstandKlicker">
