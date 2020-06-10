@@ -32,6 +32,9 @@
         <div id="eigeneOffeneKarten"></div>
         
         <div id="eigeneInfo" class="spielerInfo">
+            <div id="einstellungenButton">
+                &#9881;
+                </div>
             <div id="spielstandKlicker">
                 <div id="spielstandErhoehen" align="center" onclick="spielerSteigtAuf()">
                     +
