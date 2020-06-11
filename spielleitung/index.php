@@ -100,11 +100,11 @@
             }
             const xhr = new XMLHttpRequest();
             xhr.onload = function() {
-                // TODO: eventuelle Antwort printen
+                console.log("Antwort von start.php: " + this.responseText);
             }
             xhr.open("POST", "start.php");
             xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-            xhr.send("spielversionen=" + spielversionenenString);
+            xhr.send("spielversionen=" + spielversionenString);
         }
     
         function spielerAendern() {

@@ -9,15 +9,11 @@
         // nichts tun!
     }
     else {
-        // Türstapel iniziieren TODO: weitere Karten einpflegen
-        $anzahlTuerkartenImSpiel = 161;
-        $anzahlSchatzkartenImSpiel = 121;
-        
-        $spielversionen = explode(";", $_POST["spielversionen"]);
-        if ($spielversionen == "") {
+        if ($_POST["spielversionen"] == "") {
             echo "Keine Karten";
         }
         else {
+            $spielversionen = explode(";", $_POST["spielversionen"]);
             $tuerkarten = [];
             $schatzkarten = [];
             if (in_array("1", $spielversionen)) {
@@ -35,17 +31,17 @@
             
             $tuerkartenString = "";
             $schatzkartenString = "";
-            for ($i = 0; $i < $anzahlTuerkartenImSpiel; $i++) {
-                $tuerkartenString .= $tuerkarten[$i];
-                if ($i != $anzahlTuerkartenImSpiel-1) {
+            for ($i = 0; $i < count($tuerkarten); $i++) {
+                if ($i != 0) {
                     $tuerkartenString .= ";";
                 }
+                $tuerkartenString .= $tuerkarten[$i];
             }
-            for ($i = 0; $i < $anzahlSchatzkartenImSpiel; $i++) {
-                $schatzkartenString .= $schatzkarten[$i];
-                if ($i != $anzahlSchatzkartenImSpiel-1) {
+            for ($i = 0; $i < count($schatzkarten); $i++) {
+                if ($i != 0) {
                     $schatzkartenString .= ";";
                 }
+                $schatzkartenString .= $schatzkarten[$i];
             }
             
             $fp = fopen("../" . "3" . "nachziehstapelTuer.txt", w);
