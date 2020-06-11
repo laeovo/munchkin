@@ -12,9 +12,23 @@
         $anzahlTuerkartenImSpiel = 161;
         $anzahlSchatzkartenImSpiel = 121;
         
-        $tuerkarten = range(0, $anzahlTuerkartenImSpiel-1);
+        // Datei mit Spielversionen öffnen
+        $fp = fopen("spielversionen.txt", "r");
+        $spielversionen = explode(";", fgets($fp, filesize("spielversionen.txt")+1));
+        
+        $tuerkarten = [];
+        $schatzkarten = [];
+        if (in_array("1", $spielversionen)) {
+            // Munchkin 1 und 2
+            $tuerkarten = array_merge($tuerkarten, range(0, 160));
+            $schatzkarten = array_merge($schatzkarten, range(161, 281));
+        }
+        if (in_array("2", $spielversionen) && isset($_COOKIE["superuser"]) && $_COOKIE["superuser"] == "yes") {
+            // Star Munchkin
+            $tuerkarten = array_merge($tuerkarten, range(282, 447));
+            $schatzkarten = array_merge($schatzkarten, range(448, 559));
+        }
         shuffle($tuerkarten);
-        $schatzkarten = range($anzahlTuerkartenImSpiel, $anzahlTuerkartenImSpiel+$anzahlSchatzkartenImSpiel-1);
         shuffle($schatzkarten);
         
         $tuerkartenString = "";

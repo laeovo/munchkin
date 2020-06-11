@@ -101,6 +101,11 @@
         <p id="spieler"></p>
         <form><input type="text" id="spielerInput" /><input type="submit" value="Spieler ändern" onclick="spielerAendern()" /></form>
         <div id="hinweis"></div>
+        <?php
+            if (isset($_COOKIE["superuser"]) && $_COOKIE["superuser"] == "yes") {
+                
+            }
+            ?>
         </body>
     </html>
 
