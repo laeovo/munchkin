@@ -11,7 +11,6 @@
     <script type="text/Javascript">
         var spielerTicker;
         var ticker;
-        var spielversionen = ["1"];
         function spielerZuruecksetzen() {
             dateiSetzen("3" + "spieler.txt", "");
         }
@@ -111,32 +110,8 @@
             dateiSetzen("3" + "spieler.txt", window.document.getElementById("spielerInput").value);
             spielerAktualisieren();
         }
-
-        function spielversionenSetzen(spielversion) {
-            if (spielversion == "") {
-                for (var i = 0; i < spielversionen.length; ++i) {
-                    window.document.getElementById("spielversion" + spielversionen[i]).style.opacity = "1";
-                }
-            }
-            else {
-                if (spielversionen.includes(spielversion)) {
-                    spielversionenAlt = spielversionen;
-                    spielversionen = [];
-                    for (var i = 0; i < spielversionenAlt.length; ++i) {
-                        if (spielversionenAlt[i] != spielversion) {
-                            spielversionen.push(spielversionenAlt[i]);
-                        }
-                    }
-                    window.document.getElementById("spielversion" + spielversion).style.opacity = "0.3";
-                }
-                else {
-                    spielversionen.push(spielversion);
-                    window.document.getElementById("spielversion" + spielversion).style.opacity = "1";
-                }
-            }
-        }
         </script>
-    <body onload="automatischAktualisieren(), spielversionenSetzen('')">
+    <body onload="automatischAktualisieren()">
         <input type="submit" value="Karten zur&uuml;cksetzen" onclick="kartenZuruecksetzen()" />
         <input type="submit" value="Spieler zur&uuml;cksetzen" onclick="spielerZuruecksetzen()" />
         <input id="startStopp" type="submit" />
@@ -146,7 +121,35 @@
         <?php
             if (isset($_COOKIE["superuser"]) && $_COOKIE["superuser"] == "yes") {
                 ?>
-            <div id="superuser">Du bist ein Superuser!<img src="spielversionen/1.jpg" id="spielversion1" class="spielversion" onclick="spielversionenSetzen('1')" /><img src="spielversionen/2.jpg" id="spielversion2" class="spielversion" onclick="spielversionenSetzen('2')" /></div>
+            <div id="superuser">Du bist ein Superuser!<br />
+            <img src="spielversionen/1.jpg" id="spielversion1" class="spielversion" onclick="spielversionenSetzen('1')" /><img src="spielversionen/2.jpg" id="spielversion2" class="spielversion" onclick="spielversionenSetzen('2')" /></div>
+            <script type="text/JavaScript">
+                var spielversionen = ["1"];
+                spielversionenSetzen("");
+                function spielversionenSetzen(spielversion) {
+                    if (spielversion == "") {
+                        for (var i = 0; i < spielversionen.length; ++i) {
+                            window.document.getElementById("spielversion" + spielversionen[i]).style.opacity = "1";
+                        }
+                    }
+                    else {
+                        if (spielversionen.includes(spielversion)) {
+                            spielversionenAlt = spielversionen;
+                            spielversionen = [];
+                            for (var i = 0; i < spielversionenAlt.length; ++i) {
+                                if (spielversionenAlt[i] != spielversion) {
+                                    spielversionen.push(spielversionenAlt[i]);
+                                }
+                            }
+                            window.document.getElementById("spielversion" + spielversion).style.opacity = "0.3";
+                        }
+                        else {
+                            spielversionen.push(spielversion);
+                            window.document.getElementById("spielversion" + spielversion).style.opacity = "1";
+                        }
+                    }
+                }
+                </script>
         <?php
             }
             ?>
