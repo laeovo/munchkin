@@ -91,10 +91,20 @@
         }
     
         function kartenZuruecksetzen() {
+            var spielversionenString = "";
+            for (var i = 0; i < spielversionen.length; ++i) {
+                if (i != 0) {
+                    spielversionenString += ";";
+                }
+                spielversionenString += spielversionen[i];
+            }
             const xhr = new XMLHttpRequest();
-            xhr.open("POST", "start.php"); // TODO: Request header setzen
-            console.log("TODO beachten!");
-            xhr.send();
+            xhr.onload = function() {
+                // TODO: eventuelle Antwort printen
+            }
+            xhr.open("POST", "start.php");
+            xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            xhr.send("spielversionen=" + spielversionenenString);
         }
     
         function spielerAendern() {
@@ -103,7 +113,6 @@
         }
 
         function spielversionenSetzen(spielversion) {
-//            console.log("Spielversion: " + spielversion);
             if (spielversion == "") {
                 for (var i = 0; i < spielversionen.length; ++i) {
                     window.document.getElementById("spielversion" + spielversionen[i]).style.opacity = "1";
