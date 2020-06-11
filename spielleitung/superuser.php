@@ -13,6 +13,6 @@
         <title>Als Superuser anmelden</title>
         </head>
     <body>
-        <form action="superuser.php" method="post"><span>Passwort: </span><input type="text" name="passwort" /><input type="submit" value="abschicken" /></form>
+<form action="superuser.php" method="post"><span>Passwort (Tipp: 121.73): </span><input type="text" name="passwort" /><input type="submit" value="abschicken" /></form>
         </body>
     </html>
