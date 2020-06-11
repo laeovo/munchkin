@@ -1,10 +1,17 @@
 <html>
     <head>
         <title>Munchkin - Spielleitung</title>
+        <style type="text/css">
+            .spielversion {
+                cursor: pointer;
+                opacity: 0.3;
+            }
+            </style>
         </head>
     <script type="text/Javascript">
         var spielerTicker;
         var ticker;
+        var spielversionen = ["1"];
         function spielerZuruecksetzen() {
             dateiSetzen("3" + "spieler.txt", "");
         }
@@ -85,7 +92,8 @@
     
         function kartenZuruecksetzen() {
             const xhr = new XMLHttpRequest();
-            xhr.open("GET", "start.php");
+            xhr.open("POST", "start.php"); // TODO: Request header setzen
+            console.log("TODO beachten!");
             xhr.send();
         }
     
@@ -93,8 +101,33 @@
             dateiSetzen("3" + "spieler.txt", window.document.getElementById("spielerInput").value);
             spielerAktualisieren();
         }
+
+        function spielversionenSetzen(spielversion) {
+//            console.log("Spielversion: " + spielversion);
+            if (spielversion == "") {
+                for (var i = 0; i < spielversionen.length; ++i) {
+                    window.document.getElementById("spielversion" + spielversionen[i]).style.opacity = "1";
+                }
+            }
+            else {
+                if (spielversionen.includes(spielversion)) {
+                    spielversionenAlt = spielversionen;
+                    spielversionen = [];
+                    for (var i = 0; i < spielversionenAlt.length; ++i) {
+                        if (spielversionenAlt[i] != spielversion) {
+                            spielversionen.push(spielversionenAlt[i]);
+                        }
+                    }
+                    window.document.getElementById("spielversion" + spielversion).style.opacity = "0.3";
+                }
+                else {
+                    spielversionen.push(spielversion);
+                    window.document.getElementById("spielversion" + spielversion).style.opacity = "1";
+                }
+            }
+        }
         </script>
-    <body onload="automatischAktualisieren()">
+    <body onload="automatischAktualisieren(), spielversionenSetzen('')">
         <input type="submit" value="Karten zur&uuml;cksetzen" onclick="kartenZuruecksetzen()" />
         <input type="submit" value="Spieler zur&uuml;cksetzen" onclick="spielerZuruecksetzen()" />
         <input id="startStopp" type="submit" />
@@ -103,7 +136,9 @@
         <div id="hinweis"></div>
         <?php
             if (isset($_COOKIE["superuser"]) && $_COOKIE["superuser"] == "yes") {
-                echo "<div id=\"superuser\">Hallo, du bist ein Superuser</div>";
+                ?>
+            <div id="superuser">Du bist ein Superuser!<img src="spielversionen/1.jpg" id="spielversion1" class="spielversion" onclick="spielversionenSetzen('1')" /><img src="spielversionen/2.jpg" id="spielversion2" class="spielversion" onclick="spielversionenSetzen('2')" /></div>
+        <?php
             }
             ?>
         </body>
