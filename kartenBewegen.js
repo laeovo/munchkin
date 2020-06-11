@@ -73,7 +73,7 @@ function karteAblegen(kartenId, positionVorher) {
         else if (positionVorher == "mitte") {
             kartenregionAktualisierenWrapper("mitte");
         }
-        if (kartenId < anzahlTuerkarten) {
+        if (istTuerkarte(kartenId)) {
             ablagestapelAktualisieren("Tuer");
         }
         else {

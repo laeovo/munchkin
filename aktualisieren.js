@@ -17,7 +17,22 @@ var spielerUntenRechtsOffeneKarten = [];
 var mitte = [];
 
 // wird benötigt, um die Rückseite der Handkarten der anderen Spieler zu bestimmen
-const anzahlTuerkarten = 161;
+const anzahlTuerkarten = 161; // TODO: wird das noch gebraucht?
+
+function istTuerkarte(kartenNr) {
+    if (kartenNr <= 160) {
+        return true;
+    }
+    else if (kartenNr <= 281) {
+        return false;
+    }
+    else if (kartenNr <= 447) {
+        return true;
+    }
+    else if (kartenNr <= 559) {
+        return false;
+    }
+}
 
 function getEigeneId() {
     const cookies = document.cookie.split("; ");
@@ -248,7 +263,7 @@ function kartenregionAktualisieren(dateiname, klasse, kontainer, menuAktion) {
             
             neuerKarteninhalt = document.createElement("img");
             if (kontainer == "spielerObenLinksHandkarten" || kontainer == "spielerObenRechtsHandkarten" || kontainer == "spielerUntenRechtsHandkarten") {
-                if (neueKarten[i] < anzahlTuerkarten) {
+                if (istTuerkarte(neueKarten[i])) {
                     neuerKarteninhalt.setAttribute("src", "karten/tuerkarte.jpg");
                 }
                 else {
