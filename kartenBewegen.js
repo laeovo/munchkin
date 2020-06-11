@@ -82,11 +82,18 @@ function karteAblegen(kartenId, positionVorher) {
     }
     xhr.open("POST", "kartenBewegen.php");
     xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    if (positionVorher == "mitte") {
-        xhr.send("von=mitte&nach=ablagestapel&karte=" + kartenId);
+    var ablagestapelString = "";
+    if (istTuerkarte(kartenId)) {
+        ablagestapelString = "ablagestapelTuer";
     }
     else {
-        xhr.send("von=karten" + getEigeneId() + positionVorher + "&nach=ablagestapel&karte=" + kartenId);
+        ablagestapelString = "ablagestapelSchatz";
+    }
+    if (positionVorher == "mitte") {
+        xhr.send("von=mitte&nach=" + ablagestapelString + "&karte=" + kartenId);
+    }
+    else {
+        xhr.send("von=karten" + getEigeneId() + positionVorher + "&nach=" + ablagestapelString + "&karte=" + kartenId);
     }
 }
 

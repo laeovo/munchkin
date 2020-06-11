@@ -1,6 +1,4 @@
 <?php
-    $anzahlTuerkartenGesamt = 161; // TODO: muss ganz am Ende angepasst werden
-    
     /**
      Vom Stapel ziehen:
         von = "nachziehstapel"
@@ -14,7 +12,7 @@
      
      Alles andere:
         von = "spieler(...)offen" / "spieler(...)verdeckt" / "mitte"
-        nach = "spieler(...)offen" / "spieler(...)verdeckt" / "mitte" / "ablagestapel"
+        nach = "spieler(...)offen" / "spieler(...)verdeckt" / "mitte" / "ablagestapelTuer/ablagestapelSchatz"
         karte = Zahl in [0, $anzahlKartenGesamt-1]
      
      */
@@ -136,14 +134,6 @@
         if ($karteExistiertNochInDerQuelle) {
             $karte = explode("x", $karte)[0];
             $nach = $_POST["nach"];
-            if ($nach == "ablagestapel") {
-                if (intval($karte) < $anzahlTuerkartenGesamt) {
-                    $nach .= "Tuer";
-                }
-                else {
-                    $nach .= "Schatz";
-                }
-            }
             $nachDatei = "3" . $nach . ".txt";
             $fpZiel = fopen($nachDatei, "a+");
             if (flock($fpZiel, LOCK_EX)) {
