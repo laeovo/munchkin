@@ -1,5 +1,5 @@
 <?php
-    if (isset($_POST["passwort"]) && $_POST["passwort"] == "nudelholz") {
+    if (isset($_POST["passwort"]) && hash("sha256", $_POST["passwort"]) == "b4af39d5b65a14849e885a9d65f0efe4f4e689989689c28c16cfcb3a6e78db5a") {
         setcookie("superuser", "yes", time()+86400);
     }
     ?>
