@@ -11,6 +11,7 @@
     <script type="text/Javascript">
         var spielerTicker;
         var ticker;
+        var spielversionen = ["1"];
         function spielerZuruecksetzen() {
             dateiSetzen("3" + "spieler.txt", "");
         }
@@ -124,7 +125,6 @@
             <div id="superuser">Du bist ein Superuser!<br />
             <img src="spielversionen/1.jpg" id="spielversion1" class="spielversion" onclick="spielversionenSetzen('1')" /><img src="spielversionen/2.jpg" id="spielversion2" class="spielversion" onclick="spielversionenSetzen('2')" /></div>
             <script type="text/JavaScript">
-                var spielversionen = ["1"];
                 spielversionenSetzen("");
                 function spielversionenSetzen(spielversion) {
                     if (spielversion == "") {
