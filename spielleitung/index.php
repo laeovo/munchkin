@@ -103,7 +103,7 @@
         <div id="hinweis"></div>
         <?php
             if (isset($_COOKIE["superuser"]) && $_COOKIE["superuser"] == "yes") {
-                
+                echo "<div id=\"superuser\">Hallo, du bist ein Superuser</div>";
             }
             ?>
         </body>
