@@ -16,9 +16,6 @@ var spielerUntenRechtsOffeneKarten = [];
 
 var mitte = [];
 
-// wird benötigt, um die Rückseite der Handkarten der anderen Spieler zu bestimmen
-const anzahlTuerkarten = 161; // TODO: wird das noch gebraucht?
-
 function istTuerkarte(kartenNr) {
     if (kartenNr <= 160) {
         return true;
