@@ -369,11 +369,34 @@ function kartenregionAktualisieren(dateiname, klasse, kontainer, menuAktion) {
         }
         else if (kontainer == "mitte") {
             mitte = aktuelleKarten;
+            if (window.document.getElementById("aufraeumenButton")) {
+                window.document.getElementById("mitte").removeChild(window.document.getElementById("aufraeumenButton"));
+            }
+            if (aktuelleKarten.length >= 4) {
+                aufraeumenButton();
+            }
         }
     }
     xhr.open("POST", "getDatei.php");
     xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xhr.send("datei=" + "3" + dateiname);
+}
+
+function aufraeumenButton() {
+    button = document.createElement("div");
+    button.setAttribute("id", "aufraeumenButton");
+    button.setAttribute("align", "center");
+    button.setAttribute("onclick", "mitteAufraeumen()");
+    button.style.width = breiteMitteKarten;
+    button.style.height = breiteMitteKarten * 1.6;
+    button.innerHTML = "Aufräumen";
+    window.document.getElementById("mitte").appendChild(button);
+}
+
+function mitteAufraeumen() {
+    for (var i = 0; i < mitte.length; i++) {
+        karteAblegen(mitte[i], "mitte");
+    }
 }
 
 function ablagestapelAktualisieren(stapel) {

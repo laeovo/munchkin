@@ -203,5 +203,17 @@ body {
 }
 
 #spielstandErhoehen:hover, #spielstandErniedrigen:hover, #eigenesGeschlecht:hover {
-    background-color: rgba(100,100,100,0.35);
+    background-color: rgba(255,100,100,0.35);
+}
+
+#aufraeumenButton {
+    height: 100px;
+    background-color: rgba(200, 200, 200, 0.75);
+    float: left;
+    cursor: pointer;
+    line-height: 160px;
+}
+
+#aufraeumenButton:hover {
+    background-color: rgba(150, 150, 150, 0.75);
 }
