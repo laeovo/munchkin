@@ -1,0 +1,34 @@
+KartenSpace kann mehrere Karten beinhalten
+
+Werden von oben nach unten, bzw. hinten nach vorne gefüllt:
+
++---------+     <---- alt
+|+---------+
+||+---------+
+|||+---------+
+||||+---------+
+|||||+---------+
+||||||         |
+ |||||         |
+  ||||   neu   |
+   |||         |
+    ||         |
+     +---------+
+
+KartenSpaces von Handkarten müssen genau eine Karte haben
+
+Drag&Drop:
+    Handkarte:
+        kann in der eigenen Hand an jede Stelle grdroppt werden
+        kann in die Auslage an jede Stelle gedroppt werden (ggf. auch auf einen anderen KartenSpace)
+        kann auf andere Spieler gedroppt werden: entweder auf Handkarten, oder auf einen KartenSpace (oder zwischen KartenSpaces)
+        kann in die Mitte gedroppt werden --> ganz normal in die Mitte spielen
+    Offene Karte:
+        kann auf die eigene Hand an jede Stelle gedroppt werden
+        kann in der Auslage an jede Stelle gedroppt werden (ggf. auch auf einen anderen KartenSpace)
+        kann auf andere Spieler gedroppt werden: entweder auf Handkarten, oder auf einen KartenSpace (oder zwischen KartenSpaces)
+        kann in die Mitte gedroppt werden --> ganz normal in die Mitte spielen
+    Karte aus der Mitte:
+        kann auf die eigene Hand an jede Stelle gedroppt werden
+        kann in die eigene Auslage an jede Stelle gedroppt werden
+    
