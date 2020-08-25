@@ -8,11 +8,11 @@ Werden von oben nach unten, bzw. hinten nach vorne gefüllt:
 |||+---------+
 ||||+---------+
 |||||+---------+
-||||||         |
- |||||         |
-  ||||   neu   |
-   |||         |
-    ||         |
++|||||         |
+ +||||         |
+  +|||   neu   |
+   +||         |
+    +|         |
      +---------+
 
 KartenSpaces von Handkarten müssen genau eine Karte haben
@@ -31,4 +31,12 @@ Drag&Drop:
     Karte aus der Mitte:
         kann auf die eigene Hand an jede Stelle gedroppt werden
         kann in die eigene Auslage an jede Stelle gedroppt werden
+    Fremde Handkarte:
+        Tabu...
+    Fremde offene Karte:
+        kann in eigene Auslage an jede Stelle grdroppt werden (ggf. auch auf einen anderen KartenSpace)
+    Nachziehstapel:
+        evtl. auf eigene Hand an jede Stelle, dann aber schon Reveal der Karte direkt nach dem Ziehen --> auch doof :(
+    Ablagestapel:
+        nö
     
