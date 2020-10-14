@@ -24,12 +24,13 @@ Drag&Drop:
         kann auf andere Spieler gedroppt werden: entweder auf Handkarten, oder auf einen KartenSpace (oder zwischen KartenSpaces)
         kann in die Mitte gedroppt werden --> ganz normal in die Mitte spielen
     Offene Karte:
-        kann auf die eigene Hand an jede Stelle gedroppt werden
+        kann auf die eigene Hand an jede Stelle gedroppt werden, nicht aber auf eine andere Handkarte
         kann in der Auslage an jede Stelle gedroppt werden (ggf. auch auf einen anderen KartenSpace)
         kann auf andere Spieler gedroppt werden: entweder auf Handkarten, oder auf einen KartenSpace (oder zwischen KartenSpaces)
         kann in die Mitte gedroppt werden --> ganz normal in die Mitte spielen
+        Alle Karten, die über der gedraggten Karte liegen, werden mitgedraggt
     Karte aus der Mitte:
-        kann auf die eigene Hand an jede Stelle gedroppt werden
+        kann auf die eigene Hand an jede Stelle gedroppt werden, auch auf einen Kartenspace
         kann in die eigene Auslage an jede Stelle gedroppt werden
     Fremde Handkarte:
         Tabu...
@@ -37,6 +38,7 @@ Drag&Drop:
         kann in eigene Auslage an jede Stelle grdroppt werden (ggf. auch auf einen anderen KartenSpace)
     Nachziehstapel:
         evtl. auf eigene Hand an jede Stelle, dann aber schon Reveal der Karte direkt nach dem Ziehen --> auch doof :(
+        evtl. in die Mitte
     Ablagestapel:
         nö
     
