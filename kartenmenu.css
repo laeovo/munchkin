@@ -1,0 +1,66 @@
+.schaltflaeche {
+    width: 300px;
+    height: 50px;
+    margin: 0px;
+    position: relative;
+    top: 0px;
+    left: 0px;
+    padding-left: 10px;
+    line-height: 50px;
+}
+
+.menuButton {
+    background-color: rgba(150,150,150,0.75);
+    cursor: pointer;
+    width: 300px;
+    height: 50px;
+    position: relative;
+    float: top;
+}
+
+.menuButton:hover {
+    background-color: rgba(200,200,200,0.75);
+}
+
+#vordergrund {
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    width: 100vw;
+    height: 100vh;
+}
+
+#grosseKarteBildDiv {
+    position: relative;
+    top: 50vh;
+    left: 50vw;
+    width: 375px;
+    height: 600px;
+    transform: translate(-50%, -50%);
+}
+
+#ablagestapel {
+    position: absolute;
+    top: 0px;
+    left: 50vw;
+    width: 200px;
+    height: 100%;
+    transform: translate(-50%, 0);
+    overflow: scroll;
+}
+
+#grosseKarteBild {
+    cursor: pointer;
+}
+
+#buttons {
+    position: relative;
+    top: -600px;
+    left: 375px;
+}
+
+#buttonsKarteWeitergeben, #buttonsKarteAufMitspielerSpielen {
+    position: relative;
+    left: 300px;
+    top: -100px;
+}
