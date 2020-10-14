@@ -5,10 +5,12 @@
         <script type="text/JavaScript" src="kartenBewegen.js"></script>
         <script type="text/JavaScript" src="Kartenmenu.js"></script>
         <script type="text/JavaScript" src="spielstandManipulieren.js"></script>
+        <script type="text/JavaScript" src="script.js"></script>
         <?php
             if (!isset($_COOKIE["spielerId"])) { echo "<meta http-equiv=\"refresh\" content=\"0; URL=http://www.leo.vornberger.net/munchkin/registrieren.php\">"; }
             ?>
-        <link rel="stylesheet" txpe="text/css" href="style.css" />
+            <link rel="stylesheet" txpe="text/css" href="style.css" />
+            <link rel="stylesheet" txpe="text/css" href="kartenmenu.css" />
         </head>
     <body onload="automatischeSpielerAktualisierung(), automatischeKartenAktualisierung(), autostop()">
         <div id="stapel">
