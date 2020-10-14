@@ -15,7 +15,7 @@ Werden von oben nach unten, bzw. hinten nach vorne gefüllt:
     +|         |
      +---------+
 
-KartenSpaces von Handkarten müssen genau eine Karte haben
+KartenSpaces in den Handkarten müssen genau eine Karte haben
 
 Drag&Drop:
     Handkarte:
