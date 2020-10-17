@@ -33,13 +33,13 @@
             $schatzkartenString = "";
             for ($i = 0; $i < count($tuerkarten); $i++) {
                 if ($i != 0) {
-                    $tuerkartenString .= ";";
+                    $tuerkartenString .= "/";
                 }
                 $tuerkartenString .= $tuerkarten[$i];
             }
             for ($i = 0; $i < count($schatzkarten); $i++) {
                 if ($i != 0) {
-                    $schatzkartenString .= ";";
+                    $schatzkartenString .= "/";
                 }
                 $schatzkartenString .= $schatzkarten[$i];
             }

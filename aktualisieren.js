@@ -2,6 +2,7 @@
 var spielerIntervall;
 var kartenIntervall;
 
+// Kartenregionen
 var eigeneHandkarten = [];
 var eigeneOffeneKarten = [];
 
@@ -16,6 +17,11 @@ var spielerUntenRechtsOffeneKarten = [];
 
 var mitte = [];
 
+var nachziehstapelTuer = [];
+var nachziehstapelSchatz = [];
+var ablagestapelTuer = [];
+var ablagestapelSchatz = [];
+
 function istTuerkarte(kartenNr) {
     if (kartenNr <= 160) {
         return true;
@@ -29,6 +35,8 @@ function istTuerkarte(kartenNr) {
     else if (kartenNr <= 559) {
         return false;
     }
+    console.log("Karte " + kartenNr + " ist überhaupt keine Karte");
+    return false;
 }
 
 function getEigeneId() {
@@ -131,16 +139,18 @@ function automatischeKartenAktualisierung() {
 
 function kartenAktualisieren() {
     kartenregionAktualisierenWrapper("eigeneHandkarten");
-    kartenregionAktualisierenWrapper("eigeneOffeneKarten");
-    kartenregionAktualisierenWrapper("handkartenObenLinks");
-    kartenregionAktualisierenWrapper("offeneKartenObenLinks");
-    kartenregionAktualisierenWrapper("handkartenObenRechts");
-    kartenregionAktualisierenWrapper("offeneKartenObenRechts");
-    kartenregionAktualisierenWrapper("handkartenUntenRechts");
-    kartenregionAktualisierenWrapper("offeneKartenUntenRechts");
+//    kartenregionAktualisierenWrapper("eigeneOffeneKarten");
+//    kartenregionAktualisierenWrapper("handkartenObenLinks");
+//    kartenregionAktualisierenWrapper("offeneKartenObenLinks");
+//    kartenregionAktualisierenWrapper("handkartenObenRechts");
+//    kartenregionAktualisierenWrapper("offeneKartenObenRechts");
+//    kartenregionAktualisierenWrapper("handkartenUntenRechts");
+//    kartenregionAktualisierenWrapper("offeneKartenUntenRechts");
     kartenregionAktualisierenWrapper("mitte");
-    ablagestapelAktualisieren("Tuer");
-    ablagestapelAktualisieren("Schatz");
+    kartenregionAktualisierenWrapper("nachziehstapelTuer");
+    kartenregionAktualisierenWrapper("nachziehstapelSchatz");
+    kartenregionAktualisierenWrapper("ablagestapelTuer");
+    kartenregionAktualisierenWrapper("ablagestapelSchatz");
 }
 
 function kartenregionAktualisierenWrapper(region) {
@@ -171,6 +181,18 @@ function kartenregionAktualisierenWrapper(region) {
     else if (region == "mitte") {
         kartenregionAktualisieren("mitte.txt", "mitteKarte", "mitte", "mitteKarteMenu");
     }
+    else if (region == "nachziehstapelTuer") {
+        // TODO: implementieren
+    }
+    else if (region == "nachziehstapelSchatz") {
+        // TODO: implementieren
+    }
+    else if (region == "ablagestapelTuer") {
+        // TODO: implementieren
+    }
+    else if (region == "ablagestapelSchatz") {
+        // TODO: implementieren
+    }
     else {
         console.log("Für die Region '" + region + "' steht keine Aktualisierungsfunktion bereit :(");
     }
@@ -179,153 +201,152 @@ function kartenregionAktualisierenWrapper(region) {
 function kartenregionAktualisieren(dateiname, klasse, kontainer, menuAktion) {
     const xhr = new XMLHttpRequest();
     xhr.onload = function() {
-        var kartenLautServer = this.responseText.split(";");
-        if (kartenLautServer[0] == "") {
-            kartenLautServer = [];
-        }
-        var neueKarten = [];
-        var unveraenderteKarten = [];
-        var gespielteKarten = [];
+//        console.log(this.responseText);
+        var kartenspacesLautBrowser = [];
         var kartenLautBrowser = [];
+        var kartenspacesLautServer = this.responseText.split("/");
+        if (kartenspacesLautServer[0] == "") {
+            kartenspacesLautServer = [];
+        }
+        var kartenLautServer = [];
+        
         if (kontainer == "eigeneHandkarten") {
-            kartenLautBrowser = eigeneHandkarten;
+            kartenspacesLautBrowser = eigeneHandkarten;
         }
         else if (kontainer == "eigeneOffeneKarten") {
-            kartenLautBrowser = eigeneOffeneKarten;
+            kartenspacesLautBrowser = eigeneOffeneKarten;
         }
         else if (kontainer == "spielerObenLinksHandkarten") {
-            kartenLautBrowser = spielerObenLinksHandkarten;
+            kartenspacesLautBrowser = spielerObenLinksHandkarten;
         }
         else if (kontainer == "spielerObenLinksOffeneKarten") {
-            kartenLautBrowser = spielerObenLinksOffeneKarten;
+            kartenspacesLautBrowser = spielerObenLinksOffeneKarten;
         }
         else if (kontainer == "spielerObenRechtsHandkarten") {
-            kartenLautBrowser = spielerObenRechtsHandkarten;
+            kartenspacesLautBrowser = spielerObenRechtsHandkarten;
         }
         else if (kontainer == "spielerObenRechtsOffeneKarten") {
-            kartenLautBrowser = spielerObenRechtsOffeneKarten;
+            kartenspacesLautBrowser = spielerObenRechtsOffeneKarten;
         }
         else if (kontainer == "spielerUntenRechtsHandkarten") {
-            kartenLautBrowser = spielerUntenRechtsHandkarten;
+            kartenspacesLautBrowser = spielerUntenRechtsHandkarten;
         }
         else if (kontainer == "spielerUntenRechtsOffeneKarten") {
-            kartenLautBrowser = spielerUntenRechtsOffeneKarten;
+            kartenspacesLautBrowser = spielerUntenRechtsOffeneKarten;
         }
         else if (kontainer == "mitte") {
-            kartenLautBrowser = mitte;
+            kartenspacesLautBrowser = mitte;
         }
         else {
-            
+            console.log("Kontainer existiert nicht");
         }
         
-        for (var i = 0; i < kartenLautServer.length; i++) {
-            const karteLautServer = kartenLautServer[i];
-            if (kartenLautBrowser.includes(karteLautServer)) {
-                unveraenderteKarten.push(karteLautServer);
-            }
-            else if (kartenLautBrowser.includes(karteLautServer + "x")) {
-                // Karte ist im Browser geflaggt, im Server aber nicht mehr
-                objektFlaggen(window.document.getElementById(karteLautServer), false);
-                unveraenderteKarten.push(karteLautServer);
-            }
-            else if (kartenLautBrowser.includes(karteLautServer.split("x")[0])) {
-                // Karte wurde im Server geflaggt, im Browser aber noch nicht
-                objektFlaggen(window.document.getElementById(karteLautServer.split("x")[0]), true);
-                unveraenderteKarten.push(karteLautServer);
-            }
-            else {
-                neueKarten.push(kartenLautServer[i]);
+        console.log("Kartenspaces laut Browser für " + kontainer + ": " + kartenspacesLautBrowser);
+        
+        for (let i = 0; i < kartenspacesLautBrowser.length; i++) {
+            const kartenImKartenspace = kartenspacesLautBrowser[i].split(";");
+            for (let j = 0; j < kartenImKartenspace.length; j++) {
+                kartenLautBrowser.push(kartenImKartenspace[j]);
             }
         }
-        for (var i = 0; i < kartenLautBrowser.length; i++) {
-            const karteLautBrowser = kartenLautBrowser[i].split("x")[0];
-            var karteImServerEnthalten = false;
-            for (var j = 0; j < kartenLautServer.length; j++) {
-                const karteLautServer = kartenLautServer[j].split("x")[0];
-                if (karteLautServer == karteLautBrowser) {
-                    karteImServerEnthalten = true;
+        for (let i = 0; i < kartenspacesLautServer.length; i++) {
+            const kartenImKartenspace = kartenspacesLautServer[i].split(";");
+            for (let j = 0; j < kartenImKartenspace.length; j++) {
+                kartenLautServer.push(kartenImKartenspace[j]);
+            }
+        }
+        
+        // neue Karten finden und erzeugen
+        var aktuelleKarten = [];
+        var neueKarten = [];
+        console.log("Kontainer: " + kontainer + ", Karten laut Server: " + kartenLautServer);
+        console.log("Kontainer: " + kontainer + ", Karten laut Browser: " + kartenLautBrowser);
+        for (let i = 0; i < kartenLautServer.length; i++) {
+            aktuelleKarten.push(kartenLautServer[i]);
+            var karteExistiertSchonImBrowser = false;
+            for (let j = 0; j < kartenLautBrowser.length; j++) {
+                if (kartenLautServer[i].split("x")[0] == kartenLautBrowser[j].split("x")[0]) {
+                    karteExistiertSchonImBrowser = true;
+                    console.log("Karte " + kartenLautServer[i] + " existiert schon im Browser");
+                    break;
                 }
             }
-            if (!karteImServerEnthalten) {
-                gespielteKarten.push(karteLautBrowser);
-            }
-        }
-        // Neue Karten hinzufügen
-        const anzahlBisherigeKarten = unveraenderteKarten.length + gespielteKarten.length;
-        for (var i = 0; i < neueKarten.length; i++) {
-            neueKarte = document.createElement("div");
-            neueKarte.setAttribute("id", neueKarten[i].split("x")[0]);
-            neueKarte.setAttribute("class", "karte");
-            neueKarte.style.float = "left"; // TODO: Float automatisieren? --> evtl in style.css: .karte {float: left}
-            
-            if (kontainer == "spielerObenLinksHandkarten" || kontainer == "spielerObenRechtsHandkarten" || kontainer == "spielerUntenRechtsHandkarten") {
-                if (istTuerkarte(neueKarten[i])) {
-                    neueKarte.style.backgroundImage = "url('karten/tuerkarte.jpg')";
+            if (!karteExistiertSchonImBrowser) {
+                // Karte erzeugen und erstmal dem Kontainer anhängen
+                neueKarten.push(kartenLautServer[i]);
+                var neueKarte = document.createElement("div");
+                neueKarte.setAttribute("id", kartenLautServer[i].split("x")[0]);
+                neueKarte.setAttribute("class", "karte");
+                neueKarte.style.float = "left"; // TODO: Float automatisieren? --> evtl in style.css: .karte {float: left}
+                if (kontainer.split("Handkarten").length == 2 && kontainer != "eigeneHandkarten") {
+                    if (istTuerkarte(kartenLautServer[i].split("x")[0])) {
+                        neueKarte.style.backgroundImage = "url('karten/tuerkarte.jpg')";
+                    }
+                    else {
+                        neueKarte.style.backgroundImage = "url('karten/schatzkarte.jpg')";
+                    }
                 }
                 else {
-                    neueKarte.style.backgroundImage = "url('karten/schatzkarte.jpg')";
+                    neueKarte.style.backgroundImage = "url('karten/" + kartenLautServer[i].split("x")[0] + ".jpg')";
                 }
-            }
-            else {
-                neueKarte.style.backgroundImage = "url('karten/" + neueKarten[i].split("x")[0] + ".jpg')";
-            }
-            neueKarte.style.width = "100px";
-            neueKarte.style.height = "160px";
-            
-            schaltflaeche = document.createElement("div");
-            schaltflaeche.setAttribute("class", "kartenSchaltflaeche");
-            if (menuAktion == "fremdeOffeneKarteMenu") {
-                if (kontainer == "spielerObenLinksOffeneKarten") {
-                    schaltflaeche.setAttribute("onclick", menuAktion + "(" + neueKarten[i].split("x")[0] + ", " + (getEigeneId()+1)%4 + ")");
+                neueKarte.style.width = "100px"; // TODO: generalisieren
+                neueKarte.style.height = "160px";
+                schaltflaeche = document.createElement("div"); // TODO: Schalfläche doch lieber als Bild? Könnte man dann leichter drehen..
+                schaltflaeche.setAttribute("class", "kartenSchaltflaeche");
+                if (menuAktion == "fremdeOffeneKarteMenu") {
+                    if (kontainer == "spielerObenLinksOffeneKarten") {
+                        schaltflaeche.setAttribute("onclick", menuAktion + "(" + kartenLautServer[i].split("x")[0] + ", " + (getEigeneId()+1)%4 + ")");
+                    }
+                    else if (kontainer == "spielerObenRechtsOffeneKarten") {
+                        schaltflaeche.setAttribute("onclick", menuAktion + "(" + kartenLautServer[i].split("x")[0] + ", " + (getEigeneId()+2)%4 + ")");
+                    }
+                    else if (kontainer == "spielerUntenRechtsOffeneKarten") {
+                        schaltflaeche.setAttribute("onclick", menuAktion + "(" + kartenLautServer[i].split("x")[0] + ", " + (getEigeneId()+3)%4 + ")");
+                    }
                 }
-                else if (kontainer == "spielerObenRechtsOffeneKarten") {
-                    schaltflaeche.setAttribute("onclick", menuAktion + "(" + neueKarten[i].split("x")[0] + ", " + (getEigeneId()+2)%4 + ")");
+                else if (menuAktion == "fremdeHandkarteMenu") {
+                    if (kontainer == "spielerObenLinksHandkarten") {
+                        schaltflaeche.setAttribute("onclick", menuAktion + "(" + (getEigeneId()+1)%4 + ")");
+                    }
+                    else if (kontainer == "spielerObenRechtsHandkarten") {
+                        schaltflaeche.setAttribute("onclick", menuAktion + "(" + (getEigeneId()+2)%4 + ")");
+                    }
+                    else if (kontainer == "spielerUntenRechtsHandkarten") {
+                        schaltflaeche.setAttribute("onclick", menuAktion + "(" + (getEigeneId()+3)%4 + ")");
+                    }
                 }
-                else if (kontainer == "spielerUntenRechtsOffeneKarten") {
-                    schaltflaeche.setAttribute("onclick", menuAktion + "(" + neueKarten[i].split("x")[0] + ", " + (getEigeneId()+3)%4 + ")");
+                else {
+                    schaltflaeche.setAttribute("onclick", menuAktion + "(" + kartenLautServer[i].split("x")[0] + ")");
                 }
-            }
-            else if (menuAktion == "fremdeHandkarteMenu") {
-                if (kontainer == "spielerObenLinksHandkarten") {
-                    schaltflaeche.setAttribute("onclick", menuAktion + "(" + (getEigeneId()+1)%4 + ")");
-                }
-                else if (kontainer == "spielerObenRechtsHandkarten") {
-                    schaltflaeche.setAttribute("onclick", menuAktion + "(" + (getEigeneId()+2)%4 + ")");
-                }
-                else if (kontainer == "spielerUntenRechtsHandkarten") {
-                    schaltflaeche.setAttribute("onclick", menuAktion + "(" + (getEigeneId()+3)%4 + ")");
-                }
-            }
-            else {
-                schaltflaeche.setAttribute("onclick", menuAktion + "(" + neueKarten[i].split("x")[0] + ")");
-            }
-            neueKarte.appendChild(schaltflaeche);
-            window.document.getElementById(kontainer).appendChild(neueKarte);
-
-            
-            
-            
-            
-            if (neueKarten[i].split("x").length == 2) {
-                objektFlaggen(neueKarte, true);
+                neueKarte.appendChild(schaltflaeche);
+                document.getElementById(kontainer).appendChild(neueKarte);
             }
         }
         
-        // alte Karten entfernen
-        for (var i = 0; i < gespielteKarten.length; i++) {
-            window.document.getElementById(kontainer).removeChild(window.document.getElementById(gespielteKarten[i]));
+        // alte Karten entfernen, dabei Kinder in Ruhe lassen
+        for (let i = 0; i < kartenLautBrowser.length; i++) {
+            var karteExistiertNochAufServer = false;
+            for (let j = 0; j < kartenLautServer.length; j++) {
+                if (kartenLautBrowser[i].split("x")[0] == kartenLautServer[j].split("x")[0]) {
+                    karteExistiertNochAufServer = true;
+                    break;
+                }
+            }
+            if (!karteExistiertNochAufServer) {
+                if (document.getElementById(kartenLautBrowser[i].split("x")[0]).children.length == 2) {
+                    document.getElementById(kartenLautBrowser[i].split("x")[0]).parentElement.appendChild(document.getElementById(kartenLautBrowser[i].split("x")[0]).children[1]);
+                }
+                console.log(document.getElementById(kartenLautBrowser[i].split("x")[0]).parentElement);
+                document.getElementById(kartenLautBrowser[i].split("x")[0]).parentElement.removeChild(document.getElementById(kartenLautBrowser[i].split("x")[0]));
+            }
         }
         
-        // Array mit allen aktuellen Karten zusammenstellen
-        aktuelleKarten = [];
-        for (var i = 0; i < unveraenderteKarten.length; i++) {
-            aktuelleKarten.push(unveraenderteKarten[i]);
-        }
-        for (var i = 0; i < neueKarten.length; i++) {
-            aktuelleKarten.push(neueKarten[i]);
-        }
+        // geflaggte Karten behandeln
+        
+        // Kartenspaces zusammenstellen und Reihenfolge fixen
         
         // speichern
+//        const aktuelleKarten = neueKarten;
         if (kontainer == "eigeneHandkarten") {
             eigeneHandkarten = aktuelleKarten;
         }
@@ -359,6 +380,55 @@ function kartenregionAktualisieren(dateiname, klasse, kontainer, menuAktion) {
                 aufraeumenButton();
             }
         }
+        
+        
+        
+//
+//        for (var i = 0; i < kartenspacesLautServer.length; i++) {
+//            const karteLautServer = kartenspacesLautServer[i];
+//            if (kartenLautBrowser.includes(karteLautServer)) {
+//                unveraenderteKarten.push(karteLautServer);
+//            }
+//            else if (kartenLautBrowser.includes(karteLautServer + "x")) {
+//                // Karte ist im Browser geflaggt, im Server aber nicht mehr
+//                objektFlaggen(window.document.getElementById(karteLautServer), false);
+//                unveraenderteKarten.push(karteLautServer);
+//            }
+//            else if (kartenLautBrowser.includes(karteLautServer.split("x")[0])) {
+//                // Karte wurde im Server geflaggt, im Browser aber noch nicht
+//                objektFlaggen(window.document.getElementById(karteLautServer.split("x")[0]), true);
+//                unveraenderteKarten.push(karteLautServer);
+//            }
+//            else {
+//                neueKarten.push(kartenspacesLautServer[i]);
+//            }
+//        }
+//        for (var i = 0; i < kartenLautBrowser.length; i++) {
+//            const karteLautBrowser = kartenLautBrowser[i].split("x")[0];
+//            var karteImServerEnthalten = false;
+//            for (var j = 0; j < kartenspacesLautServer.length; j++) {
+//                const karteLautServer = kartenspacesLautServer[j].split("x")[0];
+//                if (karteLautServer == karteLautBrowser) {
+//                    karteImServerEnthalten = true;
+//                }
+//            }
+//            if (!karteImServerEnthalten) {
+//                gespielteKarten.push(karteLautBrowser);
+//            }
+//        }
+
+
+//
+//        // Array mit allen aktuellen Karten zusammenstellen
+//        aktuelleKarten = [];
+//        for (var i = 0; i < unveraenderteKarten.length; i++) {
+//            aktuelleKarten.push(unveraenderteKarten[i]);
+//        }
+//        for (var i = 0; i < neueKarten.length; i++) {
+//            aktuelleKarten.push(neueKarten[i]);
+//        }
+//
+
     }
     xhr.open("POST", "getDatei.php");
     xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
@@ -414,6 +484,7 @@ function autostop() {
 }
 
 function objektFlaggen(objekt, jaodernein) {
+    // TODO: richtig implementieren
     var bild = objekt.children[0];
     const kontainerId = objekt.parentNode.id;
     if (jaodernein) {

@@ -4,48 +4,41 @@ function getRandomInt(max) {
 
 // TODO: Diese Funktionn sehen alle gleich aus!
 
-function tuerkarteVerdecktZiehen() {
+function vomStapelZiehen(stapel, offenOderVerdeckt) {
     const xhr = new XMLHttpRequest();
     xhr.onload = function() {
         console.log(this.responseText);
-        kartenregionAktualisierenWrapper("eigeneHandkarten");
+        if (offenOderVerdeckt == "offen") {
+            kartenregionAktualisierenWrapper("mitte");
+        }
+        else {
+            kartenregionAktualisierenWrapper("eigeneHandkarten");
+        }
     }
     xhr.open("POST", "kartenBewegen.php");
     xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    xhr.send("von=nachziehstapel&stapel=Tuer&nach=karten" + getEigeneId() + "verdeckt");
+    if (offenOderVerdeckt == "offen") {
+        xhr.send("von=nachziehstapel&stapel=" + stapel + "&nach=mitte&append=x&mitKindern=false");
+    }
+    else {
+        xhr.send("von=nachziehstapel&stapel=" + stapel + "&nach=karten" + getEigeneId() + "verdeckt&append=x&mitKindern=false");
+    }
+}
+
+function tuerkarteVerdecktZiehen() {
+    vomStapelZiehen("Tuer", "verdeckt");
 }
 
 function tuerkarteOffenZiehen() {
-    const xhr = new XMLHttpRequest();
-    xhr.onload = function() {
-        console.log(this.responseText);
-        kartenregionAktualisierenWrapper("mitte");
-    }
-    xhr.open("POST", "kartenBewegen.php");
-    xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    xhr.send("von=nachziehstapel&stapel=Tuer&nach=mitte");
+    vomStapelZiehen("Tuer", "offen");
 }
 
 function schatzkarteVerdecktZiehen() {
-    const xhr = new XMLHttpRequest();
-    xhr.onload = function() {
-        console.log(this.responseText);
-        kartenregionAktualisierenWrapper("eigeneHandkarten");
-    }
-    xhr.open("POST", "kartenBewegen.php");
-    xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    xhr.send("von=nachziehstapel&stapel=Schatz&nach=karten" + getEigeneId() + "verdeckt");
+    vomStapelZiehen("Schatz", "verdeckt");
 }
 
 function schatzkarteOffenZiehen() {
-    const xhr = new XMLHttpRequest();
-    xhr.onload = function() {
-        console.log(this.responseText);
-        kartenregionAktualisierenWrapper("mitte");
-    }
-    xhr.open("POST", "kartenBewegen.php");
-    xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    xhr.send("von=nachziehstapel&stapel=Schatz&nach=mitte");
+    vomStapelZiehen("Schatz", "offen");
 }
 
 function karteVomAblagestapelZiehen(stapel, kartenId) {
@@ -283,4 +276,29 @@ function karteFlaggen(kartenId, neueFlag) {
     else {
         console.log("Die Karte " + kartenId + " ist weder in mitte.txt noch in eigeneOffeneKarten");
     }
+}
+
+function karteBewegen(kartenId, von, nach, mitKindern, appendAn) {
+    const xhr = new XMLHttpRequest();
+    xhr.onload = function() {
+        console.log(this.responseText);
+        kartenregionAktualisierenWrapper(von);
+        kartenregionAktualisierenWrapper(nach);
+    }
+    xhr.open("POST", "kartenBewegen.php");
+    xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xhr.send("von=" + von + "&nach=" + nach + "&karte=" + kartenId + "&mitKindern=" + mitKindern + "&append=" + appendAn);
+}
+
+function karteAnheften(childId, parentId) {
+    document.getElementById(parentId).appendChild(document.getElementById(childId));
+    // Alle angehängten Karten flaggen
+    var zuFlaggendeKarte = document.getElementById(childId);
+    do {
+        const zuFlaggendeKarteId = zuFlaggendeKarte.id;
+        karteFlaggen(zuFlaggendeKarteId, "");
+        zuFlaggendeKarte = zuFlaggendeKarte.children[1];
+        
+    }
+    while (zuFlaggendeKarte != null);
 }
