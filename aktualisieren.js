@@ -39,6 +39,15 @@ function istTuerkarte(kartenNr) {
     return false;
 }
 
+function getKartenArt(kartenId) {
+    if (istTuerkarte(kartenId)) {
+        return "Tuer";
+    }
+    else {
+        return "Schatz";
+    }
+}
+
 function getEigeneId() {
     const cookies = document.cookie.split("; ");
     for (var i = 0; i < cookies.length; i++) {
@@ -48,6 +57,51 @@ function getEigeneId() {
         }
     }
     return -1;
+}
+
+function getRegionName(dateiName) {
+    if (dateiName.includes("karten")) {
+        const spielerId = parseInt(dateiName.charAt(6));
+        if (dateiName.includes("verdeckt")) {
+            switch((spielerId-getEigeneId()+4)%4) {
+                case 0:
+                    return "eigeneHandkarten";
+                    break;
+                case 1:
+                    return "spielerObenLinksHandkarten";
+                    break;
+                case 2:
+                    return "spielerObenRechtsHandkarten";
+                    break;
+                case 3:
+                    return "spielerUntenRechtsHandkarten";
+                    break;
+            }
+        }
+        else if (dateiName.includes("offen")) {
+            switch((spielerId-getEigeneId()+4)%4) {
+                case 0:
+                    return "eigeneOffeneKarten";
+                    break;
+                case 1:
+                    return "spielerObenLinksOffeneKarten";
+                    break;
+                case 2:
+                    return "spielerObenRechtsOffeneKarten";
+                    break;
+                case 3:
+                    return "spielerUntenRechtsOffeneKarten";
+                    break;
+            }
+        }
+        else {
+            console.log("Ungültiger Dateiname: '" + dateiName + "'");
+            return "ungueltigeRegion";
+        }
+    }
+    else {
+        return dateiName;
+    }
 }
 
 function karteIstGeflaggt(kartenId, kontainer) {
@@ -139,13 +193,13 @@ function automatischeKartenAktualisierung() {
 
 function kartenAktualisieren() {
     kartenregionAktualisierenWrapper("eigeneHandkarten");
-//    kartenregionAktualisierenWrapper("eigeneOffeneKarten");
-//    kartenregionAktualisierenWrapper("handkartenObenLinks");
-//    kartenregionAktualisierenWrapper("offeneKartenObenLinks");
-//    kartenregionAktualisierenWrapper("handkartenObenRechts");
-//    kartenregionAktualisierenWrapper("offeneKartenObenRechts");
-//    kartenregionAktualisierenWrapper("handkartenUntenRechts");
-//    kartenregionAktualisierenWrapper("offeneKartenUntenRechts");
+    kartenregionAktualisierenWrapper("eigeneOffeneKarten");
+    kartenregionAktualisierenWrapper("handkartenObenLinks");
+    kartenregionAktualisierenWrapper("offeneKartenObenLinks");
+    kartenregionAktualisierenWrapper("handkartenObenRechts");
+    kartenregionAktualisierenWrapper("offeneKartenObenRechts");
+    kartenregionAktualisierenWrapper("handkartenUntenRechts");
+    kartenregionAktualisierenWrapper("offeneKartenUntenRechts");
     kartenregionAktualisierenWrapper("mitte");
     kartenregionAktualisierenWrapper("nachziehstapelTuer");
     kartenregionAktualisierenWrapper("nachziehstapelSchatz");
@@ -241,7 +295,7 @@ function kartenregionAktualisieren(dateiname, klasse, kontainer, menuAktion) {
             console.log("Kontainer existiert nicht");
         }
         
-        console.log("Kartenspaces laut Browser für " + kontainer + ": " + kartenspacesLautBrowser);
+//        console.log("Kartenspaces laut Browser für " + kontainer + ": " + kartenspacesLautBrowser);
         
         for (let i = 0; i < kartenspacesLautBrowser.length; i++) {
             const kartenImKartenspace = kartenspacesLautBrowser[i].split(";");
@@ -259,15 +313,14 @@ function kartenregionAktualisieren(dateiname, klasse, kontainer, menuAktion) {
         // neue Karten finden und erzeugen
         var aktuelleKarten = [];
         var neueKarten = [];
-        console.log("Kontainer: " + kontainer + ", Karten laut Server: " + kartenLautServer);
-        console.log("Kontainer: " + kontainer + ", Karten laut Browser: " + kartenLautBrowser);
+//        console.log("Kontainer: " + kontainer + ", Karten laut Server: " + kartenLautServer);
+//        console.log("Kontainer: " + kontainer + ", Karten laut Browser: " + kartenLautBrowser);
         for (let i = 0; i < kartenLautServer.length; i++) {
             aktuelleKarten.push(kartenLautServer[i]);
             var karteExistiertSchonImBrowser = false;
             for (let j = 0; j < kartenLautBrowser.length; j++) {
                 if (kartenLautServer[i].split("x")[0] == kartenLautBrowser[j].split("x")[0]) {
                     karteExistiertSchonImBrowser = true;
-                    console.log("Karte " + kartenLautServer[i] + " existiert schon im Browser");
                     break;
                 }
             }
@@ -336,17 +389,35 @@ function kartenregionAktualisieren(dateiname, klasse, kontainer, menuAktion) {
                 if (document.getElementById(kartenLautBrowser[i].split("x")[0]).children.length == 2) {
                     document.getElementById(kartenLautBrowser[i].split("x")[0]).parentElement.appendChild(document.getElementById(kartenLautBrowser[i].split("x")[0]).children[1]);
                 }
-                console.log(document.getElementById(kartenLautBrowser[i].split("x")[0]).parentElement);
                 document.getElementById(kartenLautBrowser[i].split("x")[0]).parentElement.removeChild(document.getElementById(kartenLautBrowser[i].split("x")[0]));
             }
         }
         
+        // TODO: Hier könnte ein Check nicht schaden, ob im Browser und auf dem Server - bis auf Flags - die selben Karten existieren
+        
         // geflaggte Karten behandeln
+        for (let i = 0; i < kartenLautBrowser.length; i++) {
+            if (kartenLautServer.includes(kartenLautBrowser[i])) {
+                // Flag passt
+            }
+            else if (kartenLautServer.includes(kartenLautBrowser[i] + "x")) {
+                // Karte ist auf dem Server geflaggt im Browser aber noch nicht
+                objektFlaggen(kartenLautBrowser[i], true);
+            }
+            else if (kartenLautServer.includes(kartenLautBrowser[i].split("x")[0])) {
+                // Karte im Browser geflaggt, auf dem Server aber nicht mehr
+                objektFlaggen(kartenLautBrowser[i], false);
+            }
+            else {
+                console.log("Karten laut Browser: " + kartenLautBrowser);
+                console.log("Karten laut Server: " + kartenLautServer);
+                console.log("Was ist denn mit den Flags los?!")
+            }
+        }
         
         // Kartenspaces zusammenstellen und Reihenfolge fixen
         
         // speichern
-//        const aktuelleKarten = neueKarten;
         if (kontainer == "eigeneHandkarten") {
             eigeneHandkarten = aktuelleKarten;
         }
@@ -380,54 +451,6 @@ function kartenregionAktualisieren(dateiname, klasse, kontainer, menuAktion) {
                 aufraeumenButton();
             }
         }
-        
-        
-        
-//
-//        for (var i = 0; i < kartenspacesLautServer.length; i++) {
-//            const karteLautServer = kartenspacesLautServer[i];
-//            if (kartenLautBrowser.includes(karteLautServer)) {
-//                unveraenderteKarten.push(karteLautServer);
-//            }
-//            else if (kartenLautBrowser.includes(karteLautServer + "x")) {
-//                // Karte ist im Browser geflaggt, im Server aber nicht mehr
-//                objektFlaggen(window.document.getElementById(karteLautServer), false);
-//                unveraenderteKarten.push(karteLautServer);
-//            }
-//            else if (kartenLautBrowser.includes(karteLautServer.split("x")[0])) {
-//                // Karte wurde im Server geflaggt, im Browser aber noch nicht
-//                objektFlaggen(window.document.getElementById(karteLautServer.split("x")[0]), true);
-//                unveraenderteKarten.push(karteLautServer);
-//            }
-//            else {
-//                neueKarten.push(kartenspacesLautServer[i]);
-//            }
-//        }
-//        for (var i = 0; i < kartenLautBrowser.length; i++) {
-//            const karteLautBrowser = kartenLautBrowser[i].split("x")[0];
-//            var karteImServerEnthalten = false;
-//            for (var j = 0; j < kartenspacesLautServer.length; j++) {
-//                const karteLautServer = kartenspacesLautServer[j].split("x")[0];
-//                if (karteLautServer == karteLautBrowser) {
-//                    karteImServerEnthalten = true;
-//                }
-//            }
-//            if (!karteImServerEnthalten) {
-//                gespielteKarten.push(karteLautBrowser);
-//            }
-//        }
-
-
-//
-//        // Array mit allen aktuellen Karten zusammenstellen
-//        aktuelleKarten = [];
-//        for (var i = 0; i < unveraenderteKarten.length; i++) {
-//            aktuelleKarten.push(unveraenderteKarten[i]);
-//        }
-//        for (var i = 0; i < neueKarten.length; i++) {
-//            aktuelleKarten.push(neueKarten[i]);
-//        }
-//
 
     }
     xhr.open("POST", "getDatei.php");
@@ -447,8 +470,9 @@ function aufraeumenButton() {
 }
 
 function mitteAufraeumen() {
-    for (var i = 0; i < mitte.length; i++) {
-        karteAblegen(mitte[i], "mitte");
+    for (let i = 0; i < mitte.length; i++) {
+        const kartenId = mitte[i].split(";")[0].split("x")[0];
+        karteBewegen(kartenId, "mitte", "ablagestapel" + getKartenArt(kartenId), "true", "x")
     }
 }
 

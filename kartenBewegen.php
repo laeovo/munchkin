@@ -25,52 +25,55 @@
     
     $fpQuelle = fopen($vonDatei, "a+");
     if (flock($fpQuelle, LOCK_EX)) {
-        $bisherigeKartenVonString = fgets($fpQuelle, 4096);
-        $bisherigeKartenVon = explode("/", $bisherigeKartenVonString);
+        $bisherigeKartenspacesVonString = fgets($fpQuelle, 4096);
+        $bisherigeKartenspacesVon = explode("/", $bisherigeKartenspacesVonString);
 
-        $neueKartenVon = "";
+        $neueKartenspacesVon = "";
         if ($von == "nachziehstapel") {
             $karteExistiertNochInDerQuelle = true;
-            $karte = $bisherigeKartenVon[0];
+            $karte = $bisherigeKartenspacesVon[0];
             
             // TODO: Nachziehstapel wieder auffüllen, dabei Karten entflaggen
             
-            for ($i = 1; $i < count($bisherigeKartenVon); $i++) {
-                if ($neueKartenVon != "") {
-                    $neueKartenVon .= "/";
+            for ($i = 1; $i < count($bisherigeKartenspacesVon); $i++) {
+                if ($neueKartenspacesVon != "") {
+                    $neueKartenspacesVon .= "/";
                 }
-                $neueKartenVon .= $bisherigeKartenVon[$i];
+                $neueKartenspacesVon .= $bisherigeKartenspacesVon[$i];
             }
         }
         else {
-            for ($i = 0; $i < count($bisherigeKartenVon); $i++) {
-                $kartenImKartenSpace = explode(";", $bisherigeKartenVon[$i]);
-                for ($j = 0; $j < count($kartenImKartenSpace); $j++) {
-                    if (explode("x", $kartenImKartenSpace[$j])[0] != explode("x", $karte)[0]) {
+            for ($i = 0; $i < count($bisherigeKartenspacesVon); $i++) {
+                $kartenImKartenspace = explode(";", $bisherigeKartenspacesVon[$i]);
+                $kartenVonDiesemKartenspaceUebernommen = false;
+                for ($j = 0; $j < count($kartenImKartenspace); $j++) {
+                    if (explode("x", $kartenImKartenspace[$j])[0] == explode("x", $karte)[0]) {
+                        // Die entsprechende Karte wurde im i-ten Kartenspace an j-ter Stelle gefunden
                         $karteExistiertNochInDerQuelle = true;
-                        if (mitKindern == "true" && $j+1 < count($bisherigeKartenVon)) {
-                            for ($k = $j+1; $k < count($kartenImKartenSpace); $k++) {
-                                $karte .= ";" . explode("x", $kartenImKartenSpace[$k])[0]; // Karte ist nach Bewegen nicht mehr geflaggt
+                        if ($_POST["mitKindern"] == "true") {
+                            for ($k = $j+1; $k < count($kartenImKartenspace); $k++) {
+                                $karte .= ";" . explode("x", $kartenImKartenspace[$k])[0]; // Karte ist nach Bewegen nicht mehr geflaggt
                             }
                             break;
                         }
                     }
                     else {
-                        if ($j == 0) {
-                            if ($neueKartenVon != "") {
-                                $neueKartenVon .= "/";
+                        if (!$kartenVonDiesemKartenspaceUebernommen) {
+                            if ($neueKartenspacesVon != "") {
+                                $neueKartenspacesVon .= "/";
                             }
+                            $kartenVonDiesemKartenspaceUebernommen = true;
                         }
                         else {
-                            $neueKartenVon .= ";";
+                            $neueKartenspacesVon .= ";";
                         }
-                        $neueKartenVon .= $kartenImKartenSpace[$j][0];
+                        $neueKartenspacesVon .= $kartenImKartenspace[$j];
                     }
                 }
             }
         }
         ftruncate($fpQuelle, 0);
-        fwrite($fpQuelle, $neueKartenVon);
+        fwrite($fpQuelle, $neueKartenspacesVon);
         flock($fpQuelle, LOCK_UN);
         fclose($fpQuelle);
     }
@@ -93,9 +96,9 @@
                 fclose($fpZiel);
             }
             else {
-                if ($nach == "ablagestapelTuer" || $nach == "ablagestapelSchatz") {
+                if ($nach == "ablagestapelTuer" || $nach == "ablagestapelSchatz" || count(explode("verdeckt", $nach)) == 2) {
                     for ($i = 0; $i < count(explode(";", $karte)); $i++) {
-                        if ($bisherigeKartenNach != "") { // TODO: das wird nicht funktionieren...
+                        if ($bisherigeKartenNach != "") { // TODO: das wird nicht funktionieren, hier fehlen Semikolons...
                             fwrite($fpZiel, "/");
                         }
                         fwrite($fpZiel, explode(";", $karte)[$i]);
