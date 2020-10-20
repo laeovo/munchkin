@@ -256,13 +256,15 @@ function kartenregionAktualisieren(dateiname, klasse, kontainer, menuAktion) {
     const xhr = new XMLHttpRequest();
     xhr.onload = function() {
 //        console.log(this.responseText);
+        var kartenspacesLautServer = [];
+        var kartenLautServer = [];
         var kartenspacesLautBrowser = [];
         var kartenLautBrowser = [];
-        var kartenspacesLautServer = this.responseText.split("/");
+        
+        kartenspacesLautServer = this.responseText.split("/");
         if (kartenspacesLautServer[0] == "") {
             kartenspacesLautServer = [];
         }
-        var kartenLautServer = [];
         
         if (kontainer == "eigeneHandkarten") {
             kartenspacesLautBrowser = eigeneHandkarten;
@@ -295,104 +297,106 @@ function kartenregionAktualisieren(dateiname, klasse, kontainer, menuAktion) {
             console.log("Kontainer existiert nicht");
         }
         
-//        console.log("Kartenspaces laut Browser für " + kontainer + ": " + kartenspacesLautBrowser);
-        
-        for (let i = 0; i < kartenspacesLautBrowser.length; i++) {
-            const kartenImKartenspace = kartenspacesLautBrowser[i].split(";");
-            for (let j = 0; j < kartenImKartenspace.length; j++) {
-                kartenLautBrowser.push(kartenImKartenspace[j]);
-            }
-        }
         for (let i = 0; i < kartenspacesLautServer.length; i++) {
             const kartenImKartenspace = kartenspacesLautServer[i].split(";");
             for (let j = 0; j < kartenImKartenspace.length; j++) {
                 kartenLautServer.push(kartenImKartenspace[j]);
             }
         }
+        for (let i = 0; i < kartenspacesLautBrowser.length; i++) {
+            const kartenImKartenspace = kartenspacesLautBrowser[i].split(";");
+            for (let j = 0; j < kartenImKartenspace.length; j++) {
+                kartenLautBrowser.push(kartenImKartenspace[j]);
+            }
+        }
         
-        // neue Karten finden und erzeugen
-        var aktuelleKarten = [];
-        var neueKarten = [];
-//        console.log("Kontainer: " + kontainer + ", Karten laut Server: " + kartenLautServer);
-//        console.log("Kontainer: " + kontainer + ", Karten laut Browser: " + kartenLautBrowser);
         for (let i = 0; i < kartenLautServer.length; i++) {
-            aktuelleKarten.push(kartenLautServer[i]);
+            let kartenIdServer = kartenLautServer[i].split("x")[0];
             var karteExistiertSchonImBrowser = false;
             for (let j = 0; j < kartenLautBrowser.length; j++) {
-                if (kartenLautServer[i].split("x")[0] == kartenLautBrowser[j].split("x")[0]) {
+                let kartenIdBrowser = kartenLautBrowser[j].split("x")[0];
+                if (kartenIdServer == kartenIdBrowser) {
                     karteExistiertSchonImBrowser = true;
                     break;
                 }
             }
             if (!karteExistiertSchonImBrowser) {
-                // Karte erzeugen und erstmal dem Kontainer anhängen
-                neueKarten.push(kartenLautServer[i]);
-                var neueKarte = document.createElement("div");
-                neueKarte.setAttribute("id", kartenLautServer[i].split("x")[0]);
-                neueKarte.setAttribute("class", "karte");
-                neueKarte.style.float = "left"; // TODO: Float automatisieren? --> evtl in style.css: .karte {float: left}
-                if (kontainer.split("Handkarten").length == 2 && kontainer != "eigeneHandkarten") {
-                    if (istTuerkarte(kartenLautServer[i].split("x")[0])) {
-                        neueKarte.style.backgroundImage = "url('karten/tuerkarte.jpg')";
+                let karte = document.getElementById(kartenIdServer);
+                if (karte != null) {
+//                    console.log("Die karte " + kartenIdServer + " existiert schon irgendwo!");
+                    // Karte existiert schon irgendwo --> klauen
+                    if (karte.children.length == 2) {
+                        // Falls die Karte Kinder hat, werden die erstmal dem Parent der Karte angehängt.
+                        karte.parentElement.appendChild(karte.children[1]);
+                    }
+                    let schaltflaeche = karte.children[0];
+                    setzeSchaltflaecheOnclick(schaltflaeche, kontainer, menuAktion, kartenIdServer)
+                    document.getElementById(kontainer).appendChild(karte);
+                }
+                else {
+//                    console.log("Die karte " + kartenIdServer + " existiert noch nicht, wird also neu erzeugt!");
+                    // Karte erzeugen und erstmal dem Kontainer anhängen
+                    var neueKarte = document.createElement("div");
+                    neueKarte.setAttribute("id", kartenIdServer);
+                    neueKarte.setAttribute("class", "karte");
+                    neueKarte.style.float = "left"; // TODO: Float automatisieren? --> evtl in style.css: .karte {float: left}
+                    if (kontainer.split("Handkarten").length == 2 && kontainer != "eigeneHandkarten") {
+                        // Es handelt sich beim Kontainer um fremde Handkarten
+                        if (istTuerkarte(kartenIdServer)) {
+                            neueKarte.style.backgroundImage = "url('karten/tuerkarte.jpg')";
+                        }
+                        else {
+                            neueKarte.style.backgroundImage = "url('karten/schatzkarte.jpg')";
+                        }
                     }
                     else {
-                        neueKarte.style.backgroundImage = "url('karten/schatzkarte.jpg')";
+                        neueKarte.style.backgroundImage = "url('karten/" + kartenIdServer + ".jpg')";
                     }
+                    neueKarte.style.width = "100px"; // TODO: generalisieren
+                    neueKarte.style.height = "160px";
+                    schaltflaeche = document.createElement("div"); // TODO: Schalfläche doch lieber als Bild? Könnte man dann leichter drehen.. oder ein Bild dahinter, damit man nicht mit css::background-image arbeiten muss
+                    schaltflaeche.setAttribute("class", "kartenSchaltflaeche");
+                    setzeSchaltflaecheOnclick(schaltflaeche, kontainer, menuAktion, kartenIdServer)
+                    neueKarte.appendChild(schaltflaeche);
+                    document.getElementById(kontainer).appendChild(neueKarte);
                 }
-                else {
-                    neueKarte.style.backgroundImage = "url('karten/" + kartenLautServer[i].split("x")[0] + ".jpg')";
-                }
-                neueKarte.style.width = "100px"; // TODO: generalisieren
-                neueKarte.style.height = "160px";
-                schaltflaeche = document.createElement("div"); // TODO: Schalfläche doch lieber als Bild? Könnte man dann leichter drehen..
-                schaltflaeche.setAttribute("class", "kartenSchaltflaeche");
-                if (menuAktion == "fremdeOffeneKarteMenu") {
-                    if (kontainer == "spielerObenLinksOffeneKarten") {
-                        schaltflaeche.setAttribute("onclick", menuAktion + "(" + kartenLautServer[i].split("x")[0] + ", " + (getEigeneId()+1)%4 + ")");
-                    }
-                    else if (kontainer == "spielerObenRechtsOffeneKarten") {
-                        schaltflaeche.setAttribute("onclick", menuAktion + "(" + kartenLautServer[i].split("x")[0] + ", " + (getEigeneId()+2)%4 + ")");
-                    }
-                    else if (kontainer == "spielerUntenRechtsOffeneKarten") {
-                        schaltflaeche.setAttribute("onclick", menuAktion + "(" + kartenLautServer[i].split("x")[0] + ", " + (getEigeneId()+3)%4 + ")");
-                    }
-                }
-                else if (menuAktion == "fremdeHandkarteMenu") {
-                    if (kontainer == "spielerObenLinksHandkarten") {
-                        schaltflaeche.setAttribute("onclick", menuAktion + "(" + (getEigeneId()+1)%4 + ")");
-                    }
-                    else if (kontainer == "spielerObenRechtsHandkarten") {
-                        schaltflaeche.setAttribute("onclick", menuAktion + "(" + (getEigeneId()+2)%4 + ")");
-                    }
-                    else if (kontainer == "spielerUntenRechtsHandkarten") {
-                        schaltflaeche.setAttribute("onclick", menuAktion + "(" + (getEigeneId()+3)%4 + ")");
-                    }
-                }
-                else {
-                    schaltflaeche.setAttribute("onclick", menuAktion + "(" + kartenLautServer[i].split("x")[0] + ")");
-                }
-                neueKarte.appendChild(schaltflaeche);
-                document.getElementById(kontainer).appendChild(neueKarte);
+                kartenLautBrowser.push(kartenLautServer[i]);
             }
         }
         
         // alte Karten entfernen, dabei Kinder in Ruhe lassen
-        for (let i = 0; i < kartenLautBrowser.length; i++) {
+        for (var i = 0; i < kartenLautBrowser.length; i++) {
+            let kartenIdBrowser = kartenLautBrowser[i].split("x")[0];
             var karteExistiertNochAufServer = false;
             for (let j = 0; j < kartenLautServer.length; j++) {
-                if (kartenLautBrowser[i].split("x")[0] == kartenLautServer[j].split("x")[0]) {
+                let kartenIdServer = kartenLautServer[j].split("x");
+                if (kartenIdBrowser == kartenIdServer) {
                     karteExistiertNochAufServer = true;
                     break;
                 }
             }
+            
             if (!karteExistiertNochAufServer) {
-                if (document.getElementById(kartenLautBrowser[i].split("x")[0]).children.length == 2) {
-                    document.getElementById(kartenLautBrowser[i].split("x")[0]).parentElement.appendChild(document.getElementById(kartenLautBrowser[i].split("x")[0]).children[1]);
+                let karte = document.getElementById(kartenIdBrowser);
+                let karteBefindetSichNochInKontainer = false;
+                for (let j = 0; j < document.getElementById(kontainer).children.length; j++) { // TODO: muss noch auf Kartenspaces verallgemeinert werden
+                    if (document.getElementById(kontainer).children[j].id == kartenIdBrowser) {
+                        karteBefindetSichNochInKontainer = true;
+                    }
                 }
-                document.getElementById(kartenLautBrowser[i].split("x")[0]).parentElement.removeChild(document.getElementById(kartenLautBrowser[i].split("x")[0]));
+                if (karteBefindetSichNochInKontainer) {
+                    // Die Karte, die beweget wurde wurde noch nicht vom Ziel-Kontainer übernommen
+                    if (karte.children.length == 2) {
+                        karte.parentElement.appendChild(karte.children[1]);
+                    }
+                    karte.parentElement.removeChild(karte);
+                }
+                kartenLautBrowser.splice(kartenLautBrowser.indexOf(kartenLautBrowser[i]), 1);
+                i--;
             }
         }
         
+//        console.log("Kontainer: " + kontainer + ", Aktuelle Karten: " + aktuelleKarten);
         // TODO: Hier könnte ein Check nicht schaden, ob im Browser und auf dem Server - bis auf Flags - die selben Karten existieren
         
         // geflaggte Karten behandeln
@@ -409,8 +413,8 @@ function kartenregionAktualisieren(dateiname, klasse, kontainer, menuAktion) {
                 objektFlaggen(kartenLautBrowser[i], false);
             }
             else {
-                console.log("Karten laut Browser: " + kartenLautBrowser);
-                console.log("Karten laut Server: " + kartenLautServer);
+                console.log("Kontainer: " + kontainer + ", Karten laut Browser: " + kartenLautBrowser);
+                console.log("Kontainer: " + kontainer + ", Karten laut Server: " + kartenLautServer);
                 console.log("Was ist denn mit den Flags los?!")
             }
         }
@@ -419,35 +423,35 @@ function kartenregionAktualisieren(dateiname, klasse, kontainer, menuAktion) {
         
         // speichern
         if (kontainer == "eigeneHandkarten") {
-            eigeneHandkarten = aktuelleKarten;
+            eigeneHandkarten = kartenLautServer;
         }
         else if (kontainer == "eigeneOffeneKarten") {
-            eigeneOffeneKarten = aktuelleKarten;
+            eigeneOffeneKarten = kartenLautServer;
         }
         else if (kontainer == "spielerObenLinksHandkarten") {
-            spielerObenLinksHandkarten = aktuelleKarten;
+            spielerObenLinksHandkarten = kartenLautServer;
         }
         else if (kontainer == "spielerObenLinksOffeneKarten") {
-            spielerObenLinksOffeneKarten = aktuelleKarten;
+            spielerObenLinksOffeneKarten = kartenLautServer;
         }
         else if (kontainer == "spielerObenRechtsHandkarten") {
-            spielerObenRechtsHandkarten = aktuelleKarten;
+            spielerObenRechtsHandkarten = kartenLautServer;
         }
         else if (kontainer == "spielerObenRechtsOffeneKarten") {
-            spielerObenRechtsOffeneKarten = aktuelleKarten;
+            spielerObenRechtsOffeneKarten = kartenLautServer;
         }
         else if (kontainer == "spielerUntenRechtsHandkarten") {
-            spielerUntenRechtsHandkarten = aktuelleKarten;
+            spielerUntenRechtsHandkarten = kartenLautServer;
         }
         else if (kontainer == "spielerUntenRechtsOffeneKarten") {
-            spielerUntenRechtsOffeneKarten = aktuelleKarten;
+            spielerUntenRechtsOffeneKarten = kartenLautServer;
         }
         else if (kontainer == "mitte") {
-            mitte = aktuelleKarten;
+            mitte = kartenLautServer;
             if (window.document.getElementById("aufraeumenButton")) {
                 window.document.getElementById("mitte").removeChild(window.document.getElementById("aufraeumenButton"));
             }
-            if (aktuelleKarten.length >= 4) {
+            if (kartenLautServer.length >= 4) {
                 aufraeumenButton();
             }
         }
@@ -456,6 +460,34 @@ function kartenregionAktualisieren(dateiname, klasse, kontainer, menuAktion) {
     xhr.open("POST", "getDatei.php");
     xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xhr.send("datei=" + "3" + dateiname);
+}
+
+function setzeSchaltflaecheOnclick(schaltflaeche, kontainer, menuAktion, kartenIdServer) {
+    if (menuAktion == "fremdeOffeneKarteMenu") {
+        if (kontainer == "spielerObenLinksOffeneKarten") {
+            schaltflaeche.setAttribute("onclick", "fremdeOffeneKarteMenu(" + kartenIdServer + ", " + (getEigeneId()+1)%4 + ")");
+        }
+        else if (kontainer == "spielerObenRechtsOffeneKarten") {
+            schaltflaeche.setAttribute("onclick", "fremdeOffeneKarteMenu(" + kartenIdServer + ", " + (getEigeneId()+2)%4 + ")");
+        }
+        else if (kontainer == "spielerUntenRechtsOffeneKarten") {
+            schaltflaeche.setAttribute("onclick", "fremdeOffeneKarteMenu(" + kartenIdServer + ", " + (getEigeneId()+3)%4 + ")");
+        }
+    }
+    else if (menuAktion == "fremdeHandkarteMenu") {
+        if (kontainer == "spielerObenLinksHandkarten") {
+            schaltflaeche.setAttribute("onclick", "fremdeOffeneKarteMenu(" + (getEigeneId()+1)%4 + ")");
+        }
+        else if (kontainer == "spielerObenRechtsHandkarten") {
+            schaltflaeche.setAttribute("onclick", "fremdeOffeneKarteMenu(" + (getEigeneId()+2)%4 + ")");
+        }
+        else if (kontainer == "spielerUntenRechtsHandkarten") {
+            schaltflaeche.setAttribute("onclick", "fremdeOffeneKarteMenu(" + (getEigeneId()+3)%4 + ")");
+        }
+    }
+    else {
+        schaltflaeche.setAttribute("onclick", menuAktion + "(" + kartenIdServer + ")");
+    }
 }
 
 function aufraeumenButton() {
@@ -474,6 +506,7 @@ function mitteAufraeumen() {
         const kartenId = mitte[i].split(";")[0].split("x")[0];
         karteBewegen(kartenId, "mitte", "ablagestapel" + getKartenArt(kartenId), "true", "x")
     }
+    kartenregionAktualisierenWrapper("mitte");
 }
 
 function ablagestapelAktualisieren(stapel) {

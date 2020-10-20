@@ -107,8 +107,8 @@ function karteBewegen(kartenId, von, nach, mitKindern, appendAn) {
     const xhr = new XMLHttpRequest();
     xhr.onload = function() {
         console.log(this.responseText);
-        kartenregionAktualisierenWrapper(getRegionName(von));
         kartenregionAktualisierenWrapper(getRegionName(nach));
+        kartenregionAktualisierenWrapper(getRegionName(von));
     }
     xhr.open("POST", "kartenBewegen.php");
     xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
