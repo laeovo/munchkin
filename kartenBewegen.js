@@ -73,7 +73,7 @@ function karteFlaggen(kartenId, neueFlag) {
             kartenregionAktualisierenWrapper("eigeneOffeneKarten");
         }
     }
-    xhr.open("POST", "kartenBewegen.php");
+    xhr.open("POST", "kartenFlaggen.php");
     xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     if (mitte.includes(kartenId.toString()) || mitte.includes(kartenId.toString() + "x")) {
         xhr.send("von=mitte&karte=" + kartenId + "&neueFlag=" + neueFlag);

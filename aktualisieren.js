@@ -350,6 +350,12 @@ function kartenregionAktualisieren(dateiname, klasse, kontainer, menuAktion) {
                     neueKarte.appendChild(schaltflaeche);
                     document.getElementById(kontainer).appendChild(neueKarte);
                 }
+                if (kartenLautServer[i].split("x").length == 2) {
+                    objektFlaggen(kartenIdServer, true, kontainer);
+                }
+                else {
+                    objektFlaggen(kartenIdServer, false, kontainer);
+                }
                 kartenLautBrowser.push(kartenLautServer[i]);
             }
         }
@@ -359,7 +365,7 @@ function kartenregionAktualisieren(dateiname, klasse, kontainer, menuAktion) {
             let kartenIdBrowser = kartenLautBrowser[i].split("x")[0];
             var karteExistiertNochAufServer = false;
             for (let j = 0; j < kartenLautServer.length; j++) {
-                let kartenIdServer = kartenLautServer[j].split("x");
+                let kartenIdServer = kartenLautServer[j].split("x")[0];
                 if (kartenIdBrowser == kartenIdServer) {
                     karteExistiertNochAufServer = true;
                     break;
@@ -391,20 +397,22 @@ function kartenregionAktualisieren(dateiname, klasse, kontainer, menuAktion) {
         // geflaggte Karten behandeln
         for (let i = 0; i < kartenLautBrowser.length; i++) {
             if (kartenLautServer.includes(kartenLautBrowser[i])) {
-                // Flag passt
+                // nichts zu tun
             }
             else if (kartenLautServer.includes(kartenLautBrowser[i] + "x")) {
                 // Karte ist auf dem Server geflaggt im Browser aber noch nicht
-                objektFlaggen(kartenLautBrowser[i], true);
+                objektFlaggen(kartenLautBrowser[i].split("x")[0], true, kontainer);
+                kartenLautBrowser[i] = kartenLautBrowser[i] + "x";
             }
             else if (kartenLautServer.includes(kartenLautBrowser[i].split("x")[0])) {
                 // Karte im Browser geflaggt, auf dem Server aber nicht mehr
-                objektFlaggen(kartenLautBrowser[i], false);
+                objektFlaggen(kartenLautBrowser[i].split("x")[0], false, kontainer);
+                kartenLautBrowser[i] = kartenLautBrowser[i].split("x")[0];
             }
             else {
+                console.log("Was ist denn mit den Flags los?!")
                 console.log("Kontainer: " + kontainer + ", Karten laut Browser: " + kartenLautBrowser);
                 console.log("Kontainer: " + kontainer + ", Karten laut Server: " + kartenLautServer);
-                console.log("Was ist denn mit den Flags los?!")
             }
         }
         
@@ -544,33 +552,12 @@ function autostop() {
     }, 60000*minuten);
 }
 
-function objektFlaggen(objekt, jaodernein) {
+function objektFlaggen(kartenId, jaodernein, kontainerId) {
     // TODO: richtig implementieren
-    var bild = objekt.children[0];
-    const kontainerId = objekt.parentNode.id;
     if (jaodernein) {
-        if (kontainerId == "eigeneOffeneKarten") {
-            bild.style.transform = "rotate(90deg)";
-            objekt.style.padding = "0px " + 0.3*breiteEigeneOffeneKarten + "px";
-        }
-        else if (kontainerId == "spielerObenLinksOffeneKarten") {
-            bild.style.transform = "rotate(90deg)";
-            objekt.style.padding = "0px " + 0.3*breiteSpielerObenLinksOffeneKarten + "px";
-        }
-        else if (kontainerId == "spielerObenRechtsOffeneKarten") {
-            bild.style.transform = "rotate(90deg)";
-            objekt.style.padding = "0px " + 0.3*breiteSpielerObenRechtsOffeneKarten + "px";
-        }
-        else if (kontainerId == "spielerUntenRechtsOffeneKarten") {
-            bild.style.transform = "rotate(90deg)";
-            objekt.style.padding = "0px " + 0.3*breiteSpielerUntenRechtsOffeneKarten + "px";
-        }
-        else if (kontainerId == "mitte") {
-            objekt.style.padding = "20px 0px 0px 0px";
-        }
+        document.getElementById(kartenId).style.opacity = "0.5";
     }
     else {
-        bild.style.transform = "rotate(0deg)";
-        objekt.style.padding = "0px";
+        document.getElementById(kartenId).style.opacity = "1";
     }
 }
