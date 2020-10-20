@@ -49,7 +49,7 @@ function ablagestapelMenu(vonStapel) {
     const xhr = new XMLHttpRequest();
     xhr.onload = function() {
         const data = this.responseText;
-        const karten = data.split(';');
+        const karten = data.split("/");
         if (data != "") {
             vordergrund = document.createElement("div");
             vordergrund.setAttribute("id", "vordergrund");
@@ -203,9 +203,9 @@ function karteAufMitspielerSpielenMenu(kartenId, positionVorher) {
         aufMitspielerSpielenMenuDiv.setAttribute("id", "buttonsKarteAufMitspielerSpielen");
         window.document.getElementById("buttonKarteAufMitspielerSpielen").appendChild(aufMitspielerSpielenMenuDiv);
         
-        buttonErstellen(spieler[(getEigeneId()+1)%4].split(";")[0], "KarteAnSpielerObenLinksAufMitspielerSpielen", "vordergrundEntfernen(), karteBewegen(" + kartenId + ", 'karten" + getEigeneId() + positionVorher + "', 'karten" + (getEigeneId()+1)%4 + "verdeckt', 'false', 'x')", "buttonsKarteAufMitspielerSpielen"); // TODO: Option, an Kartenspace anzuhängen
-        buttonErstellen(spieler[(getEigeneId()+2)%4].split(";")[0], "KarteAnSpielerObenRechtsAufMitspielerSpielen", "vordergrundEntfernen(), karteBewegen(" + kartenId + ", 'karten" + getEigeneId() + positionVorher + "', 'karten" + (getEigeneId()+2)%4 + "verdeckt', 'false', 'x')", "buttonsKarteAufMitspielerSpielen"); // TODO: Option, an Kartenspace anzuhängen
-        buttonErstellen(spieler[(getEigeneId()+3)%4].split(";")[0], "KarteAnSpielerUntenRechtsAufMitspielerSpielen", "vordergrundEntfernen(), karteBewegen(" + kartenId + ", 'karten" + getEigeneId() + positionVorher + "', 'karten" + (getEigeneId()+3)%4 + "verdeckt', 'false', 'x')", "buttonsKarteAufMitspielerSpielen"); // TODO: Option, an Kartenspace anzuhängen
+        buttonErstellen(spieler[(getEigeneId()+1)%4].split(";")[0], "KarteAnSpielerObenLinksAufMitspielerSpielen", "vordergrundEntfernen(), karteBewegen(" + kartenId + ", 'karten" + getEigeneId() + positionVorher + "', 'karten" + (getEigeneId()+1)%4 + "offen', 'false', 'x')", "buttonsKarteAufMitspielerSpielen"); // TODO: Option, an Kartenspace anzuhängen
+        buttonErstellen(spieler[(getEigeneId()+2)%4].split(";")[0], "KarteAnSpielerObenRechtsAufMitspielerSpielen", "vordergrundEntfernen(), karteBewegen(" + kartenId + ", 'karten" + getEigeneId() + positionVorher + "', 'karten" + (getEigeneId()+2)%4 + "offen', 'false', 'x')", "buttonsKarteAufMitspielerSpielen"); // TODO: Option, an Kartenspace anzuhängen
+        buttonErstellen(spieler[(getEigeneId()+3)%4].split(";")[0], "KarteAnSpielerUntenRechtsAufMitspielerSpielen", "vordergrundEntfernen(), karteBewegen(" + kartenId + ", 'karten" + getEigeneId() + positionVorher + "', 'karten" + (getEigeneId()+3)%4 + "offen', 'false', 'x')", "buttonsKarteAufMitspielerSpielen"); // TODO: Option, an Kartenspace anzuhängen
         
     };
     xhr.open("POST", "getDatei.php");

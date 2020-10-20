@@ -58,25 +58,8 @@ function handkarteKlauen(spielerId) {
             break;
     }
     const karte = verfuegbareKarten[getRandomInt(verfuegbareKarten.length)];
-        
-    const xhr = new XMLHttpRequest();
-    xhr.onload = function() {
-        console.log(this.responseText);
-        kartenregionAktualisierenWrapper("eigeneHandkarten");
-        
-        if ((spielerId-getEigeneId()+4)%4 == 1) {
-            kartenregionAktualisierenWrapper("handkartenObenLinks");
-        }
-        else if ((spielerId-getEigeneId()+4)%4 == 2) {
-            kartenregionAktualisierenWrapper("handkartenObenRechts");
-        }
-        else if ((spielerId-getEigeneId()+4)%4 == 3) {
-            kartenregionAktualisierenWrapper("handkartenUntenRechts");
-        }
-    }
-    xhr.open("POST", "kartenBewegen.php");
-    xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    xhr.send("von=karten" + spielerId + "verdeckt&nach=karten" + getEigeneId() + "verdeckt&karte=" + karte);
+    
+    karteBewegen(karte, "karten" + spielerId + "verdeckt", "karten" + getEigeneId() + "verdeckt", "false", "x");
 }
 
 function karteFlaggen(kartenId, neueFlag) {
@@ -115,7 +98,7 @@ function karteBewegen(kartenId, von, nach, mitKindern, appendAn) {
     xhr.send("von=" + von + "&nach=" + nach + "&karte=" + kartenId + "&mitKindern=" + mitKindern + "&append=" + appendAn);
 }
 
-function karteAnheften(childId, parentId) {
+function karteAnheften(childId, parentId) { // TODO: implementieren
     document.getElementById(parentId).appendChild(document.getElementById(childId));
     // Alle angehängten Karten flaggen
     var zuFlaggendeKarte = document.getElementById(childId);
