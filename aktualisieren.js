@@ -133,13 +133,13 @@ function getDateiname(region) {
         return "karten" + (getEigeneId()+3)%4 + "offen";
     }
     else {
-        console.log("Die Karte " + kartenId + " liegt in Region " + region + "... Joa, da stimmt irgendwas nicht");
+        console.log("Die Region " + region + " kenne ich nicht... Joa, da stimmt irgendwas nicht");
     }
 }
 
 function getRegion(kartenId) {
     if (document.getElementById(kartenId) == null) {
-        console.log("getRegion:: kartenId existiert auf dem Feld");
+        console.log("getRegion:: kartenId '" + kartenId + "' existiert nicht auf dem Feld");
         return "";
     }
     var region = kartenId;
@@ -385,6 +385,18 @@ function kartenregionAktualisieren(dateiname, klasse, kontainer, menuAktion) {
                     var neueKarte = document.createElement("div");
                     neueKarte.setAttribute("id", kartenIdServer);
                     neueKarte.setAttribute("class", "karte");
+                    if (kontainer == "eigeneOffeneKarten") {
+                        neueKarte.setAttribute("draggable", "true");
+                        neueKarte.setAttribute("ondragover", "ablegenErlauben(event)");
+                        neueKarte.setAttribute("ondrop", "ablegen(event)")
+                        neueKarte.setAttribute("ondragstart", "ziehen(event)");
+                    }
+                    else {
+                        neueKarte.setAttribute("draggable", "false");
+                        neueKarte.setAttribute("ondragover", "");
+                        neueKarte.setAttribute("ondrop", "")
+                        neueKarte.setAttribute("ondragstart", "");
+                    }
                     neueKarte.style.float = "left"; // TODO: Float automatisieren? --> evtl in style.css: .karte {float: left}
                     setzeKarteBild(neueKarte, kontainer, kartenIdServer);
                     neueKarte.style.width = "100px"; // TODO: generalisieren
