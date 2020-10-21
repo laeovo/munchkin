@@ -104,6 +104,51 @@ function getRegionName(dateiName) {
     }
 }
 
+function getDateiname(region) {
+    if (region == "mitte") {
+        return "mitte";
+    }
+    else if (region == "eigeneHandkarten") {
+        return "karten" + getEigeneId() + "verdeckt";
+    }
+    else if (region == "eigeneOffeneKarten") {
+        return "karten" + getEigeneId() + "offen";
+    }
+    else if (region == "spielerObenLinksHandkarten") {
+        return "karten" + (getEigeneId()+1)%4 + "verdeckt";
+    }
+    else if (region == "spielerObenLinksOffeneKarten") {
+        return "karten" + (getEigeneId()+1)%4 + "offen";
+    }
+    else if (region == "spielerObenRechtsHandkarten") {
+        return "karten" + (getEigeneId()+2)%4 + "verdeckt";
+    }
+    else if (region == "spielerObenRechtsOffeneKarten") {
+        return "karten" + (getEigeneId()+2)%4 + "offen";
+    }
+    else if (region == "spielerUntenRechtsHandkarten") {
+        return "karten" + (getEigeneId()+3)%4 + "verdeckt";
+    }
+    else if (region == "spielerUntenRechtsOffeneKarten") {
+        return "karten" + (getEigeneId()+3)%4 + "offen";
+    }
+    else {
+        console.log("Die Karte " + kartenId + " liegt in Region " + region + "... Joa, da stimmt irgendwas nicht");
+    }
+}
+
+function getRegion(kartenId) {
+    if (document.getElementById(kartenId) == null) {
+        console.log("getRegion:: kartenId existiert auf dem Feld");
+        return "";
+    }
+    var region = kartenId;
+    while (!isNaN(region)) {
+        region = document.getElementById(region).parentElement.id;
+    }
+    return region;
+}
+
 function karteIstGeflaggt(kartenId, kontainer) {
     for (var i = 0; i < kontainer.length; i++) {
         const karte = kontainer[i].split("x")[0];
@@ -417,6 +462,22 @@ function kartenregionAktualisieren(dateiname, klasse, kontainer, menuAktion) {
         }
         
         // Kartenspaces zusammenstellen und Reihenfolge fixen
+//        console.log("kontainer: " + kontainer + ", kartenspaces laut server: " + kartenspacesLautServer);
+        for (let i = 0; i < kartenspacesLautServer.length; i++) {
+            const kartenspace = kartenspacesLautServer[i].split(";");
+            for (let j = 0; j < kartenspace.length; j++) {
+                if (j == 0) {
+                    // der Region/dem Kontainer anhängen
+//                    console.log("kontainer = " + kontainer + ", j = " + j + ", kartenspace = " + kartenspace + ", kartenspace[0] = " + kartenspace[0]);
+                    document.getElementById(kontainer).appendChild(document.getElementById(kartenspace[0].split("x")[0]));
+                }
+                else {
+                    // der Parentkarte anhängen
+//                    console.log("kontainer = " + kontainer + ", j = " + j + ", kartenspace = " + kartenspace + ", kartenspace[j-1] = " + kartenspace[j-1]);
+                    document.getElementById(kartenspace[j-1].split("x")[0]).appendChild(document.getElementById(kartenspace[j].split("x")[0]));
+                }
+            }
+        }
         
         // speichern
         if (kontainer == "eigeneHandkarten") {
@@ -513,9 +574,9 @@ function aufraeumenButton() {
     window.document.getElementById("mitte").appendChild(button);
 }
 
-function mitteAufraeumen() {
+function mitteAufraeumen() { // TODO: --> kartenBewegen.js
     for (let i = 0; i < mitte.length; i++) {
-        const kartenId = mitte[i].split(";")[0].split("x")[0];
+        const kartenId = mitte[i].split(";")[0].split("x"); // TODO: von oben anfangen und die Karten je nach Art ablegen
         karteBewegen(kartenId, "mitte", "ablagestapel" + getKartenArt(kartenId), "true", "x")
     }
     kartenregionAktualisierenWrapper("mitte");
@@ -525,12 +586,12 @@ function ablagestapelAktualisieren(stapel) {
     const xhr = new XMLHttpRequest();
     xhr.onload = function() {
         const kartenString = this.responseText;
-        const karten = kartenString.split("/");
-        if (karten != "") { // Der Fall ohne Ablagestapel tritt nur am Anfang auf, da ansonsten immer mindestens fünf Karten pro Ablagestapel da liegen.
-            window.document.getElementById("ablagestapel" + stapel + "Bild").src = "karten/" + karten[karten.length-1] + ".jpg";
+        if (kartenString == "") {
+            window.document.getElementById("ablagestapel" + stapel + "Bild").src = "karten/leererAblagestapel.png";
         }
         else {
-            window.document.getElementById("ablagestapel" + stapel + "Bild").src = "karten/leererAblagestapel.png";
+            const karten = kartenString.split("/");
+            window.document.getElementById("ablagestapel" + stapel + "Bild").src = "karten/" + karten[karten.length-1] + ".jpg";
         }
     }
     xhr.open("POST", "getDatei.php");

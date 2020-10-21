@@ -98,15 +98,22 @@ function karteBewegen(kartenId, von, nach, mitKindern, appendAn) {
     xhr.send("von=" + von + "&nach=" + nach + "&karte=" + kartenId + "&mitKindern=" + mitKindern + "&append=" + appendAn);
 }
 
-function karteAnheften(childId, parentId) { // TODO: implementieren
-    document.getElementById(parentId).appendChild(document.getElementById(childId));
-    // Alle angehängten Karten flaggen
-    var zuFlaggendeKarte = document.getElementById(childId);
-    do {
-        const zuFlaggendeKarteId = zuFlaggendeKarte.id;
-        karteFlaggen(zuFlaggendeKarteId, "");
-        zuFlaggendeKarte = zuFlaggendeKarte.children[1];
-        
-    }
-    while (zuFlaggendeKarte != null);
+function karteAnheften(childId, parentId, mitKindern) {
+    const von = getDateiname(getRegion(childId.split("x")[0]));
+    const nach = getDateiname(getRegion(parentId.split("x")[0]));
+    karteBewegen(childId, von, nach, mitKindern, parentId);
 }
+
+// TODO: --> aktualisieren
+//function karteAnheften(childId, parentId) { // TODO: implementieren
+//    document.getElementById(parentId).appendChild(document.getElementById(childId));
+//    // Alle angehängten Karten flaggen
+//    var zuFlaggendeKarte = document.getElementById(childId);
+//    do {
+//        const zuFlaggendeKarteId = zuFlaggendeKarte.id;
+//        karteFlaggen(zuFlaggendeKarteId, "");
+//        zuFlaggendeKarte = zuFlaggendeKarte.children[1];
+//
+//    }
+//    while (zuFlaggendeKarte != null);
+//}

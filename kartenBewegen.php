@@ -7,6 +7,7 @@
         karte = Zahl in [0, $anzahlKartenGesamt-1]
         mitKindern = "true" / "false"
         append = Zahl (diese Karte muss in "nach" vorhanden sein) oder "x"
+        TODO: Parameter, der angibt, zwischen welchen Karten die neue Karte positioniert werden soll
      
      */
     
@@ -38,7 +39,7 @@
         else {
             for ($i = 0; $i < count($bisherigeKartenspacesVon); $i++) {
                 $kartenImKartenspace = explode(";", $bisherigeKartenspacesVon[$i]);
-                $kartenVonDiesemKartenspaceUebernommen = false;
+                $kartenVonDiesemKartenspaceUebernommen = false; // gibt an, ob im aktuellen Kartenspace schon Karten zu $neueKartenspacesVon hinzugefügt wurden. Ist nur eine Variable, um zu speichern, welches Trennzeichen später verwendet werden soll.
                 for ($j = 0; $j < count($kartenImKartenspace); $j++) {
                     if (explode("x", $kartenImKartenspace[$j])[0] == explode("x", $karte)[0]) {
                         // Die entsprechende Karte wurde im i-ten Kartenspace an j-ter Stelle gefunden
@@ -78,23 +79,27 @@
         $fpZiel = fopen($nachDatei, "a+");
         if (flock($fpZiel, LOCK_EX)) {
             $bisherigeKartenNach = fgets($fpZiel, 4096);
-            $karte = str_replace("x", "", $karte);
+            if ($von != $nach) {
+                $karte = str_replace("x", "", $karte);
+            }
             $parentKarte = $_POST["append"];
             if ($parentKarte != "x") {
                 echo "Karte soll angehängt werden, denn append ist '" . $_POST["append"] . "'\n";
-                $bisherigeKartenNach = str_replace($parentKarte, $parentKarte . ";" . $karte, $bisherigeKartenNach);
                 ftruncate($fpZiel, 0);
-                fwrite($fpZiel, $bisherigeKartenNach);
+                fwrite($fpZiel, str_replace($parentKarte, $parentKarte . ";" . $karte, $bisherigeKartenNach));
                 flock($fpZiel, LOCK_UN);
                 fclose($fpZiel);
             }
             else {
+                // Karte soll nicht an eine andere Karte angehängt werden
                 if ($nach == "ablagestapelTuer" || $nach == "ablagestapelSchatz" || count(explode("verdeckt", $nach)) == 2) {
+                    // In Handkarten oder Ablagestapel können keine Karten gestapelt werden, deswegen werden alle möglichen Kinder hier einzeln an die Regionen angehängt
                     for ($i = 0; $i < count(explode(";", $karte)); $i++) {
-                        if ($bisherigeKartenNach != "") { // TODO: das wird nicht funktionieren, hier fehlen Semikolons...
+                        if ($bisherigeKartenNach != "") {
                             fwrite($fpZiel, "/");
                         }
                         fwrite($fpZiel, explode(";", $karte)[$i]);
+                        $bisherigeKartenNach .= explode(";", $karte)[$i]; // wird gebraucht, damit beim zweiten Durchlauf ein "/" geschrieben wird.
                     }
                 }
                 else {
