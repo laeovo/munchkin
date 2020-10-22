@@ -2,8 +2,6 @@ function getRandomInt(max) {
     return Math.floor(Math.random() * Math.floor(max));
 }
 
-// TODO: Diese Funktionn sehen alle gleich aus!
-
 function vomStapelZiehen(stapel, offenOderVerdeckt) {
     const xhr = new XMLHttpRequest();
     xhr.onload = function() {
@@ -23,22 +21,6 @@ function vomStapelZiehen(stapel, offenOderVerdeckt) {
     else {
         xhr.send("von=nachziehstapel&stapel=" + stapel + "&nach=karten" + getEigeneId() + "verdeckt&append=x&mitKindern=false");
     }
-}
-
-function tuerkarteVerdecktZiehen() {
-    vomStapelZiehen("Tuer", "verdeckt");
-}
-
-function tuerkarteOffenZiehen() {
-    vomStapelZiehen("Tuer", "offen");
-}
-
-function schatzkarteVerdecktZiehen() {
-    vomStapelZiehen("Schatz", "verdeckt");
-}
-
-function schatzkarteOffenZiehen() {
-    vomStapelZiehen("Schatz", "offen");
 }
 
 function handkarteKlauen(spielerId) {
@@ -104,7 +86,7 @@ function karteAnheften(childId, parentId, mitKindern) {
     karteBewegen(childId, von, nach, mitKindern, parentId);
 }
 
-function mitteAufraeumen() { // TODO: --> kartenBewegen.js
+function mitteAufraeumen() {
     for (let i = 0; i < mitte.length; i++) {
         const kartenspace = mitte[i];
         const karten = kartenspace.split(";");

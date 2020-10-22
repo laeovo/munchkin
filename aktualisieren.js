@@ -426,8 +426,6 @@ function kartenregionAktualisieren(dateiname, klasse, kontainer) {
             }
         }
         
-        // TODO: Hier könnte ein Check nicht schaden, ob im Browser und auf dem Server - bis auf Flags - die selben Karten existieren
-        
         // geflaggte Karten behandeln
         for (let i = 0; i < kartenLautBrowser.length; i++) {
             if (kartenLautServer.includes(kartenLautBrowser[i])) {
@@ -513,7 +511,7 @@ function erzeugeKarte(kartenId, kontainer) {
     var neueKarte = document.createElement("div");
     neueKarte.setAttribute("id", kartenId);
     neueKarte.setAttribute("class", "karte");
-    if (kontainer.split("Handkarten").length != 2) { // TODO: droppen nur bei anderen Karten erlauben. Vielleicht sollte man 
+    if (kontainer.split("Handkarten").length != 2) { // TODO: droppen nur bei anderen Karten erlauben.
         neueKarte.setAttribute("draggable", "true");
         neueKarte.setAttribute("ondragover", "ablegenErlauben(event)");
         neueKarte.setAttribute("ondrop", "ablegen(event)")
