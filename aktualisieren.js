@@ -457,11 +457,13 @@ function kartenregionAktualisieren(dateiname, kontainer) {
                     // der Region/dem Kontainer anhängen
 //                    console.log("kontainer = " + kontainer + ", j = " + j + ", kartenspace = " + kartenspace + ", kartenspace[0] = " + kartenspace[0]);
                     document.getElementById(kontainer).appendChild(document.getElementById(kartenspace[0].split("x")[0]));
+                    document.getElementById(kartenspace[j].split("x")[0]).setAttribute("class", "karte");
                 }
                 else {
                     // der Parentkarte anhängen
 //                    console.log("kontainer = " + kontainer + ", j = " + j + ", kartenspace = " + kartenspace + ", kartenspace[j-1] = " + kartenspace[j-1]);
                     document.getElementById(kartenspace[j-1].split("x")[0]).appendChild(document.getElementById(kartenspace[j].split("x")[0]));
+                    document.getElementById(kartenspace[j].split("x")[0]).setAttribute("class", "karte angehaengteKarte");
                 }
             }
         }
@@ -513,7 +515,7 @@ function erzeugeKarte(kartenId, kontainer) {
     neueKarte.setAttribute("class", "karte");
     if (kontainer.split("Handkarten").length != 2) { // TODO: droppen nur bei anderen Karten erlauben.
         neueKarte.setAttribute("draggable", "true");
-        neueKarte.setAttribute("ondragover", "ablegenErlauben(event)");
+        neueKarte.setAttribute("ondragover", "ablegenErlauben(event)"); // TODO: Karte verdunkeln
         neueKarte.setAttribute("ondrop", "ablegen(event)")
         neueKarte.setAttribute("ondragstart", "ziehen(event)");
     }
@@ -523,7 +525,6 @@ function erzeugeKarte(kartenId, kontainer) {
         neueKarte.setAttribute("ondrop", "")
         neueKarte.setAttribute("ondragstart", "");
     }
-    neueKarte.style.float = "left"; // TODO: Float automatisieren? --> evtl in style.css: .karte {float: left}
     schaltflaeche = document.createElement("img");
     schaltflaeche.setAttribute("class", "kartenSchaltflaeche");
     schaltflaeche.setAttribute("width", "100");

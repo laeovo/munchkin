@@ -87,7 +87,7 @@ function hintergrundErstellen() {
     return hintergrund;
 }
 
-function leerenVordergrundErstellen(position) {
+function leerenVordergrundErstellen(position) { // TODO: umbenennen
     // position ist hier eine Zahl in [1,3]; 1 = oben links, 2 = oben rechts, 3 = unten rechts
     vordergrund = document.createElement("div");
     vordergrund.setAttribute("id", "vordergrund");
@@ -128,7 +128,6 @@ function vordergrundErstellen(kartenId) {
     grosseKarteBild = document.createElement("img");
     grosseKarteBild.src = "karten/" + kartenId + ".jpg";
     grosseKarteBild.width = "375";
-    grosseKarteBild.setAttribute("class", "karte");
     
     grosseKarteBildDiv.appendChild(grosseKarteBild);
     grosseKarteBildDiv.appendChild(buttonDiv);
