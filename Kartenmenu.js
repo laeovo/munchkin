@@ -1,4 +1,4 @@
-function handkarteMenu(kartenId) {
+function eigeneHandkarteMenu(kartenId) {
     vordergrundErstellen(kartenId);
     buttonErstellen("Karte in die Mitte spielen", "KarteSpielen", "vordergrundEntfernen(), karteBewegen(" + kartenId + ", 'karten" + getEigeneId() + "verdeckt', 'mitte', 'false', 'x')", "buttons"); // TODO: Option, die Kinder mitzunehmen
     buttonErstellen("Karte ablegen", "KarteAblegen", "vordergrundEntfernen(), karteBewegen(" + kartenId + ", 'karten" + getEigeneId() + "verdeckt', 'ablagestapel" + getKartenArt(kartenId) + "', 'false', 'x')", "buttons");

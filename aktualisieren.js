@@ -254,31 +254,31 @@ function kartenAktualisieren() {
 
 function kartenregionAktualisierenWrapper(region) {
     if (region == "eigeneHandkarten") {
-        kartenregionAktualisieren("karten" + getEigeneId() + "verdeckt.txt", "eigeneHandkarte", "eigeneHandkarten", "handkarteMenu");
+        kartenregionAktualisieren("karten" + getEigeneId() + "verdeckt.txt", "eigeneHandkarte", "eigeneHandkarten");
     }
     else if (region == "eigeneOffeneKarten") {
-        kartenregionAktualisieren("karten" + getEigeneId() + "offen.txt", "eigeneOffeneKarte", "eigeneOffeneKarten", "eigeneOffeneKarteMenu");
+        kartenregionAktualisieren("karten" + getEigeneId() + "offen.txt", "eigeneOffeneKarte", "eigeneOffeneKarten");
     }
     else if (region == "spielerObenLinksHandkarten") {
-        kartenregionAktualisieren("karten" + (getEigeneId()+1)%4 + "verdeckt.txt", "spielerObenLinksHandkarte", "spielerObenLinksHandkarten", "fremdeHandkarteMenu");
+        kartenregionAktualisieren("karten" + (getEigeneId()+1)%4 + "verdeckt.txt", "spielerObenLinksHandkarte", "spielerObenLinksHandkarten");
     }
     else if (region == "spielerObenLinksOffeneKarten") {
-        kartenregionAktualisieren("karten" + (getEigeneId()+1)%4 + "offen.txt", "spielerObenLinksOffeneKarte", "spielerObenLinksOffeneKarten", "fremdeOffeneKarteMenu");
+        kartenregionAktualisieren("karten" + (getEigeneId()+1)%4 + "offen.txt", "spielerObenLinksOffeneKarte", "spielerObenLinksOffeneKarten");
     }
     else if (region == "spielerObenRechtsHandkarten") {
-        kartenregionAktualisieren("karten" + (getEigeneId()+2)%4 + "verdeckt.txt", "spielerObenRechtsHandkarte", "spielerObenRechtsHandkarten", "fremdeHandkarteMenu");
+        kartenregionAktualisieren("karten" + (getEigeneId()+2)%4 + "verdeckt.txt", "spielerObenRechtsHandkarte", "spielerObenRechtsHandkarten");
     }
     else if (region == "spielerObenRechtsOffeneKarten") {
-        kartenregionAktualisieren("karten" + (getEigeneId()+2)%4 + "offen.txt", "spielerObenRechtsOffeneKarte", "spielerObenRechtsOffeneKarten", "fremdeOffeneKarteMenu");
+        kartenregionAktualisieren("karten" + (getEigeneId()+2)%4 + "offen.txt", "spielerObenRechtsOffeneKarte", "spielerObenRechtsOffeneKarten");
     }
     else if (region == "spielerUntenRechtsHandkarten") {
-        kartenregionAktualisieren("karten" + (getEigeneId()+3)%4 + "verdeckt.txt", "spielerUntenRechtsHandkarte", "spielerUntenRechtsHandkarten", "fremdeHandkarteMenu");
+        kartenregionAktualisieren("karten" + (getEigeneId()+3)%4 + "verdeckt.txt", "spielerUntenRechtsHandkarte", "spielerUntenRechtsHandkarten");
     }
     else if (region == "spielerUntenRechtsOffeneKarten") {
-        kartenregionAktualisieren("karten" + (getEigeneId()+3)%4 + "offen.txt", "spielerUntenRechtsOffeneKarte", "spielerUntenRechtsOffeneKarten", "fremdeOffeneKarteMenu");
+        kartenregionAktualisieren("karten" + (getEigeneId()+3)%4 + "offen.txt", "spielerUntenRechtsOffeneKarte", "spielerUntenRechtsOffeneKarten");
     }
     else if (region == "mitte") {
-        kartenregionAktualisieren("mitte.txt", "mitteKarte", "mitte", "mitteKarteMenu");
+        kartenregionAktualisieren("mitte.txt", "mitteKarte", "mitte");
     }
     else if (region == "nachziehstapelTuer") {
         // nichts zu tun
@@ -297,7 +297,7 @@ function kartenregionAktualisierenWrapper(region) {
     }
 }
 
-function kartenregionAktualisieren(dateiname, klasse, kontainer, menuAktion) {
+function kartenregionAktualisieren(dateiname, klasse, kontainer) {
     const xhr = new XMLHttpRequest();
     xhr.onload = function() {
 //        console.log(this.responseText);
@@ -375,37 +375,14 @@ function kartenregionAktualisieren(dateiname, klasse, kontainer, menuAktion) {
                         karte.parentElement.appendChild(karte.children[1]);
                     }
                     let schaltflaeche = karte.children[0];
-                    setzeSchaltflaecheOnclick(schaltflaeche, kontainer, menuAktion, kartenIdServer);
+                    setzeKarteOnclick(schaltflaeche, kontainer, kartenIdServer);
                     setzeKarteBild(karte, kontainer, kartenIdServer);
                     document.getElementById(kontainer).appendChild(karte);
                 }
                 else {
 //                    console.log("Die karte " + kartenIdServer + " existiert noch nicht, wird also neu erzeugt!");
                     // Karte erzeugen und erstmal dem Kontainer anhängen
-                    var neueKarte = document.createElement("div");
-                    neueKarte.setAttribute("id", kartenIdServer);
-                    neueKarte.setAttribute("class", "karte");
-                    if (kontainer.split("Handkarten").length != 2) {
-                        neueKarte.setAttribute("draggable", "true");
-                        neueKarte.setAttribute("ondragover", "ablegenErlauben(event)");
-                        neueKarte.setAttribute("ondrop", "ablegen(event)")
-                        neueKarte.setAttribute("ondragstart", "ziehen(event)");
-                    }
-                    else {
-                        neueKarte.setAttribute("draggable", "false");
-                        neueKarte.setAttribute("ondragover", "");
-                        neueKarte.setAttribute("ondrop", "")
-                        neueKarte.setAttribute("ondragstart", "");
-                    }
-                    neueKarte.style.float = "left"; // TODO: Float automatisieren? --> evtl in style.css: .karte {float: left}
-                    setzeKarteBild(neueKarte, kontainer, kartenIdServer);
-                    neueKarte.style.width = "100px"; // TODO: generalisieren
-                    neueKarte.style.height = "160px";
-                    schaltflaeche = document.createElement("div"); // TODO: Schalfläche doch lieber als Bild? Könnte man dann leichter drehen.. oder ein Bild dahinter, damit man nicht mit css::background-image arbeiten muss
-                    schaltflaeche.setAttribute("class", "kartenSchaltflaeche");
-                    setzeSchaltflaecheOnclick(schaltflaeche, kontainer, menuAktion, kartenIdServer)
-                    neueKarte.appendChild(schaltflaeche);
-                    document.getElementById(kontainer).appendChild(neueKarte);
+                    document.getElementById(kontainer).appendChild(erzeugeKarte(kartenIdServer, kontainer));
                 }
                 if (kartenLautServer[i].split("x").length == 2) {
                     objektFlaggen(kartenIdServer, true, kontainer);
@@ -532,31 +509,62 @@ function kartenregionAktualisieren(dateiname, klasse, kontainer, menuAktion) {
     xhr.send("datei=" + "3" + dateiname);
 }
 
-function setzeSchaltflaecheOnclick(schaltflaeche, kontainer, menuAktion, kartenId) {
-    if (menuAktion == "fremdeOffeneKarteMenu") {
-        if (kontainer == "spielerObenLinksOffeneKarten") {
-            schaltflaeche.setAttribute("onclick", "fremdeOffeneKarteMenu(" + kartenId + ", " + (getEigeneId()+1)%4 + ")");
-        }
-        else if (kontainer == "spielerObenRechtsOffeneKarten") {
-            schaltflaeche.setAttribute("onclick", "fremdeOffeneKarteMenu(" + kartenId + ", " + (getEigeneId()+2)%4 + ")");
-        }
-        else if (kontainer == "spielerUntenRechtsOffeneKarten") {
-            schaltflaeche.setAttribute("onclick", "fremdeOffeneKarteMenu(" + kartenId + ", " + (getEigeneId()+3)%4 + ")");
-        }
-    }
-    else if (menuAktion == "fremdeHandkarteMenu") {
-        if (kontainer == "spielerObenLinksHandkarten") {
-            schaltflaeche.setAttribute("onclick", "fremdeHandkarteMenu(" + (getEigeneId()+1)%4 + ")");
-        }
-        else if (kontainer == "spielerObenRechtsHandkarten") {
-            schaltflaeche.setAttribute("onclick", "fremdeHandkarteMenu(" + (getEigeneId()+2)%4 + ")");
-        }
-        else if (kontainer == "spielerUntenRechtsHandkarten") {
-            schaltflaeche.setAttribute("onclick", "fremdeHandkarteMenu(" + (getEigeneId()+3)%4 + ")");
-        }
+function erzeugeKarte(kartenId, kontainer) {
+    var neueKarte = document.createElement("div");
+    neueKarte.setAttribute("id", kartenId);
+    neueKarte.setAttribute("class", "karte");
+    if (kontainer.split("Handkarten").length != 2) { // TODO: droppen nur bei anderen Karten erlauben. Vielleicht sollte man 
+        neueKarte.setAttribute("draggable", "true");
+        neueKarte.setAttribute("ondragover", "ablegenErlauben(event)");
+        neueKarte.setAttribute("ondrop", "ablegen(event)")
+        neueKarte.setAttribute("ondragstart", "ziehen(event)");
     }
     else {
-        schaltflaeche.setAttribute("onclick", menuAktion + "(" + kartenId + ")");
+        neueKarte.setAttribute("draggable", "false");
+        neueKarte.setAttribute("ondragover", "");
+        neueKarte.setAttribute("ondrop", "")
+        neueKarte.setAttribute("ondragstart", "");
+    }
+    neueKarte.style.float = "left"; // TODO: Float automatisieren? --> evtl in style.css: .karte {float: left}
+    schaltflaeche = document.createElement("img");
+    schaltflaeche.setAttribute("class", "kartenSchaltflaeche");
+    schaltflaeche.setAttribute("width", "100");
+    setzeKarteOnclick(schaltflaeche, kontainer, kartenId)
+    neueKarte.appendChild(schaltflaeche);
+    setzeKarteBild(neueKarte, kontainer, kartenId);
+    return neueKarte;
+}
+
+function setzeKarteOnclick(schaltflaeche, kontainer, kartenId) {
+    if (kontainer == "eigeneHandkarten") {
+        schaltflaeche.setAttribute("onclick", "eigeneHandkarteMenu(" + kartenId + ")");
+    }
+    else if (kontainer == "eigeneOffeneKarten") {
+        schaltflaeche.setAttribute("onclick", "eigeneOffeneKarteMenu(" + kartenId + ")");
+    }
+    else if (kontainer == "spielerObenLinksHandkarten") {
+        schaltflaeche.setAttribute("onclick", "fremdeHandkarteMenu(" + (getEigeneId()+1)%4 + ")");
+    }
+    else if (kontainer == "spielerObenLinksOffeneKarten") {
+        schaltflaeche.setAttribute("onclick", "fremdeOffeneKarteMenu(" + kartenId + ", " + (getEigeneId()+1)%4 + ")");
+    }
+    else if (kontainer == "spielerObenRechtsHandkarten") {
+        schaltflaeche.setAttribute("onclick", "fremdeHandkarteMenu(" + (getEigeneId()+2)%4 + ")");
+    }
+    else if (kontainer == "spielerObenRechtsOffeneKarten") {
+        schaltflaeche.setAttribute("onclick", "fremdeOffeneKarteMenu(" + kartenId + ", " + (getEigeneId()+2)%4 + ")");
+    }
+    else if (kontainer == "spielerUntenRechtsHandkarten") {
+        schaltflaeche.setAttribute("onclick", "fremdeHandkarteMenu(" + (getEigeneId()+3)%4 + ")");
+    }
+    else if (kontainer == "spielerUntenRechtsOffeneKarten") {
+        schaltflaeche.setAttribute("onclick", "fremdeOffeneKarteMenu(" + kartenId + ", " + (getEigeneId()+3)%4 + ")");
+    }
+    else if (kontainer == "mitte") {
+        schaltflaeche.setAttribute("onclick", "mitteKarteMenu(" + kartenId + ")");
+    }
+    else {
+        console.log("Für den Kontainer '" + kontainer + "' ist kein Menu vorgesehen");
     }
 }
 
@@ -564,14 +572,14 @@ function setzeKarteBild(karte, kontainer, kartenId) {
     if (kontainer.split("Handkarten").length == 2 && kontainer != "eigeneHandkarten") {
         // Es handelt sich beim Kontainer um fremde Handkarten
         if (istTuerkarte(kartenId)) {
-            karte.style.backgroundImage = "url('karten/tuerkarte.jpg')";
+            karte.children[0].src = "karten/tuerkarte.jpg";
         }
         else {
-            karte.style.backgroundImage = "url('karten/schatzkarte.jpg')";
+            karte.children[0].src = "karten/schatzkarte.jpg";
         }
     }
     else {
-        karte.style.backgroundImage = "url('karten/" + kartenId + ".jpg')";
+        karte.children[0].src = "karten/" + kartenId + ".jpg";
     }
 }
 

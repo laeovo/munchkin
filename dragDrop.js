@@ -3,6 +3,7 @@ function ziehen(ev) {
 }
 
 function ablegenErlauben(ev) {
+    // TODO: Eine Karte darf nicht auf sich selber gelegt werden können
     ev.preventDefault();
 }
 

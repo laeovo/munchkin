@@ -7,17 +7,14 @@ body {
 }
 
 .kartenSchaltflaeche {
-    width: 100%;
-    height: 100%;
     position: relative;
     top: 0px;
     left: 0px;
-    background-color: rgba(0, 0, 0, 0);
     cursor: pointer;
 }
 
 .kartenSchaltflaeche:hover {
-    background-color: rgba(0, 0, 0, 0.25);
+    filter: brightness(80%);
 }
 
 .karte {
