@@ -19,16 +19,8 @@ body {
 
 .karte {
     position: relative;
-    top: -80%;
+    top: 20%;
     padding: 0px;
-}
-
-.eigeneHandkarte, .eigeneOffeneKarte, .spielerObenLinksHandkarte, .spielerObenLinksOffeneKarte, .mitteKarte {
-    float: left;
-}
-
-.spielerObenRechtsHandkarte, .spielerObenRechtsOffeneKarte, .spielerUntenRechtsHandkarte, .spielerUntenRechtssOffeneKarte {
-    float: right;
 }
 
 #eigeneHandkarten, #eigeneOffeneKarten, #spielerObenLinksHandkarten, #spielerObenLinksOffeneKarten, #spielerObenRechtsHandkarten, #spielerObenRechtsOffeneKarten, #spielerUntenRechtsHandkarten, #spielerUntenRechtsOffeneKarten, #mitte {

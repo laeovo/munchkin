@@ -254,31 +254,31 @@ function kartenAktualisieren() {
 
 function kartenregionAktualisierenWrapper(region) {
     if (region == "eigeneHandkarten") {
-        kartenregionAktualisieren("karten" + getEigeneId() + "verdeckt.txt", "eigeneHandkarte", "eigeneHandkarten");
+        kartenregionAktualisieren("karten" + getEigeneId() + "verdeckt.txt", "eigeneHandkarten");
     }
     else if (region == "eigeneOffeneKarten") {
-        kartenregionAktualisieren("karten" + getEigeneId() + "offen.txt", "eigeneOffeneKarte", "eigeneOffeneKarten");
+        kartenregionAktualisieren("karten" + getEigeneId() + "offen.txt", "eigeneOffeneKarten");
     }
     else if (region == "spielerObenLinksHandkarten") {
-        kartenregionAktualisieren("karten" + (getEigeneId()+1)%4 + "verdeckt.txt", "spielerObenLinksHandkarte", "spielerObenLinksHandkarten");
+        kartenregionAktualisieren("karten" + (getEigeneId()+1)%4 + "verdeckt.txt", "spielerObenLinksHandkarten");
     }
     else if (region == "spielerObenLinksOffeneKarten") {
-        kartenregionAktualisieren("karten" + (getEigeneId()+1)%4 + "offen.txt", "spielerObenLinksOffeneKarte", "spielerObenLinksOffeneKarten");
+        kartenregionAktualisieren("karten" + (getEigeneId()+1)%4 + "offen.txt", "spielerObenLinksOffeneKarten");
     }
     else if (region == "spielerObenRechtsHandkarten") {
-        kartenregionAktualisieren("karten" + (getEigeneId()+2)%4 + "verdeckt.txt", "spielerObenRechtsHandkarte", "spielerObenRechtsHandkarten");
+        kartenregionAktualisieren("karten" + (getEigeneId()+2)%4 + "verdeckt.txt", "spielerObenRechtsHandkarten");
     }
     else if (region == "spielerObenRechtsOffeneKarten") {
-        kartenregionAktualisieren("karten" + (getEigeneId()+2)%4 + "offen.txt", "spielerObenRechtsOffeneKarte", "spielerObenRechtsOffeneKarten");
+        kartenregionAktualisieren("karten" + (getEigeneId()+2)%4 + "offen.txt", "spielerObenRechtsOffeneKarten");
     }
     else if (region == "spielerUntenRechtsHandkarten") {
-        kartenregionAktualisieren("karten" + (getEigeneId()+3)%4 + "verdeckt.txt", "spielerUntenRechtsHandkarte", "spielerUntenRechtsHandkarten");
+        kartenregionAktualisieren("karten" + (getEigeneId()+3)%4 + "verdeckt.txt", "spielerUntenRechtsHandkarten");
     }
     else if (region == "spielerUntenRechtsOffeneKarten") {
-        kartenregionAktualisieren("karten" + (getEigeneId()+3)%4 + "offen.txt", "spielerUntenRechtsOffeneKarte", "spielerUntenRechtsOffeneKarten");
+        kartenregionAktualisieren("karten" + (getEigeneId()+3)%4 + "offen.txt", "spielerUntenRechtsOffeneKarten");
     }
     else if (region == "mitte") {
-        kartenregionAktualisieren("mitte.txt", "mitteKarte", "mitte");
+        kartenregionAktualisieren("mitte.txt", "mitte");
     }
     else if (region == "nachziehstapelTuer") {
         // nichts zu tun
@@ -297,7 +297,7 @@ function kartenregionAktualisierenWrapper(region) {
     }
 }
 
-function kartenregionAktualisieren(dateiname, klasse, kontainer) {
+function kartenregionAktualisieren(dateiname, kontainer) {
     const xhr = new XMLHttpRequest();
     xhr.onload = function() {
 //        console.log(this.responseText);
