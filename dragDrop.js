@@ -1,5 +1,5 @@
 function ziehen(ev) {
-    ev.dataTransfer.setData("gedraggteKarte", ev.target.id);
+    ev.dataTransfer.setData("gedraggteKarte", ev.target.parentElement.id);
 }
 
 function ablegenErlauben(ev) {
@@ -12,7 +12,7 @@ function ablegen(ev) {
     var childId = ev.dataTransfer.getData("gedraggteKarte");
     var parentKarte = ev.target.parentElement;
     var parentId = parentKarte.id;
-//    console.log("ablegen:: childId = " + childId + ", parentId = " + parentId);
-    karteAnheften(childId, parentId, "true");
+    console.log("ablegen:: childId = " + childId + ", parentId = " + parentId);
+    karteAnheften(childId, parentId, "true"); // TODO: Option für Kinder
 }
 

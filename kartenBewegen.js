@@ -92,7 +92,7 @@ function mitteAufraeumen() {
         const karten = kartenspace.split(";");
         for (j = 0; j < karten.length; j++) {
             const karte = karten[karten.length-j-1];
-            const kartenId = karte.split("x")[0]; // TODO: von oben anfangen und die Karten je nach Art ablegen
+            const kartenId = karte.split("x")[0];
             karteBewegen(kartenId, "mitte", "ablagestapel" + getKartenArt(kartenId), "false", "x")
         }
     }

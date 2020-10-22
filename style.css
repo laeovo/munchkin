@@ -19,10 +19,8 @@ body {
 
 .karte {
     position: relative;
-    padding: 0px;
     top: -80%;
-    background-size: cover;
-    image-rendering: -webkit-optimize-contrast;
+    padding: 0px;
 }
 
 .eigeneHandkarte, .eigeneOffeneKarte, .spielerObenLinksHandkarte, .spielerObenLinksOffeneKarte, .mitteKarte {
