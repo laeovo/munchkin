@@ -104,6 +104,19 @@ function karteAnheften(childId, parentId, mitKindern) {
     karteBewegen(childId, von, nach, mitKindern, parentId);
 }
 
+function mitteAufraeumen() { // TODO: --> kartenBewegen.js
+    for (let i = 0; i < mitte.length; i++) {
+        const kartenspace = mitte[i];
+        const karten = kartenspace.split(";");
+        for (j = 0; j < karten.length; j++) {
+            const karte = karten[karten.length-j-1];
+            const kartenId = karte.split("x")[0]; // TODO: von oben anfangen und die Karten je nach Art ablegen
+            karteBewegen(kartenId, "mitte", "ablagestapel" + getKartenArt(kartenId), "false", "x")
+        }
+    }
+    kartenregionAktualisierenWrapper("mitte");
+}
+
 // TODO: --> aktualisieren
 //function karteAnheften(childId, parentId) { // TODO: implementieren
 //    document.getElementById(parentId).appendChild(document.getElementById(childId));

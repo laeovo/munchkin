@@ -594,14 +594,6 @@ function aufraeumenButton() {
     window.document.getElementById("mitte").appendChild(button);
 }
 
-function mitteAufraeumen() { // TODO: --> kartenBewegen.js
-    for (let i = 0; i < mitte.length; i++) {
-        const kartenId = mitte[i].split(";")[0].split("x"); // TODO: von oben anfangen und die Karten je nach Art ablegen
-        karteBewegen(kartenId, "mitte", "ablagestapel" + getKartenArt(kartenId), "true", "x")
-    }
-    kartenregionAktualisierenWrapper("mitte");
-}
-
 function ablagestapelAktualisieren(stapel) {
     const xhr = new XMLHttpRequest();
     xhr.onload = function() {
@@ -633,12 +625,21 @@ function autostop() {
     }, 60000*minuten);
 }
 
-function objektFlaggen(kartenId, jaodernein, kontainerId) {
-    // TODO: richtig implementieren
+function objektFlaggen(kartenId, jaodernein, kontainer) {
+    var schaltflaeche = document.getElementById(kartenId).children[0];
     if (jaodernein) {
-        document.getElementById(kartenId).style.opacity = "0.5";
+        if (kontainer == "mitte") {
+            schaltflaeche.style.padding = "10px 0px 0px 0px";
+        }
+        else if (kontainer.split("ffeneKarten").length == 2) {
+            schaltflaeche.style.transform = "rotate(90deg)";
+        }
+        else {
+            console.log("Die Karte " + kartenId + " im Kontainer " + kontainer + " sollte eigentlich nicht geflaggt werden können");
+        }
     }
     else {
-        document.getElementById(kartenId).style.opacity = "1";
+        schaltflaeche.style.padding = "0px";
+        schaltflaeche.style.transform = "";
     }
 }
