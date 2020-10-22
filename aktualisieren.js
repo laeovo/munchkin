@@ -385,7 +385,7 @@ function kartenregionAktualisieren(dateiname, klasse, kontainer, menuAktion) {
                     var neueKarte = document.createElement("div");
                     neueKarte.setAttribute("id", kartenIdServer);
                     neueKarte.setAttribute("class", "karte");
-                    if (kontainer == "eigeneOffeneKarten") {
+                    if (kontainer.split("Handkarten").length != 2) {
                         neueKarte.setAttribute("draggable", "true");
                         neueKarte.setAttribute("ondragover", "ablegenErlauben(event)");
                         neueKarte.setAttribute("ondrop", "ablegen(event)")

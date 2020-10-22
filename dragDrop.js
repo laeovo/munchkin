@@ -11,8 +11,7 @@ function ablegen(ev) {
     var childId = ev.dataTransfer.getData("gedraggteKarte");
     var parentKarte = ev.target.parentElement;
     var parentId = parentKarte.id;
-    console.log("ablegen:: childId = " + childId + ", parentId = " + parentId);
+//    console.log("ablegen:: childId = " + childId + ", parentId = " + parentId);
     karteAnheften(childId, parentId, "true");
-    parentKarte.appendChild(document.getElementById(childId));
 }
 
