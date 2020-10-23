@@ -22,7 +22,7 @@ function ablegen(ev) {
     else {
         if (childId != parentId) {
             console.log("ablegen:: childId = " + childId + ", parentId = " + parentId);
-            karteAnheften(childId, parentId, "true"); // TODO: Option für Kinder
+            karteAnheften(childId, parentId, "false"); // TODO: Option für Kinder, aber nur wenn parentId kein Kind (oder Enkelkind) von ChildId ist
         }
         else {
             console.log("Die Karte " + childId + " kann nicht an sich selbst angeheftet werden");
