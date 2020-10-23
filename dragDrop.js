@@ -15,7 +15,7 @@ function ablegen(ev) {
     }
     var parentKarte = ev.target.parentElement;
     var parentId = parentKarte.id;
-    console.log("ablegen:: childId = " + childId + ", parentId = " + parentId);
+//    console.log("ablegen:: childId = " + childId + ", parentId = " + parentId);
     if (parentId == "ablagestapelTuer" || parentId == "ablagestapelSchatz") {
         // Karte wird abgelegt
         karteBewegen(childId, getDateiname(getRegion(childId)), "ablagestapel", "x");

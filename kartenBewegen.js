@@ -69,7 +69,6 @@ function karteFlaggen(kartenId, neueFlag) {
 }
 
 function karteBewegen(kartenId, von, nach, appendAn) {
-    console.log("Hier wird jetzt mal geprüft!");
     const region = getRegion(kartenId);
     if (region.split("Handkarten").length == 2) {
         // Quellregion ist eine Handkartenregion, da gibts keine Kinder
