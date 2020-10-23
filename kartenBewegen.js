@@ -83,6 +83,7 @@ function karteBewegen(kartenId, von, nach, appendAn) {
         karteBewegenOhneCheck(kartenId, von, nach, "false", appendAn);
     }
     else {
+        // TODO: Style, die Buttons sollen in der Mitte sein
         var hintergrund = document.createElement("div");
         hintergrund.setAttribute("id", "kinderOption");
         hintergrund.setAttribute("style", "position: fixed; top: 0px; left: 0px; width: 100%; height: 100%; background-color: rgba(50,50,50,0.5); cursor: pointer;");
