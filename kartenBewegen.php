@@ -130,15 +130,41 @@
     if ($karteExistiertNochInDerQuelle) {
         $fpZiel = fopen($nachDatei, "a+");
         if (flock($fpZiel, LOCK_EX)) {
-            $bisherigeKartenNach = fgets($fpZiel, 4096);
+            $bisherigeKartenNachString = fgets($fpZiel, 4096);
             if ($von != $nach) {
                 $karte = str_replace("x", "", $karte);
             }
             $parentKarte = $_POST["append"];
             if ($parentKarte != "x") {
                 // Karte soll angehängt werden
+                $neueKartenNach = "";
+                $bisherigeKartenNach = explode("/", $bisherigeKartenNachString);
+                $karteWurdeEingesetzt = false;
+                for ($i = 0; $i < count($bisherigeKartenNach); $i++) {
+                    if ($i != 0) {
+                        $neueKartenNach .= "/";
+                    }
+                    $kartenspaceString = $bisherigeKartenNach[$i];
+                    $kartenspace = explode(";", $kartenspaceString);
+                    for ($j = 0; $j < count($kartenspace); $j++) {
+                        if ($j != 0) {
+                            $neueKartenNach .= ";";
+                        }
+                        if ($kartenspace[$j] == $parentKarte) {
+                            $neueKartenNach .= $kartenspace[$j] . ";" . $karte;
+                            $karteWurdeEingesetzt = true;
+                        }
+                        else {
+                            $neueKartenNach .= $kartenspace[$j];
+                        }
+                    }
+                }
+                if (!$karteWurdeEingesetzt) {
+                    echo "Die Parent-Karte wurde nicht gefunden!\n";
+                    echo $bisherigeKartenNachString . "\n";
+                }
                 ftruncate($fpZiel, 0);
-                fwrite($fpZiel, str_replace($parentKarte, $parentKarte . ";" . $karte, $bisherigeKartenNach));
+                fwrite($fpZiel, $neueKartenNach);
                 flock($fpZiel, LOCK_UN);
                 fclose($fpZiel);
             }
@@ -147,15 +173,14 @@
                 if ($nach == "ablagestapelTuer" || $nach == "ablagestapelSchatz" || count(explode("verdeckt", $nach)) == 2) {
                     // In Handkarten oder Ablagestapel können keine Karten gestapelt werden, deswegen werden alle möglichen Kinder hier einzeln an die Regionen angehängt
                     for ($i = 0; $i < count(explode(";", $karte)); $i++) {
-                        if ($bisherigeKartenNach != "") {
+                        if ($bisherigeKartenNachString != "" || $i > 0) {
                             fwrite($fpZiel, "/");
                         }
                         fwrite($fpZiel, explode(";", $karte)[$i]);
-                        $bisherigeKartenNach .= explode(";", $karte)[$i]; // wird gebraucht, damit beim zweiten Durchlauf ein "/" geschrieben wird.
                     }
                 }
                 else {
-                    if ($bisherigeKartenNach != "") {
+                    if ($bisherigeKartenNachString != "") {
                         fwrite($fpZiel, "/");
                     }
                     fwrite($fpZiel, $karte);

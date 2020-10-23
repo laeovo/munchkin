@@ -42,3 +42,10 @@ Drag&Drop:
     Ablagestapel:
         nö
     
+
+
+BUGS:
+
+Ziehen von eigener Handkarte auf Ablagestapel:  "Für die Region 'ungueltigeRegion' steht keine Aktualisierungsfunktion bereit :("
+Beim Bewegen einer Karte mit Kindern wird die Karte zu einem String (x;y;z;...) zusammengesetzt. Wird dieser String in die Zielregion eingesetzt (bestimmt mit einem str_replace) treten Fehler auf, wenn eine ähnliche Kombination an Zahlen schon in der Region existiert
+Man muss die Reihenfolge in einem Kartenspace ändern können, indem man Karten hoch oder runter zieht

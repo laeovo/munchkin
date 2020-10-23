@@ -408,14 +408,26 @@ function kartenregionAktualisieren(dateiname, kontainer) {
             }
             
             if (!karteExistiertNochAufServer) {
-                let karte = document.getElementById(kartenIdBrowser);
                 let karteBefindetSichNochInKontainer = false;
-                for (let j = 0; j < document.getElementById(kontainer).children.length; j++) { // TODO: muss noch auf Kartenspaces verallgemeinert werden
-                    if (document.getElementById(kontainer).children[j].id == kartenIdBrowser) {
+                for (let j = 0; j < document.getElementById(kontainer).children.length; j++) {
+                    let karte = document.getElementById(kontainer).children[j];
+                    if (karte.id == kartenIdBrowser) {
                         karteBefindetSichNochInKontainer = true;
+                        break;
+                    }
+                    while (karte.children.length == 2) {
+                        karte = karte.children[1];
+                        if (karte.id == kartenIdBrowser) {
+                            karteBefindetSichNochInKontainer = true;
+                            break;
+                        }
+                    }
+                    if (karteBefindetSichNochInKontainer) {
+                        break;
                     }
                 }
                 if (karteBefindetSichNochInKontainer) {
+                    let karte = document.getElementById(kartenIdBrowser);
                     // Die Karte, die beweget wurde wurde noch nicht vom Ziel-Kontainer übernommen
                     if (karte.children.length == 2) {
                         karte.parentElement.appendChild(karte.children[1]);
@@ -543,7 +555,7 @@ function erzeugeKarte(kartenId, kontainer) {
 }
 
 function setzeDragDropAttribute(karte, kontainer) {
-    if (kontainer.split("Handkarten").length != 2) { // TODO: droppen nur bei anderen Karten erlauben.
+    if (kontainer.split("Handkarten").length != 2) {
         karte.setAttribute("draggable", "true");
         karte.setAttribute("ondragover", "ablegenErlauben(event)"); // TODO: Karte verdunkeln
         karte.setAttribute("ondrop", "ablegen(event)")
