@@ -375,6 +375,7 @@ function kartenregionAktualisieren(dateiname, kontainer) {
                         karte.parentElement.appendChild(karte.children[1]);
                     }
                     let schaltflaeche = karte.children[0];
+                    setzeDragDropAttribute(karte, kontainer);
                     setzeKarteOnclick(schaltflaeche, kontainer, kartenIdServer);
                     setzeKarteBild(karte, kontainer, kartenIdServer);
                     document.getElementById(kontainer).appendChild(karte);
@@ -531,19 +532,7 @@ function erzeugeKarte(kartenId, kontainer) {
     var neueKarte = document.createElement("div");
     neueKarte.setAttribute("id", kartenId);
     neueKarte.setAttribute("class", "karte");
-    // TODO: Folgenden Block (Drag&Drop-Attribute setzen) in Funktion auslagern
-    if (kontainer.split("Handkarten").length != 2) { // TODO: droppen nur bei anderen Karten erlauben.
-        neueKarte.setAttribute("draggable", "true");
-        neueKarte.setAttribute("ondragover", "ablegenErlauben(event)"); // TODO: Karte verdunkeln
-        neueKarte.setAttribute("ondrop", "ablegen(event)")
-        neueKarte.setAttribute("ondragstart", "ziehen(event)");
-    }
-    else {
-        neueKarte.setAttribute("draggable", "false");
-        neueKarte.setAttribute("ondragover", "");
-        neueKarte.setAttribute("ondrop", "")
-        neueKarte.setAttribute("ondragstart", "");
-    }
+    setzeDragDropAttribute(neueKarte, kontainer);
     schaltflaeche = document.createElement("img");
     schaltflaeche.setAttribute("class", "kartenSchaltflaeche");
     schaltflaeche.setAttribute("width", "100");
@@ -551,6 +540,26 @@ function erzeugeKarte(kartenId, kontainer) {
     neueKarte.appendChild(schaltflaeche);
     setzeKarteBild(neueKarte, kontainer, kartenId);
     return neueKarte;
+}
+
+function setzeDragDropAttribute(karte, kontainer) {
+    if (kontainer.split("Handkarten").length != 2) { // TODO: droppen nur bei anderen Karten erlauben.
+        karte.setAttribute("draggable", "true");
+        karte.setAttribute("ondragover", "ablegenErlauben(event)"); // TODO: Karte verdunkeln
+        karte.setAttribute("ondrop", "ablegen(event)")
+        karte.setAttribute("ondragstart", "ziehen(event)");
+    }
+    else if (kontainer == "eigeneHandkarten") {
+        karte.setAttribute("draggable", "true");
+        // Auf Handkarten dürfen andere Karten nicht abgelegt werden, da Handkarten nicht gestapelt werden dürfen
+        karte.setAttribute("ondragstart", "ziehen(event)");
+    }
+    else {
+        karte.setAttribute("draggable", "false");
+        karte.setAttribute("ondragover", "");
+        karte.setAttribute("ondrop", "")
+        karte.setAttribute("ondragstart", "");
+    }
 }
 
 function setzeKarteOnclick(schaltflaeche, kontainer, kartenId) {
