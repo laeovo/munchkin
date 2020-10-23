@@ -46,5 +46,4 @@ Drag&Drop:
 
 BUGS:
 
-Ziehen von eigener Handkarte auf Ablagestapel:  "Für die Region 'ungueltigeRegion' steht keine Aktualisierungsfunktion bereit :("
 Prüfen, ob kartenBewegen.php bei Kartenspaces mehrfach aufgerufen wird

@@ -17,7 +17,7 @@ function ablegen(ev) {
     var parentId = parentKarte.id;
     if (parentId == "ablagestapelTuer" || parentId == "ablagestapelSchatz") {
         // Karte wird abgelegt
-        karteBewegen(childId, getRegion(childId), "ablagestapel" + getKartenArt(childId), "false", "x");
+        karteBewegen(childId, getDateiname(getRegion(childId)), "ablagestapel" + getKartenArt(childId), "false", "x");
     }
     else {
         if (childId != parentId) {
