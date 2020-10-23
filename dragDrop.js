@@ -3,7 +3,6 @@ function ziehen(ev) {
 }
 
 function ablegenErlauben(ev) {
-    // TODO: Eine Karte darf nicht auf sich selber gelegt werden können
     ev.preventDefault();
 }
 
@@ -12,7 +11,12 @@ function ablegen(ev) {
     var childId = ev.dataTransfer.getData("gedraggteKarte");
     var parentKarte = ev.target.parentElement;
     var parentId = parentKarte.id;
-    console.log("ablegen:: childId = " + childId + ", parentId = " + parentId);
-    karteAnheften(childId, parentId, "true"); // TODO: Option für Kinder
+    if (childId != parentId) {
+        console.log("ablegen:: childId = " + childId + ", parentId = " + parentId);
+        karteAnheften(childId, parentId, "true"); // TODO: Option für Kinder
+    }
+    else {
+        console.log("Die Karte " + childId + " kann nicht an sich selbst angeheftet werden");
+    }
 }
 
