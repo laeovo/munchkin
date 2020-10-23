@@ -149,6 +149,25 @@ function getRegion(kartenId) {
     return region;
 }
 
+function haengtAn(karte1, karte2) {
+    console.log("Hängt " + karte1 + " an " + karte2 + "?");
+    var karteObjekt = document.getElementById(karte1);
+    while (!isNaN(karteObjekt.id)) {
+        karteObjekt = karteObjekt.parentElement;
+        if (karteObjekt.id == karte2) {
+            return true;
+        }
+    }
+    return false;
+}
+
+function selberKartenspace(karte1, karte2) {
+    if (isNaN(karte1) || isNaN(karte2)) {
+        return false;
+    }
+    return haengtAn(karte1, karte2) || haengtAn(karte2, karte1);
+}
+
 function karteIstGeflaggt(kartenId, kontainer) {
     for (var i = 0; i < kontainer.length; i++) {
         const karte = kontainer[i].split("x")[0];
@@ -375,8 +394,8 @@ function kartenregionAktualisieren(dateiname, kontainer) {
                         karte.parentElement.appendChild(karte.children[1]);
                     }
                     let schaltflaeche = karte.children[0];
-                    setzeDragDropAttribute(karte, kontainer);
                     setzeKarteOnclick(schaltflaeche, kontainer, kartenIdServer);
+                    setzeDragDropAttribute(schaltflaeche, kontainer);
                     setzeKarteBild(karte, kontainer, kartenIdServer);
                     document.getElementById(kontainer).appendChild(karte);
                 }
@@ -544,33 +563,33 @@ function erzeugeKarte(kartenId, kontainer) {
     var neueKarte = document.createElement("div");
     neueKarte.setAttribute("id", kartenId);
     neueKarte.setAttribute("class", "karte");
-    setzeDragDropAttribute(neueKarte, kontainer);
     schaltflaeche = document.createElement("img");
     schaltflaeche.setAttribute("class", "kartenSchaltflaeche");
     schaltflaeche.setAttribute("width", "100");
+    setzeDragDropAttribute(schaltflaeche, kontainer);
     setzeKarteOnclick(schaltflaeche, kontainer, kartenId)
     neueKarte.appendChild(schaltflaeche);
     setzeKarteBild(neueKarte, kontainer, kartenId);
     return neueKarte;
 }
 
-function setzeDragDropAttribute(karte, kontainer) {
+function setzeDragDropAttribute(schaltflaeche, kontainer) {
     if (kontainer.split("Handkarten").length != 2) {
-        karte.setAttribute("draggable", "true");
-        karte.setAttribute("ondragover", "ablegenErlauben(event)"); // TODO: Karte verdunkeln
-        karte.setAttribute("ondrop", "ablegen(event)")
-        karte.setAttribute("ondragstart", "ziehen(event)");
+        schaltflaeche.setAttribute("draggable", "true");
+        schaltflaeche.setAttribute("ondragover", "ablegenErlauben(event)"); // TODO: Karte verdunkeln
+        schaltflaeche.setAttribute("ondrop", "ablegen(event)")
+        schaltflaeche.setAttribute("ondragstart", "ziehen(event)");
     }
     else if (kontainer == "eigeneHandkarten") {
-        karte.setAttribute("draggable", "true");
+        schaltflaeche.setAttribute("draggable", "true");
         // Auf Handkarten dürfen andere Karten nicht abgelegt werden, da Handkarten nicht gestapelt werden dürfen
-        karte.setAttribute("ondragstart", "ziehen(event)");
+        schaltflaeche.setAttribute("ondragstart", "ziehen(event)");
     }
     else {
-        karte.setAttribute("draggable", "false");
-        karte.setAttribute("ondragover", "");
-        karte.setAttribute("ondrop", "")
-        karte.setAttribute("ondragstart", "");
+        schaltflaeche.setAttribute("draggable", "false");
+        schaltflaeche.setAttribute("ondragover", "");
+        schaltflaeche.setAttribute("ondrop", "")
+        schaltflaeche.setAttribute("ondragstart", "");
     }
 }
 

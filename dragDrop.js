@@ -15,14 +15,14 @@ function ablegen(ev) {
     }
     var parentKarte = ev.target.parentElement;
     var parentId = parentKarte.id;
+    console.log("ablegen:: childId = " + childId + ", parentId = " + parentId);
     if (parentId == "ablagestapelTuer" || parentId == "ablagestapelSchatz") {
         // Karte wird abgelegt
-        karteBewegen(childId, getDateiname(getRegion(childId)), "ablagestapel" + getKartenArt(childId), "false", "x");
+        karteBewegen(childId, getDateiname(getRegion(childId)), "ablagestapel", "x");
     }
     else {
         if (childId != parentId) {
-            console.log("ablegen:: childId = " + childId + ", parentId = " + parentId);
-            karteAnheften(childId, parentId, "false"); // TODO: Option für Kinder, aber nur wenn parentId kein Kind (oder Enkelkind) von ChildId ist
+            karteAnheften(childId, parentId);
         }
         else {
             console.log("Die Karte " + childId + " kann nicht an sich selbst angeheftet werden");

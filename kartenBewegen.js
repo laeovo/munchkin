@@ -41,7 +41,7 @@ function handkarteKlauen(spielerId) {
     }
     const karte = verfuegbareKarten[getRandomInt(verfuegbareKarten.length)];
     
-    karteBewegen(karte, "karten" + spielerId + "verdeckt", "karten" + getEigeneId() + "verdeckt", "false", "x");
+    karteBewegenOhneCheck(karte, "karten" + spielerId + "verdeckt", "karten" + getEigeneId() + "verdeckt", "false", "x");
 }
 
 function karteFlaggen(kartenId, neueFlag) {
@@ -68,7 +68,40 @@ function karteFlaggen(kartenId, neueFlag) {
     }
 }
 
-function karteBewegen(kartenId, von, nach, mitKindern, appendAn) {
+function karteBewegen(kartenId, von, nach, appendAn) {
+    console.log("Hier wird jetzt mal geprüft!");
+    const region = getRegion(kartenId);
+    if (region.split("Handkarten").length == 2) {
+        // Quellregion ist eine Handkartenregion, da gibts keine Kinder
+        karteBewegenOhneCheck(kartenId, von, nach, "false", appendAn);
+    }
+    else if (document.getElementById(kartenId).children.length == 1) {
+        // Karte hat gar keine Kinder
+        karteBewegenOhneCheck(kartenId, von, nach, "false", appendAn);
+    }
+    else if (selberKartenspace(kartenId, appendAn)) {
+        // Karte und appendAn sind im selben Kartenspace --> Kinder werden nicht mitgenommen, sonst könnten die Karten verschwinden.
+        karteBewegenOhneCheck(kartenId, von, nach, "false", appendAn);
+    }
+    else {
+        var hintergrund = document.createElement("div");
+        hintergrund.setAttribute("id", "kinderOption");
+        hintergrund.setAttribute("style", "position: fixed; top: 0px; left: 0px; width: 100%; height: 100%; background-color: rgba(50,50,50,0.5); cursor: pointer;");
+        window.document.body.appendChild(hintergrund);
+        buttonErstellen("Mit Kindern", "MitKindern", "window.document.body.removeChild(document.getElementById('kinderOption')), karteBewegenOhneCheck('" + kartenId + "', '" + von + "', '" + nach + "', 'true', '" + appendAn + "')", "kinderOption");
+        buttonErstellen("Ohne Kindern", "OhneKindern", "window.document.body.removeChild(document.getElementById('kinderOption')), karteBewegenOhneCheck('" + kartenId + "', '" + von + "', '" + nach + "', 'false', '" + appendAn + "')", "kinderOption");
+        buttonErstellen("Abbrechen", "AktionAbbrechen", "window.document.body.removeChild(document.getElementById('kinderOption'))", "kinderOption");
+    }
+}
+
+function karteBewegenOhneCheck(kartenId, von, nach, mitKindern, appendAn) {
+    if (nach == "ablagestapel") {
+        nach += getKartenArt(kartenId);
+        if (mitKindern) {
+            mitKindern = "false";
+            
+        }
+    }
     const xhr = new XMLHttpRequest();
     xhr.onload = function() {
         console.log(this.responseText);
@@ -80,10 +113,10 @@ function karteBewegen(kartenId, von, nach, mitKindern, appendAn) {
     xhr.send("von=" + von + "&nach=" + nach + "&karte=" + kartenId + "&mitKindern=" + mitKindern + "&append=" + appendAn);
 }
 
-function karteAnheften(childId, parentId, mitKindern) {
+function karteAnheften(childId, parentId) {
     const von = getDateiname(getRegion(childId.split("x")[0]));
     const nach = getDateiname(getRegion(parentId.split("x")[0]));
-    karteBewegen(childId, von, nach, mitKindern, parentId);
+    karteBewegen(childId, von, nach, parentId);
 }
 
 function mitteAufraeumen() {
@@ -93,22 +126,8 @@ function mitteAufraeumen() {
         for (j = 0; j < karten.length; j++) {
             const karte = karten[karten.length-j-1];
             const kartenId = karte.split("x")[0];
-            karteBewegen(kartenId, "mitte", "ablagestapel" + getKartenArt(kartenId), "false", "x")
+            karteBewegenOhneCheck(kartenId, "mitte", "ablagestapel", "false", "x")
         }
     }
     kartenregionAktualisierenWrapper("mitte");
 }
-
-// TODO: --> aktualisieren
-//function karteAnheften(childId, parentId) { // TODO: implementieren
-//    document.getElementById(parentId).appendChild(document.getElementById(childId));
-//    // Alle angehängten Karten flaggen
-//    var zuFlaggendeKarte = document.getElementById(childId);
-//    do {
-//        const zuFlaggendeKarteId = zuFlaggendeKarte.id;
-//        karteFlaggen(zuFlaggendeKarteId, "");
-//        zuFlaggendeKarte = zuFlaggendeKarte.children[1];
-//
-//    }
-//    while (zuFlaggendeKarte != null);
-//}
