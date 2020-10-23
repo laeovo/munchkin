@@ -136,7 +136,7 @@
             }
             $parentKarte = $_POST["append"];
             if ($parentKarte != "x") {
-                echo "Karte soll angehängt werden, denn append ist '" . $_POST["append"] . "'\n";
+                // Karte soll angehängt werden
                 ftruncate($fpZiel, 0);
                 fwrite($fpZiel, str_replace($parentKarte, $parentKarte . ";" . $karte, $bisherigeKartenNach));
                 flock($fpZiel, LOCK_UN);

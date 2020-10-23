@@ -464,7 +464,6 @@ function kartenregionAktualisieren(dateiname, kontainer) {
                         for (let k = 0; k < kartenspace.length; k++) {
                             if (kartenspace[k].split("x").length == 2) {
                                 inDiesemKartenspaceSindKartenGeflaggt = true;
-                                console.log("Kartenspace mit geflaggten Karten!");
                                 break;
                             }
                         }
