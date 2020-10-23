@@ -449,6 +449,7 @@ function kartenregionAktualisieren(dateiname, kontainer) {
         }
         
         // Kartenspaces zusammenstellen und Reihenfolge fixen
+        // TODO: nur Kartenspaces aktualisieren, die noch nicht stimmen
 //        console.log("kontainer: " + kontainer + ", kartenspaces laut server: " + kartenspacesLautServer);
         for (let i = 0; i < kartenspacesLautServer.length; i++) {
             const kartenspace = kartenspacesLautServer[i].split(";");
@@ -458,6 +459,24 @@ function kartenregionAktualisieren(dateiname, kontainer) {
 //                    console.log("kontainer = " + kontainer + ", j = " + j + ", kartenspace = " + kartenspace + ", kartenspace[0] = " + kartenspace[0]);
                     document.getElementById(kontainer).appendChild(document.getElementById(kartenspace[0].split("x")[0]));
                     document.getElementById(kartenspace[j].split("x")[0]).setAttribute("class", "karte");
+                    if (kontainer != "mitte") {
+                        var inDiesemKartenspaceSindKartenGeflaggt = false;
+                        for (let k = 0; k < kartenspace.length; k++) {
+                            if (kartenspace[k].split("x").length == 2) {
+                                inDiesemKartenspaceSindKartenGeflaggt = true;
+                                console.log("Kartenspace mit geflaggten Karten!");
+                                break;
+                            }
+                        }
+                        if (inDiesemKartenspaceSindKartenGeflaggt) {
+                            document.getElementById(kartenspace[j].split("x")[0]).style.width = "160px"; // TODO: verallgemeinern
+                            document.getElementById(kartenspace[j].split("x")[0]).style.transform = "translateX(18.75%)";
+                        }
+                        else {
+                            document.getElementById(kartenspace[j].split("x")[0]).style.width = "100px"; // TODO: verallgemeinern
+                            document.getElementById(kartenspace[j].split("x")[0]).style.transform = "";
+                        }
+                    }
                 }
                 else {
                     // der Parentkarte anhängen
@@ -513,6 +532,7 @@ function erzeugeKarte(kartenId, kontainer) {
     var neueKarte = document.createElement("div");
     neueKarte.setAttribute("id", kartenId);
     neueKarte.setAttribute("class", "karte");
+    // TODO: Folgenden Block (Drag&Drop-Attribute setzen) in Funktion auslagern
     if (kontainer.split("Handkarten").length != 2) { // TODO: droppen nur bei anderen Karten erlauben.
         neueKarte.setAttribute("draggable", "true");
         neueKarte.setAttribute("ondragover", "ablegenErlauben(event)"); // TODO: Karte verdunkeln
@@ -628,10 +648,10 @@ function objektFlaggen(kartenId, jaodernein, kontainer) {
     var schaltflaeche = document.getElementById(kartenId).children[0];
     if (jaodernein) {
         if (kontainer == "mitte") {
-            schaltflaeche.style.padding = "10px 0px 0px 0px";
+            schaltflaeche.style.padding = "10% 0px 0px 0px";
         }
         else if (kontainer.split("ffeneKarten").length == 2) {
-            schaltflaeche.style.transform = "rotate(90deg)";
+            schaltflaeche.style.transform = "rotate(90deg) translateX(-30%)"; // Man könnte hier noch ein "translateY(18.75%)" einbauen, wenn man wöllte
         }
         else {
             console.log("Die Karte " + kartenId + " im Kontainer " + kontainer + " sollte eigentlich nicht geflaggt werden können");

@@ -11,21 +11,20 @@
     $karte = $_POST["karte"];
     $fp = fopen($vonDatei, "a+");
     if (flock($fp, LOCK_EX)) {
-        $bisherigeKartenString = fgets($fp, 4096);
-        $bisherigeKarten = explode("/", $bisherigeKartenString);
+        $bisherigeKarten = fgets($fp, 4096);
         
-        ftruncate($fp, 0);
-        for ($i = 0; $i < count($bisherigeKarten); $i++) {
-            if ($i != 0) {
-                fwrite($fp, "/");
-            }
-            
-            if (explode("x", $bisherigeKarten[$i])[0] == $karte) {
-                fwrite($fp, $karte . $_POST["neueFlag"]);
-            }
-            else {
-                fwrite($fp, $bisherigeKarten[$i]);
-            }
+        if ($_POST["neueFlag"] == "") {
+            ftruncate($fp, 0);
+            fwrite($fp, str_replace($karte . "x", $karte, $bisherigeKarten));
+            echo "Die Karte " . $karte . " wurde entflaggt.";
+        }
+        elseif ($_POST["neueFlag"] == "x") {
+            ftruncate($fp, 0);
+            fwrite($fp, str_replace($karte, $karte . "x", str_replace($karte . "x", $karte, $bisherigeKarten)));
+            echo "Die Karte " . $karte . " wurde geflaggt.";
+        }
+        else {
+            echo "Die Flag '" . $_POST["neueFlag"] . "' ist ungültig\n";
         }
         flock($fp, LOCK_UN);
         fclose($fp);
@@ -33,14 +32,4 @@
     else {
         echo "Die Datei " . $vonDatei . " konnte nicht gesperrt werden";
     }
-    
-    
-    if ($_POST["neueFlag"] == "x") {
-        echo "Die Karte " . $karte . " wurde geflaggt.";
-    }
-    else {
-        echo "Die Karte " . $karte . " wurde entflaggt.";
-    }
-    
-    
     ?>
