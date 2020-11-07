@@ -45,22 +45,18 @@ function handkarteKlauen(spielerId) {
 }
 
 function karteFlaggen(kartenId, neueFlag) {
+    const regionDerGeflaggtenKarte = getRegion(kartenId);
     const xhr = new XMLHttpRequest();
     xhr.onload = function() {
         console.log(this.responseText);
-        if (mitte.includes(kartenId.toString()) || mitte.includes(kartenId.toString() + "x")) {
-            kartenregionAktualisierenWrapper("mitte");
-        }
-        else if (eigeneOffeneKarten.includes(kartenId.toString()) || eigeneOffeneKarten.includes(kartenId.toString() + "x")) {
-            kartenregionAktualisierenWrapper("eigeneOffeneKarten");
-        }
+        kartenregionAktualisierenWrapper(regionDerGeflaggtenKarte);
     }
     xhr.open("POST", "kartenFlaggen.php");
     xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    if (mitte.includes(kartenId.toString()) || mitte.includes(kartenId.toString() + "x")) {
+    if (regionDerGeflaggtenKarte == "mitte") {
         xhr.send("von=mitte&karte=" + kartenId + "&neueFlag=" + neueFlag);
     }
-    else if (eigeneOffeneKarten.includes(kartenId.toString()) || eigeneOffeneKarten.includes(kartenId.toString() + "x")) {
+    else if (region == "eigeneOffeneKarten") {
         xhr.send("von=karten" + getEigeneId() + "offen&karte=" + kartenId + "&neueFlag=" + neueFlag);
     }
     else {
