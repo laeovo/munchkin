@@ -49,3 +49,4 @@ TODO: BUGS:
 Prüfen, ob kartenBewegen.php bei Kartenspaces mehrfach aufgerufen wird
 Prüfen, ob kartenBewegen.php damit rechnet, dass der Parameter karte wirklich nur die Kartennummer ist, ohne "x"
 Beim Ablegen von einem Kartenspace landen alle Karten auf dem Stapel der 0-ten Karte. Ursache: die eigentliche Karte wird mit dem Ziel (welcher Stapel auch immer) an php geschickt, und php kümmert sich um die Kinder. Php weiß aber nicht, welche Kartenarten die Kinder sind
+Geflaggte Karte kann nicht auf geflaggte Karte gedraggt werden

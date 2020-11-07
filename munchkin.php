@@ -21,6 +21,7 @@
             <div id="ablagestapelSchatz" class="stapelKarte" ondragover="ablegenErlauben(event)" ondrop="ablegen(event)"><img id="ablagestapelSchatzBild" style="max-width: 100%; max-height: 100%" onclick="ablagestapelMenu('Schatz')" /></div>
             </div>
         <input type="submit" value="stop" onclick="stop()" />
+        <input type="submit" value="Karten zurücksetzen", onclick="kartenZuruecksetzen()" />
         <div id="mitte"></div>
         
         <div id="spielerObenLinksHandkarten"></div>

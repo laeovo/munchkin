@@ -150,7 +150,7 @@
                         if ($j != 0) {
                             $neueKartenNach .= ";";
                         }
-                        if ($kartenspace[$j] == $parentKarte) {
+                        if (explode("x", $kartenspace[$j])[0] == $parentKarte) {
                             $neueKartenNach .= $kartenspace[$j] . ";" . $karte;
                             $karteWurdeEingesetzt = true;
                         }
@@ -161,7 +161,9 @@
                 }
                 if (!$karteWurdeEingesetzt) {
                     echo "Die Parent-Karte wurde nicht gefunden!\n";
-                    echo $bisherigeKartenNachString . "\n";
+                    echo "Karte = " . $karte . "\n";
+                    echo "Parentkarte: " . $parentKarte . "\n";
+                    echo "bisherigeKartenString: " . $bisherigeKartenNachString . "\n";
                 }
                 ftruncate($fpZiel, 0);
                 fwrite($fpZiel, $neueKartenNach);
