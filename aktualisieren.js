@@ -520,31 +520,31 @@ function kartenregionAktualisieren(dateiname, kontainer) {
         
         // speichern
         if (kontainer == "eigeneHandkarten") {
-            eigeneHandkarten = kartenLautServer;
+            eigeneHandkarten = kartenspacesLautServer;
         }
         else if (kontainer == "eigeneOffeneKarten") {
-            eigeneOffeneKarten = kartenLautServer;
+            eigeneOffeneKarten = kartenspacesLautServer;
         }
         else if (kontainer == "spielerObenLinksHandkarten") {
-            spielerObenLinksHandkarten = kartenLautServer;
+            spielerObenLinksHandkarten = kartenspacesLautServer;
         }
         else if (kontainer == "spielerObenLinksOffeneKarten") {
-            spielerObenLinksOffeneKarten = kartenLautServer;
+            spielerObenLinksOffeneKarten = kartenspacesLautServer;
         }
         else if (kontainer == "spielerObenRechtsHandkarten") {
-            spielerObenRechtsHandkarten = kartenLautServer;
+            spielerObenRechtsHandkarten = kartenspacesLautServer;
         }
         else if (kontainer == "spielerObenRechtsOffeneKarten") {
-            spielerObenRechtsOffeneKarten = kartenLautServer;
+            spielerObenRechtsOffeneKarten = kartenspacesLautServer;
         }
         else if (kontainer == "spielerUntenRechtsHandkarten") {
-            spielerUntenRechtsHandkarten = kartenLautServer;
+            spielerUntenRechtsHandkarten = kartenspacesLautServer;
         }
         else if (kontainer == "spielerUntenRechtsOffeneKarten") {
-            spielerUntenRechtsOffeneKarten = kartenLautServer;
+            spielerUntenRechtsOffeneKarten = kartenspacesLautServer;
         }
         else if (kontainer == "mitte") {
-            mitte = kartenLautServer;
+            mitte = kartenspacesLautServer;
             if (window.document.getElementById("aufraeumenButton")) {
                 window.document.getElementById("mitte").removeChild(window.document.getElementById("aufraeumenButton"));
             }
