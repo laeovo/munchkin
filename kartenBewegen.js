@@ -97,9 +97,12 @@ function karteBewegen(kartenId, von, nach, appendAn) {
 function karteBewegenOhneCheck(kartenId, von, nach, mitKindern, appendAn) {
     if (nach == "ablagestapel") {
         nach += getKartenArt(kartenId);
-        if (mitKindern) {
+        console.log("karteBewegenOhneCheck(" + kartenId + ", " + von + ", " + nach + ", " + mitKindern + ", " + appendAn + ")");
+        if (mitKindern == "true" && !!document.getElementById(kartenId).children[1]) {
             mitKindern = "false";
-            
+            let child = document.getElementById(kartenId).children[1].id;
+            console.log("child: " + child);
+            karteBewegenOhneCheck(child, von, "ablagestapel", "true", "x");
         }
     }
     const xhr = new XMLHttpRequest();
@@ -120,14 +123,12 @@ function karteAnheften(childId, parentId) {
 }
 
 function mitteAufraeumen() {
+    console.log(mitte);
     for (let i = 0; i < mitte.length; i++) {
         const kartenspace = mitte[i];
         const karten = kartenspace.split(";");
-        for (j = 0; j < karten.length; j++) {
-            const karte = karten[karten.length-j-1];
-            const kartenId = karte.split("x")[0];
-            karteBewegenOhneCheck(kartenId, "mitte", "ablagestapel", "false", "x")
-        }
+        console.log("Jetzt wird Karte " + karten[0] + " abgelegt");
+        karteBewegenOhneCheck(karten[0], "mitte", "ablagestapel", "true", "x");
     }
     kartenregionAktualisierenWrapper("mitte");
 }
