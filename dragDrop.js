@@ -20,6 +20,11 @@ function ablegen(ev) {
         // Karte wird abgelegt
         karteBewegen(childId, getDateiname(getRegion(childId)), "ablagestapel", "x");
     }
+//    else if (getRegion(parentId).split("Handkarten").length == 2) {
+//        console.log("Karte wird zu Handkarten bewegt");
+//        // Karte kann nicht an Handkarten angeheftet werden, wird also in die entsprechende Region bewegt
+//        karteBewegen(childId, getRegion(childId), getRegion(parentId), "x");
+//    }
     else {
         if (childId != parentId) {
             karteAnheften(childId, parentId);

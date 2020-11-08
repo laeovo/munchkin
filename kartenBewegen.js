@@ -93,11 +93,11 @@ function karteBewegen(kartenId, von, nach, appendAn) {
 function karteBewegenOhneCheck(kartenId, von, nach, mitKindern, appendAn) {
     if (nach == "ablagestapel") {
         nach += getKartenArt(kartenId);
-        console.log("karteBewegenOhneCheck(" + kartenId + ", " + von + ", " + nach + ", " + mitKindern + ", " + appendAn + ")");
+//        console.log("karteBewegenOhneCheck(" + kartenId + ", " + von + ", " + nach + ", " + mitKindern + ", " + appendAn + ")");
         if (mitKindern == "true" && !!document.getElementById(kartenId).children[1]) {
             mitKindern = "false";
             let child = document.getElementById(kartenId).children[1].id;
-            console.log("child: " + child);
+//            console.log("child: " + child);
             karteBewegenOhneCheck(child, von, "ablagestapel", "true", "x");
         }
     }

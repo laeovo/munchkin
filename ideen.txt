@@ -45,10 +45,8 @@ Drag&Drop:
 
 
 TODO: BUGS:
-
-Prüfen, ob kartenBewegen.php bei Kartenspaces mehrfach aufgerufen wird
+Karten können auf Handkarten gedraggt werden
 Prüfen, ob kartenBewegen.php damit rechnet, dass der Parameter karte wirklich nur die Kartennummer ist, ohne "x"
-Geflaggte Karten haben können nicht "entflaggt" werden, wenn sie nicht ganz unten in einem Kartenspace liegen
 Beim ondragstart sollten Dropzonen erscheinen, sodass man Karten auch in eine andere Region bewegen kann, ohne sie irgendwo anzuhängen
 Spielleitung: Spiel kann nur geöffnet werden, nachdem die Spieler resettet wurden
 
