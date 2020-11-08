@@ -408,6 +408,7 @@ function kartenregionAktualisieren(dateiname, kontainer) {
                     setzeKarteOnclick(schaltflaeche, kontainer, kartenIdServer);
                     setzeDragDropAttribute(schaltflaeche, kontainer);
                     setzeKarteBild(karte, kontainer, kartenIdServer);
+                    karte.style.transform = "";
                     document.getElementById(kontainer).appendChild(karte);
                 }
                 else {
