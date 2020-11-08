@@ -119,7 +119,6 @@ function karteAnheften(childId, parentId) {
 }
 
 function mitteAufraeumen() {
-    console.log(mitte);
     for (let i = 0; i < mitte.length; i++) {
         const kartenspace = mitte[i];
         const karten = kartenspace.split(";");
