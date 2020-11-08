@@ -56,7 +56,7 @@ function karteFlaggen(kartenId, neueFlag) {
     if (regionDerGeflaggtenKarte == "mitte") {
         xhr.send("von=mitte&karte=" + kartenId + "&neueFlag=" + neueFlag);
     }
-    else if (region == "eigeneOffeneKarten") {
+    else if (regionDerGeflaggtenKarte == "eigeneOffeneKarten") {
         xhr.send("von=karten" + getEigeneId() + "offen&karte=" + kartenId + "&neueFlag=" + neueFlag);
     }
     else {

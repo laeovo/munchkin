@@ -150,7 +150,6 @@ function getRegion(kartenId) {
 }
 
 function haengtAn(karte1, karte2) {
-    console.log("Hängt " + karte1 + " an " + karte2 + "?");
     var karteObjekt = document.getElementById(karte1);
     while (!isNaN(karteObjekt.id)) {
         karteObjekt = karteObjekt.parentElement;
@@ -168,11 +167,23 @@ function selberKartenspace(karte1, karte2) {
     return haengtAn(karte1, karte2) || haengtAn(karte2, karte1);
 }
 
-function karteIstGeflaggt(kartenId, kontainer) {
-    for (var i = 0; i < kontainer.length; i++) {
-        const karte = kontainer[i].split("x")[0];
-        if (karte == kartenId) {
-            if (kontainer[i].split("x").length > 1) {
+function karteIstGeflaggt(kartenId) {
+    var kartenInDerRegion = [];
+    if (getRegion(kartenId) == "mitte") {
+        kartenInDerRegion = mitte;
+    }
+    else if (getRegion(kartenId) == "eigeneOffeneKarten") {
+        kartenInDerRegion = eigeneOffeneKarten;
+    }
+    else {
+        // TODO: ...?
+        console.log("Die Funktion 'karteIstGeflaggt' geht nicht davon aus, dass die Karte in der Region '" + getRegion(kartenId) + "' liegt");
+    }
+    for (var i = 0; i < kartenInDerRegion.length; i++) {
+        const kartenspace = kartenInDerRegion[i];
+        const kartenImKartenspace = kartenspace.split(";");
+        for (let i = 0; i < kartenImKartenspace.length; i++) {
+            if (kartenImKartenspace[i] == kartenId + "x") {
                 return true;
             }
         }
