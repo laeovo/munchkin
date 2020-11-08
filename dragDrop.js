@@ -17,8 +17,10 @@ function ablegen(ev) {
     var parentId = parentKarte.id;
 //    console.log("ablegen:: childId = " + childId + ", parentId = " + parentId);
     if (parentId == "ablagestapelTuer" || parentId == "ablagestapelSchatz") {
-        // Karte wird abgelegt
-        karteBewegen(childId, getDateiname(getRegion(childId)), "ablagestapel", "x");
+        if (getRegion(childId).split("spieler").length == 1) {
+            // Karte wird abgelegt, aber nur wenn die Region nicht die Karten eines anderen Spielers sind
+            karteBewegen(childId, getDateiname(getRegion(childId)), "ablagestapel", "x");
+        }
     }
 //    else if (getRegion(parentId).split("Handkarten").length == 2) {
 //        console.log("Karte wird zu Handkarten bewegt");
