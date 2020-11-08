@@ -49,4 +49,5 @@ Karten können auf Handkarten gedraggt werden
 Prüfen, ob kartenBewegen.php damit rechnet, dass der Parameter karte wirklich nur die Kartennummer ist, ohne "x"
 Beim ondragstart sollten Dropzonen erscheinen, sodass man Karten auch in eine andere Region bewegen kann, ohne sie irgendwo anzuhängen
 Spielleitung: Spiel kann nur geöffnet werden, nachdem die Spieler resettet wurden
+Debug-Buttons entfernen
 
