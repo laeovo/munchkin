@@ -7,7 +7,7 @@
         karte = Zahl in [0, $anzahlKartenGesamt-1]
         mitKindern = "true" / "false"
         append = Zahl (diese Karte muss in "nach" vorhanden sein) oder "x"
-        TODO: Parameter, der angibt, zwischen welchen Karten die neue Karte positioniert werden soll
+        TODO: (Nicht notwendig) Parameter, der angibt, zwischen welchen Karten die neue Karte positioniert werden soll
      
      */
     

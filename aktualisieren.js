@@ -493,7 +493,7 @@ function kartenregionAktualisieren(dateiname, kontainer) {
         }
         
         // Kartenspaces zusammenstellen und Reihenfolge fixen
-        // TODO: nur Kartenspaces aktualisieren, die noch nicht stimmen
+        // TODO: (wär schön) nur Kartenspaces aktualisieren, die noch nicht stimmen
 //        console.log("kontainer: " + kontainer + ", kartenspaces laut server: " + kartenspacesLautServer);
         for (let i = 0; i < kartenspacesLautServer.length; i++) {
             const kartenspace = kartenspacesLautServer[i].split(";");
@@ -588,7 +588,7 @@ function erzeugeKarte(kartenId, kontainer) {
 function setzeDragDropAttribute(schaltflaeche, kontainer) {
     if (kontainer.split("Handkarten").length != 2) {
         schaltflaeche.setAttribute("draggable", "true");
-        schaltflaeche.setAttribute("ondragover", "ablegenErlauben(event)"); // TODO: Karte verdunkeln
+        schaltflaeche.setAttribute("ondragover", "ablegenErlauben(event)"); // TODO: (Spielerei) Karte verdunkeln
         schaltflaeche.setAttribute("ondrop", "ablegen(event)")
         schaltflaeche.setAttribute("ondragstart", "ziehen(event)");
     }

@@ -86,7 +86,7 @@ function hintergrundErstellen() {
     return hintergrund;
 }
 
-function leerenVordergrundErstellen(position) { // TODO: umbenennen
+function leerenVordergrundErstellen(position) { // TODO: (nicht wichtig) umbenennen
     // position ist hier eine Zahl in [1,3]; 1 = oben links, 2 = oben rechts, 3 = unten rechts
     vordergrund = document.createElement("div");
     vordergrund.setAttribute("id", "vordergrund");
