@@ -132,7 +132,7 @@
         if (flock($fpZiel, LOCK_EX)) {
             $bisherigeKartenNachString = fgets($fpZiel, 4096);
             if ($von != $nach) {
-                $karte = str_replace("x", "", $karte);
+                $karte = str_replace("x", "", $karte); // Sobald eine Karte die Region wechselt, ist sie danach nicht mehr geflaggt
             }
             $parentKarte = $_POST["append"];
             if ($parentKarte != "x") {

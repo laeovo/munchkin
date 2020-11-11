@@ -127,3 +127,5 @@ function mitteAufraeumen() {
     }
     kartenregionAktualisierenWrapper("mitte");
 }
+
+// TODO: karteVerschieben(): Karte innerhalb einer Region an eine andere Stelle rücken. Dabei darf der Flag-Status nicht verloren gehen.

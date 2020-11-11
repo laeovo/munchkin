@@ -1,22 +1,3 @@
-KartenSpace kann mehrere Karten beinhalten
-
-Werden von oben nach unten, bzw. hinten nach vorne gefüllt:
-
-+---------+     <---- alt
-|+---------+
-||+---------+
-|||+---------+
-||||+---------+
-|||||+---------+
-+|||||         |
- +||||         |
-  +|||   neu   |
-   +||         |
-    +|         |
-     +---------+
-
-KartenSpaces in den Handkarten müssen genau eine Karte haben
-
 Drag&Drop:
     Handkarte:
         kann in der eigenen Hand an jede Stelle grdroppt werden
@@ -45,9 +26,8 @@ Drag&Drop:
 
 
 TODO: BUGS:
-Karten können auf Handkarten gedraggt werden
-Prüfen, ob kartenBewegen.php damit rechnet, dass der Parameter karte wirklich nur die Kartennummer ist, ohne "x"
-Beim ondragstart sollten Dropzonen erscheinen, sodass man Karten auch in eine andere Region bewegen kann, ohne sie irgendwo anzuhängen
+Beim ondragstart sollten Dropzonen erscheinen, sodass man Karten auch in eine andere Region bewegen kann, ohne sie irgendwo anzuhängen. Die Dropzonen sollen erscheinen bei eigenen offenen Karten, eigenen Handkarten, Mitte, fremde offene Karten
 Spielleitung: Spiel kann nur geöffnet werden, nachdem die Spieler resettet wurden
 Debug-Buttons entfernen
-
+Eigene Karten auf fremde Handkarten droppen
+Drop auf eigene Handkarten: Karte(n) auf die Hand nehmen
