@@ -176,7 +176,7 @@ function karteIstGeflaggt(kartenId) {
         kartenInDerRegion = eigeneOffeneKarten;
     }
     else {
-        // TODO: ...?
+        // TODO: (erstmal irrelevant) Liste vervollständigen
         console.log("Die Funktion 'karteIstGeflaggt' geht nicht davon aus, dass die Karte in der Region '" + getRegion(kartenId) + "' liegt");
     }
     for (var i = 0; i < kartenInDerRegion.length; i++) {
@@ -512,11 +512,11 @@ function kartenregionAktualisieren(dateiname, kontainer) {
                             }
                         }
                         if (inDiesemKartenspaceSindKartenGeflaggt) {
-                            document.getElementById(kartenspace[j].split("x")[0]).style.width = "160px"; // TODO: verallgemeinern
+                            document.getElementById(kartenspace[j].split("x")[0]).style.width = "160px"; // TODO: (schon eher wichtig) verallgemeinern
                             document.getElementById(kartenspace[j].split("x")[0]).style.transform = "translateX(18.75%)";
                         }
                         else {
-                            document.getElementById(kartenspace[j].split("x")[0]).style.width = "100px"; // TODO: verallgemeinern
+                            document.getElementById(kartenspace[j].split("x")[0]).style.width = "100px"; // TODO: (schon eher wichtig) verallgemeinern
                             document.getElementById(kartenspace[j].split("x")[0]).style.transform = "";
                         }
                     }
