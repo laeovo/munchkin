@@ -25,9 +25,14 @@ Drag&Drop:
     
 
 
-TODO: BUGS:
+TODO: Funktionalität:
 Beim ondragstart sollten Dropzonen erscheinen, sodass man Karten auch in eine andere Region bewegen kann, ohne sie irgendwo anzuhängen. Die Dropzonen sollen erscheinen bei eigenen offenen Karten, eigenen Handkarten, Mitte, fremde offene Karten
-Spielleitung: Spiel kann nur geöffnet werden, nachdem die Spieler resettet wurden
-Debug-Buttons entfernen
 Eigene Karten auf fremde Handkarten droppen
 Drop auf eigene Handkarten: Karte(n) auf die Hand nehmen
+
+Debug-TODOs:
+Spielleitung: Spiel kann nur geöffnet werden, nachdem die Spieler resettet wurden
+Debug-Buttons entfernen
+
+Weitere TODOs:
+Code kommentieren, welche Funktionen nur KartenIds (Nummern) als Input nehmen, und welche Funktionen mit echten Karten (z.B. mit Flag) arbeiten
