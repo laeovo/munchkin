@@ -79,10 +79,10 @@ function karteBewegen(kartenId, von, nach, appendAn) {
         karteBewegenOhneCheck(kartenId, von, nach, "false", appendAn);
     }
     else {
-        // TODO: (Sollte schon irgendwie gemacht werden) Style, die Buttons sollen in der Mitte sein
         var hintergrund = document.createElement("div");
         hintergrund.setAttribute("id", "kinderOption");
-        hintergrund.setAttribute("style", "position: fixed; top: 0px; left: 0px; width: 100%; height: 100%; background-color: rgba(50,50,50,0.5); cursor: pointer;");
+        hintergrund.setAttribute("style", "position: fixed; top: 0px; left: 0px; width: 100%; height: 100%; background-color: rgba(50,50,50,0.5); cursor: pointer; padding-left: 50vw; padding-top: 50vh; transform: translate(-150px, -75px)");
+        // TODO: (nicht so wichtig) Wenn man ins Leere klickt, sollte der Div verschwinden.
         window.document.body.appendChild(hintergrund);
         buttonErstellen("Mit Kindern", "MitKindern", "window.document.body.removeChild(document.getElementById('kinderOption')), karteBewegenOhneCheck('" + kartenId + "', '" + von + "', '" + nach + "', 'true', '" + appendAn + "')", "kinderOption");
         buttonErstellen("Ohne Kindern", "OhneKindern", "window.document.body.removeChild(document.getElementById('kinderOption')), karteBewegenOhneCheck('" + kartenId + "', '" + von + "', '" + nach + "', 'false', '" + appendAn + "')", "kinderOption");
