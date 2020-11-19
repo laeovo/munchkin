@@ -41,9 +41,10 @@ body {
 }
 
 #stapel {
-    width: 0px;
-    top: 10%;
-    margin: 0px auto;
+    position: absolute;
+    top: 2%;
+    left: 50vw;
+    transform: translateX(-50%);
 }
 
 #ablagestapelTuer {
