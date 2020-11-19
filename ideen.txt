@@ -33,6 +33,7 @@ Drop auf eigene Handkarten: Karte(n) auf die Hand nehmen
 Debug-TODOs:
 Spielleitung: Spiel kann nur geöffnet werden, nachdem die Spieler resettet wurden
 Debug-Buttons entfernen
+Beim Kinder-Menu muss der Hintergrund eine eigene klickbare Fläche sein. Denn der onclick entfernt den gesamten Div. Wenn man auf einen Button klickt, wird der Div zweimal entfernt; einmal durch ein onclick des Divs und durch den Button. Dann gibts einen Fehler
 
 Weitere TODOs:
 Code kommentieren, welche Funktionen nur KartenIds (Nummern) als Input nehmen, und welche Funktionen mit echten Karten (z.B. mit Flag) arbeiten
