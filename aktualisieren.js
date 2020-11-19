@@ -658,8 +658,8 @@ function aufraeumenButton() {
     button.setAttribute("id", "aufraeumenButton");
     button.setAttribute("align", "center");
     button.setAttribute("onclick", "mitteAufraeumen()");
-    button.style.width = breiteMitteKarten;
-    button.style.height = breiteMitteKarten * 1.6;
+    button.style.width = "5vw";
+    button.style.height = "8vw";
     button.innerHTML = "Aufräumen";
     window.document.getElementById("mitte").appendChild(button);
 }
