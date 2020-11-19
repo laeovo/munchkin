@@ -166,11 +166,11 @@ body {
 }
 
 #aufraeumenButton {
-    height: 100px;
+    height: 5vw;
     background-color: rgba(200, 200, 200, 0.75);
     float: left;
     cursor: pointer;
-    line-height: 160px;
+    line-height: 8vw;
 }
 
 #aufraeumenButton:hover {
