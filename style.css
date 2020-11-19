@@ -35,9 +35,59 @@ body {
     position: absolute;
 }
 
+#mitte {
+    top: 50vh;
+    left: 50vw;
+    transform: translate(-50%, -50%);
+}
+
+#eigeneHandkarten {
+    bottom: 0px;
+    left: 0px;
+}
+
+#eigeneOffeneKarten {
+    bottom: 9vw;
+    left: 0px;
+}
+
+#spielerObenLinksHandkarten {
+    top: 0px;
+    left: 0px;
+}
+
+#spielerObenLinksOffeneKarten {
+    top: 9vw;
+    left: 0px;
+}
+
+#spielerObenRechtsHandkarten {
+    top: 0px;
+    right: 0px;
+}
+
+#spielerObenRechtsOffeneKarten {
+    top: 9vw;
+    right: 0px;
+}
+
+#spielerUntenRechtsHandkarten {
+    bottom: 0px;
+    right: 0px;
+}
+
+#spielerUntenRechtsOffeneKarten {
+    bottom: 9vw;
+    right: 0px;
+}
+
 #ablagestapelTuer, #nachziehstapelTuer, #nachziehstapelSchatz, #ablagestapelSchatz {
     float: left;
     cursor: pointer;
+}
+
+.stapelKarte {
+    width: 5vw;
 }
 
 #stapel {
@@ -49,7 +99,7 @@ body {
 
 #ablagestapelTuer {
     position: relative;
-    top: 40px;
+    top: 1.25vw;
     left: 0px;
 }
 
@@ -67,7 +117,7 @@ body {
 
 #ablagestapelSchatz {
     position: relative;
-    top: 40px;
+    top: 1.25vw;
     left: 0px;
 }
 

@@ -1,136 +1,39 @@
-var breiteEigeneHandkarten = 0;
-var breiteEigeneOffeneKarten = 0;
-var breiteSpielerObenLinksHandkarten = 0;
-var breiteSpielerObenLinksOffeneKarten = 0;
-var breiteSpielerObenRechtsHandkarten = 0;
-var breiteSpielerObenRechtsOffeneKarten = 0;
-var breiteSpielerUntenRechtsHandkarten = 0;
-var breiteSpielerUntenRechtsOffeneKarten = 0;
-var breiteStapelKarten = 0;
-var breiteMitteKarten = 0;
-var bottomOffsetEigeneHandkarten = -50;
-var topOffsetFremdeHandkarten = 0;
-var bottomOffsetFremdeHandkarten = 0;
-var abstandZwischenKarten = 10;
+var kartenbreite = 5.0;
+//var bottomOffsetEigeneHandkarten = -50;
+//var topOffsetFremdeHandkarten = 0;
+//var bottomOffsetFremdeHandkarten = 0;
+//var abstandZwischenKarten = 10;
 
-const breiteFremdeHandkarten = 70;
-const breiteFremdeOffeneKarten = 85;
-
-groesseEigeneHandkartenAnpassen(100);
-groesseEigeneOffeneKartenAnpassen(100);
-groesseSpielerObenLinksHandkartenAnpassen(breiteFremdeHandkarten);
-groesseSpielerObenLinksOffeneKartenAnpassen(breiteFremdeOffeneKarten);
-groesseSpielerObenRechtsHandkartenAnpassen(breiteFremdeHandkarten);
-groesseSpielerObenRechtsOffeneKartenAnpassen(breiteFremdeOffeneKarten);
-groesseSpielerUntenRechtsHandkartenAnpassen(breiteFremdeHandkarten);
-groesseSpielerUntenRechtsOffeneKartenAnpassen(breiteFremdeOffeneKarten);
-groesseStapelAnpassen(100);
-groesseMitteAnpassen(100);
+//groesseStapelAnpassen(100);
+//groesseMitteAnpassen(100);
 spielstaendeErstellen();
 
-function groesseEigeneHandkartenAnpassen(neueBreite) {
-    breiteEigeneHandkarten = neueBreite;
-    var eigeneHandkartenImBild = window.document.getElementsByClassName("eigeneHandkarte");
-    for (var i = 0; i < eigeneHandkartenImBild.length; i++) {
-        eigeneHandkartenImBild[i].style.width = breiteEigeneHandkarten + "px";
-        eigeneHandkartenImBild[i].style.height = breiteEigeneHandkarten * 1.6 + "px";
+function kartenbreiteAnpassen(neueBreite) {
+    kartenbreite = neueBreite;
+    var kontainer = ["eigeneHandkarten", "eigeneOffeneKarten", "spielerObenLinksHandkarten", "spielerObenLinksOffeneKarten", "spielerObenRechtsHandkarten", "spielerObenRechtsOffeneKarten", "spielerUntenRechtsHandkarten", "spielerUntenRechtsOffeneKarten", "mitte"];
+    for (var i = 0; i < kontainer.length; i++) {
+        var kartenImKontainer = document.getElementById(kontainer[i]).children;
+        for (let j = 0; j < kartenImKontainer.length; j++) {
+            var karte = kartenImKontainer[j];
+            karte.style.width = neueBreite + "vw";
+            while (karte.children.length == 2) {
+                karte = karte.children[1];
+                karte.style.width = neueBreite + "vw";
+            }
+        }
     }
-    window.document.getElementById("eigeneHandkarten").style.bottom = bottomOffsetEigeneHandkarten + "px";
-    window.document.getElementById("eigeneHandkarten").style.left = "0px";
-}
-
-function groesseEigeneOffeneKartenAnpassen(neueBreite) {
-    breiteEigeneOffeneKarten = neueBreite;
-    var eigeneOffeneKartenImBild = window.document.getElementsByClassName("eigeneOffeneKarte");
-    for (var i = 0; i < eigeneOffeneKartenImBild.length; i++) {
-        eigeneOffeneKartenImBild[i].style.width = breiteEigeneOffeneKarten + "px";
-        eigeneOffeneKartenImBild[i].style.height = breiteEigeneOffeneKarten * 1.6 + "px";
-    }
-    window.document.getElementById("eigeneOffeneKarten").style.bottom = (bottomOffsetEigeneHandkarten + breiteEigeneHandkarten * 1.6 + abstandZwischenKarten) + "px";
-    window.document.getElementById("eigeneOffeneKarten").style.left = "0px";
-}
-
-function groesseSpielerObenLinksHandkartenAnpassen(neueBreite) {
-    breiteSpielerObenLinksHandkarten = neueBreite;
-    var spielerObenLinksHandkartenImBild = window.document.getElementsByClassName("spielerObenLinksHandkarte");
-    for (var i = 0; i < spielerObenLinksHandkartenImBild.length; i++) {
-        spielerObenLinksHandkartenImBild[i].style.width = breiteSpielerObenLinksHandkarten + "px";
-        spielerObenLinksHandkartenImBild[i].style.height = breiteSpielerObenLinksHandkarten * 1.6 + "px";
-    }
-    window.document.getElementById("spielerObenLinksHandkarten").style.top = topOffsetFremdeHandkarten + "px";
-    window.document.getElementById("spielerObenLinksHandkarten").style.left = "0px";
-}
-
-function groesseSpielerObenLinksOffeneKartenAnpassen(neueBreite) {
-    breiteSpielerObenLinksOffeneKarten = neueBreite;
-    var spielerObenLinksOffeneKartenImBild = window.document.getElementsByClassName("spielerObenLinksOffeneKarte");
-    for (var i = 0; i < spielerObenLinksOffeneKartenImBild.length; i++) {
-        spielerObenLinksOffeneKartenImBild[i].style.width = breiteSpielerObenLinksOffeneKarten + "px";
-        spielerObenLinksOffeneKartenImBild[i].style.height = breiteSpielerObenLinksOffeneKarten * 1.6 + "px";
-    }
-    window.document.getElementById("spielerObenLinksOffeneKarten").style.top = (topOffsetFremdeHandkarten + breiteSpielerObenLinksHandkarten * 1.6 + abstandZwischenKarten) + "px";
-    window.document.getElementById("spielerObenLinksOffeneKarten").style.left = "0px";
-}
-
-function groesseSpielerObenRechtsHandkartenAnpassen(neueBreite) {
-    breiteSpielerObenRechtsHandkarten = neueBreite;
-    var spielerObenRechtsHandkartenImBild = window.document.getElementsByClassName("spielerObenRechtsHandkarte");
-    for (var i = 0; i < spielerObenRechtsHandkartenImBild.length; i++) {
-        spielerObenRechtsHandkartenImBild[i].style.width = breiteSpielerObenRechtsHandkarten + "px";
-        spielerObenRechtsHandkartenImBild[i].style.height = breiteSpielerObenRechtsHandkarten * 1.6 + "px";
-    }
-    window.document.getElementById("spielerObenRechtsHandkarten").style.top = topOffsetFremdeHandkarten + "px";
-    window.document.getElementById("spielerObenRechtsHandkarten").style.right = "0px";
-}
-
-function groesseSpielerObenRechtsOffeneKartenAnpassen(neueBreite) {
-    breiteSpielerObenRechtsOffeneKarten = neueBreite;
-    var spielerObenRechtsOffeneKartenImBild = window.document.getElementsByClassName("spielerObenRechtsOffeneKarte");
-    for (var i = 0; i < spielerObenRechtsOffeneKartenImBild.length; i++) {
-        spielerObenRechtsOffeneKartenImBild[i].style.width = breiteSpielerObenRechtsOffeneKarten + "px";
-        spielerObenRechtsOffeneKartenImBild[i].style.height = breiteSpielerObenRechtsOffeneKarten * 1.6 + "px";
-    }
-    window.document.getElementById("spielerObenRechtsOffeneKarten").style.top = (topOffsetFremdeHandkarten + breiteSpielerObenRechtsHandkarten * 1.6 + abstandZwischenKarten) + "px";
-    window.document.getElementById("spielerObenRechtsOffeneKarten").style.right = "0px";
-}
-
-function groesseSpielerUntenRechtsHandkartenAnpassen(neueBreite) {
-    breiteSpielerUntenRechtsHandkarten = neueBreite;
-    var spielerUntenRechtsHandkartenImBild = window.document.getElementsByClassName("spielerUntenRechtsHandkarte");
-    for (var i = 0; i < spielerUntenRechtsHandkartenImBild.length; i++) {
-        spielerUntenRechtsHandkartenImBild[i].style.width = breiteSpielerUntenRechtsHandkarten + "px";
-        spielerUntenRechtsHandkartenImBild[i].style.height = breiteSpielerUntenRechtsHandkarten * 1.6 + "px";
-    }
-    window.document.getElementById("spielerUntenRechtsHandkarten").style.bottom = bottomOffsetFremdeHandkarten + "px";
-    window.document.getElementById("spielerUntenRechtsHandkarten").style.right = "0px";
-}
-
-function groesseSpielerUntenRechtsOffeneKartenAnpassen(neueBreite) {
-    breiteSpielerUntenRechtsOffeneKarten = neueBreite;
-    var spielerUntenRechtsOffeneKartenImBild = window.document.getElementsByClassName("spielerUntenRechtsOffeneKarte");
-    for (var i = 0; i < spielerUntenRechtsOffeneKartenImBild.length; i++) {
-        spielerUntenRechtsOffeneKartenImBild[i].style.width = breiteSpielerUntenRechtsOffeneKarten + "px";
-        spielerUntenRechtsOffeneKartenImBild[i].style.height = breiteSpielerUntenRechtsOffeneKarten * 1.6 + "px";
-    }
-    window.document.getElementById("spielerUntenRechtsOffeneKarten").style.bottom = (bottomOffsetFremdeHandkarten + breiteSpielerUntenRechtsHandkarten * 1.6 + abstandZwischenKarten) + "px";
-    window.document.getElementById("spielerUntenRechtsOffeneKarten").style.right = "0px";
+//    window.document.getElementById("eigeneHandkarten").style.bottom = bottomOffsetEigeneHandkarten + "px";
+//    window.document.getElementById("eigeneHandkarten").style.left = "0px";
 }
 
 function groesseStapelAnpassen(neueBreite) {
     breiteStapelKarten = neueBreite;
     var stapelKartenImBild = window.document.getElementsByClassName("stapelKarte");
     for (var i = 0; i < stapelKartenImBild.length; i++) {
-        stapelKartenImBild[i].style.width = breiteStapelKarten + "px";
-        stapelKartenImBild[i].style.height = breiteStapelKarten * 1.6 + "px";
+        stapelKartenImBild[i].style.width = "5vw";
+        stapelKartenImBild[i].style.height = "8vw";
     }
     window.document.getElementById("stapel").style.width = 4*breiteStapelKarten + "px";
-}
-
-function groesseMitteAnpassen(neueBreite) {
-    breiteMitteKarten = neueBreite;
-    window.document.getElementById("mitte").style.left = "50%";
-    window.document.getElementById("mitte").style.top = "50%";
-    window.document.getElementById("mitte").style.transform = "translate(-50%, -50%)";
 }
 
 function spielstaendeErstellen() {
@@ -178,7 +81,7 @@ function spielstaendeErstellen() {
         eigeneInfo.appendChild(eigenerName);
         eigeneInfo.appendChild(eigenesGeschlechtDiv);
         eigeneInfo.style.left = "0px";
-        eigeneInfo.style.bottom = (2*abstandZwischenKarten + 1.6*(breiteEigeneHandkarten+breiteEigeneOffeneKarten) + bottomOffsetEigeneHandkarten) + "px";
+        eigeneInfo.style.bottom = "18vw";
         
         spielerObenLinksPunktestand = document.createElement("div");
         spielerObenLinksPunktestand.setAttribute("id", "punktestand" + (getEigeneId()+1)%4);
@@ -216,7 +119,7 @@ function spielstaendeErstellen() {
         spielerObenLinksInfo.appendChild(spielerObenLinksName);
         spielerObenLinksInfo.appendChild(spielerObenLinksGeschlechtDiv);
         spielerObenLinksInfo.style.left = "0px";
-        spielerObenLinksInfo.style.top = (2*abstandZwischenKarten + 1.6*(breiteSpielerObenLinksHandkarten+breiteSpielerObenLinksOffeneKarten) + topOffsetFremdeHandkarten) + "px";
+        spielerObenLinksInfo.style.top = "18vw";
         
         
         spielerObenRechtsPunktestand = document.createElement("div");
@@ -255,7 +158,7 @@ function spielstaendeErstellen() {
         spielerObenRechtsInfo.appendChild(spielerObenRechtsName);
         spielerObenRechtsInfo.appendChild(spielerObenRechtsGeschlechtDiv);
         spielerObenRechtsInfo.style.right = "0px";
-        spielerObenRechtsInfo.style.top = (2*abstandZwischenKarten + 1.6*(breiteSpielerObenRechtsHandkarten+breiteSpielerObenRechtsOffeneKarten) + topOffsetFremdeHandkarten) + "px";
+        spielerObenRechtsInfo.style.top = "18vw";
         
         
         spielerUntenRechtsPunktestand = document.createElement("div");
@@ -294,7 +197,7 @@ function spielstaendeErstellen() {
         spielerUntenRechtsInfo.appendChild(spielerUntenRechtsName);
         spielerUntenRechtsInfo.appendChild(spielerUntenRechtsGeschlechtDiv);
         spielerUntenRechtsInfo.style.right = "0px";
-        spielerUntenRechtsInfo.style.bottom = (2*abstandZwischenKarten + 1.6*(breiteSpielerUntenRechtsHandkarten+breiteSpielerUntenRechtsOffeneKarten) + bottomOffsetFremdeHandkarten) + "px";
+        spielerUntenRechtsInfo.style.bottom = "18vw";
     };
     xhr.open("POST", "getDatei.php");
     xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
