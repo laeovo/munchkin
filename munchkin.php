@@ -3,6 +3,7 @@
         <title>Munchkin</title>
         <script type="text/JavaScript" src="aktualisieren.js"></script>
         <script type="text/JavaScript" src="dragDrop.js"></script>
+        <script type="text/JavaScript" src="einstellungen.js"></script>
         <script type="text/JavaScript" src="kartenBewegen.js"></script>
         <script type="text/JavaScript" src="Kartenmenu.js"></script>
         <script type="text/JavaScript" src="spielstandManipulieren.js"></script>
@@ -36,9 +37,11 @@
 
         <input type="submit" value="stop" onclick="stop()" />
         <input type="submit" value="Karten zurücksetzen", onclick="kartenZuruecksetzen()" />
-        <input type="range" min="3" max="10" step="0.25" value="7" id="kartenGroesseSlider" oninput="kartenbreiteAnpassen(this.value)">
         
         <div id="eigeneInfo" class="spielerInfo">
+            <div id="einstellungen" align="center" onclick="einstellungen()">
+                &#9881;
+                </div>
             <div id="spielstandKlicker">
                 <div id="spielstandErhoehen" align="center" onclick="spielerSteigtAuf()">
                     +
