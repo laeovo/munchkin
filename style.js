@@ -1,39 +1,51 @@
-var kartenbreite = 5.0;
-//var bottomOffsetEigeneHandkarten = -50;
-//var topOffsetFremdeHandkarten = 0;
-//var bottomOffsetFremdeHandkarten = 0;
-//var abstandZwischenKarten = 10;
-
-//groesseStapelAnpassen(100);
-//groesseMitteAnpassen(100);
+var kartenbreite = "5vw";
+var kartenhoehe = "8vw";
+var offeneKartenOffset = "9vw";
+var infoOffset = "18vw";
 spielstaendeErstellen();
 
 function kartenbreiteAnpassen(neueBreite) {
-    kartenbreite = neueBreite;
+    kartenbreite = neueBreite + "vw";
+    kartenhoehe = (1.6 * parseFloat(neueBreite)) + "vw";
+    offeneKartenOffset = (parseFloat(kartenhoehe.split("vw")[0]) + 1) + "vw";
+    infoOffset = (parseFloat(kartenhoehe.split("vw")[0]) * 2 + 2) + "vw";
     var kontainer = ["eigeneHandkarten", "eigeneOffeneKarten", "spielerObenLinksHandkarten", "spielerObenLinksOffeneKarten", "spielerObenRechtsHandkarten", "spielerObenRechtsOffeneKarten", "spielerUntenRechtsHandkarten", "spielerUntenRechtsOffeneKarten", "mitte"];
     for (var i = 0; i < kontainer.length; i++) {
         var kartenImKontainer = document.getElementById(kontainer[i]).children;
         for (let j = 0; j < kartenImKontainer.length; j++) {
             var karte = kartenImKontainer[j];
+            if (karte.id == "aufraeumenButton") {
+                // TODO: Aufräumenbutton klären
+                continue;
+            }
+            // TODO: gedrehte (geflaggte) Karten anders behandeln
             karte.style.width = neueBreite + "vw";
+            karte.children[0].style.width = neueBreite + "vw";
             while (karte.children.length == 2) {
                 karte = karte.children[1];
                 karte.style.width = neueBreite + "vw";
+                karte.children[0].style.width = neueBreite + "vw";
             }
         }
     }
-//    window.document.getElementById("eigeneHandkarten").style.bottom = bottomOffsetEigeneHandkarten + "px";
-//    window.document.getElementById("eigeneHandkarten").style.left = "0px";
+    groesseStapelAnpassen();
+    window.document.getElementById("eigeneOffeneKarten").style.bottom = offeneKartenOffset;
+    window.document.getElementById("spielerObenLinksOffeneKarten").style.top = offeneKartenOffset;
+    window.document.getElementById("spielerObenRechtsOffeneKarten").style.top = offeneKartenOffset;
+    window.document.getElementById("spielerUntenRechtsOffeneKarten").style.bottom = offeneKartenOffset;
+    window.document.getElementById("eigeneInfo").style.bottom = infoOffset;
+    window.document.getElementById("spielerObenLinksInfo").style.top = infoOffset;
+    window.document.getElementById("spielerObenRechtsInfo").style.top = infoOffset;
+    window.document.getElementById("spielerUntenRechtsInfo").style.bottom = infoOffset;
 }
 
-function groesseStapelAnpassen(neueBreite) {
-    breiteStapelKarten = neueBreite;
+function groesseStapelAnpassen() {
     var stapelKartenImBild = window.document.getElementsByClassName("stapelKarte");
     for (var i = 0; i < stapelKartenImBild.length; i++) {
-        stapelKartenImBild[i].style.width = "5vw";
-        stapelKartenImBild[i].style.height = "8vw";
+        stapelKartenImBild[i].style.width = kartenbreite;
+        stapelKartenImBild[i].style.height = kartenhoehe;
     }
-    window.document.getElementById("stapel").style.width = 4*breiteStapelKarten + "px";
+    window.document.getElementById("stapel").style.width = 4*parseFloat(kartenbreite.split("vw")[0]) + "vw";
 }
 
 function spielstaendeErstellen() {
@@ -81,7 +93,7 @@ function spielstaendeErstellen() {
         eigeneInfo.appendChild(eigenerName);
         eigeneInfo.appendChild(eigenesGeschlechtDiv);
         eigeneInfo.style.left = "0px";
-        eigeneInfo.style.bottom = "18vw";
+        eigeneInfo.style.bottom = infoOffset;
         
         spielerObenLinksPunktestand = document.createElement("div");
         spielerObenLinksPunktestand.setAttribute("id", "punktestand" + (getEigeneId()+1)%4);
@@ -119,7 +131,7 @@ function spielstaendeErstellen() {
         spielerObenLinksInfo.appendChild(spielerObenLinksName);
         spielerObenLinksInfo.appendChild(spielerObenLinksGeschlechtDiv);
         spielerObenLinksInfo.style.left = "0px";
-        spielerObenLinksInfo.style.top = "18vw";
+        spielerObenLinksInfo.style.top = infoOffset;
         
         
         spielerObenRechtsPunktestand = document.createElement("div");
@@ -158,7 +170,7 @@ function spielstaendeErstellen() {
         spielerObenRechtsInfo.appendChild(spielerObenRechtsName);
         spielerObenRechtsInfo.appendChild(spielerObenRechtsGeschlechtDiv);
         spielerObenRechtsInfo.style.right = "0px";
-        spielerObenRechtsInfo.style.top = "18vw";
+        spielerObenRechtsInfo.style.top = infoOffset;
         
         
         spielerUntenRechtsPunktestand = document.createElement("div");
@@ -197,7 +209,7 @@ function spielstaendeErstellen() {
         spielerUntenRechtsInfo.appendChild(spielerUntenRechtsName);
         spielerUntenRechtsInfo.appendChild(spielerUntenRechtsGeschlechtDiv);
         spielerUntenRechtsInfo.style.right = "0px";
-        spielerUntenRechtsInfo.style.bottom = "18vw";
+        spielerUntenRechtsInfo.style.bottom = infoOffset;
     };
     xhr.open("POST", "getDatei.php");
     xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");

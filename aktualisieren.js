@@ -512,11 +512,11 @@ function kartenregionAktualisieren(dateiname, kontainer) {
                             }
                         }
                         if (inDiesemKartenspaceSindKartenGeflaggt) {
-                            document.getElementById(kartenspace[j].split("x")[0]).style.width = "8vw"; // TODO: (schon eher wichtig) verallgemeinern
+                            document.getElementById(kartenspace[j].split("x")[0]).style.width = kartenhoehe;
                             document.getElementById(kartenspace[j].split("x")[0]).style.transform = "translateX(18.75%)";
                         }
                         else {
-                            document.getElementById(kartenspace[j].split("x")[0]).style.width = "5vw"; // TODO: (schon eher wichtig) verallgemeinern
+                            document.getElementById(kartenspace[j].split("x")[0]).style.width = kartenbreite;
                             document.getElementById(kartenspace[j].split("x")[0]).style.transform = "";
                         }
                     }
@@ -577,7 +577,7 @@ function erzeugeKarte(kartenId, kontainer) {
     neueKarte.setAttribute("class", "karte");
     schaltflaeche = document.createElement("img");
     schaltflaeche.setAttribute("class", "kartenSchaltflaeche");
-    schaltflaeche.setAttribute("style", "width: 5vw");
+    schaltflaeche.setAttribute("style", "width: " + kartenbreite);
     setzeDragDropAttribute(schaltflaeche, kontainer);
     setzeKarteOnclick(schaltflaeche, kontainer, kartenId)
     neueKarte.appendChild(schaltflaeche);
@@ -658,8 +658,8 @@ function aufraeumenButton() {
     button.setAttribute("id", "aufraeumenButton");
     button.setAttribute("align", "center");
     button.setAttribute("onclick", "mitteAufraeumen()");
-    button.style.width = "5vw";
-    button.style.height = "8vw";
+    button.style.width = kartenbreite;
+    button.style.height = kartenhoehe;
     button.innerHTML = "Aufräumen";
     window.document.getElementById("mitte").appendChild(button);
 }
