@@ -19,12 +19,10 @@ function kartenbreiteAnpassen(neueBreite) {
                 continue;
             }
             // TODO: gedrehte (geflaggte) Karten anders behandeln
-            karte.style.width = neueBreite + "vw";
-            karte.children[0].style.width = neueBreite + "vw";
+            breiteZuweisen(karte, neueBreite);
             while (karte.children.length == 2) {
                 karte = karte.children[1];
-                karte.style.width = neueBreite + "vw";
-                karte.children[0].style.width = neueBreite + "vw";
+                breiteZuweisen(karte, neueBreite);
             }
         }
     }
@@ -37,6 +35,17 @@ function kartenbreiteAnpassen(neueBreite) {
     window.document.getElementById("spielerObenLinksInfo").style.top = infoOffset;
     window.document.getElementById("spielerObenRechtsInfo").style.top = infoOffset;
     window.document.getElementById("spielerUntenRechtsInfo").style.bottom = infoOffset;
+}
+
+function breiteZuweisen(karte, neueBreite) {
+    if (karteIstGeflaggt(karte.id)) {
+        karte.style.width = (neueBreite * 1.6) + "vw"; // TODO: versuchen, ob das raus kann; genau wie alle anderen width-Vorgaben für die Divs
+        karte.children[0].style.width = neueBreite + "vw";
+    }
+    else {
+        karte.style.width = neueBreite + "vw";
+        karte.children[0].style.width = neueBreite + "vw";
+    }
 }
 
 function groesseStapelAnpassen() {
