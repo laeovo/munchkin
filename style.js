@@ -80,7 +80,6 @@ function spielstaendeErstellen() {
         eigenerName.style.float = "left";
         eigenerName.innerHTML = spieler[getEigeneId()].split(";")[0];
         eigenesGeschlechtDiv = document.createElement("div");
-        eigenesGeschlechtDiv.setAttribute("id", "geschlechtDiv" + getEigeneId());
         eigenesGeschlechtDiv.setAttribute("id", "eigenesGeschlecht");
         eigenesGeschlechtDiv.setAttribute("class", "geschlecht");
         eigenesGeschlechtDiv.setAttribute("align", "center");
@@ -122,7 +121,6 @@ function spielstaendeErstellen() {
         spielerObenLinksName.style.float = "left";
         spielerObenLinksName.innerHTML = spieler[(getEigeneId()+1)%4].split(";")[0];
         spielerObenLinksGeschlechtDiv = document.createElement("div");
-        spielerObenLinksGeschlechtDiv.setAttribute("id", "geschlechtDiv" + (getEigeneId()+1)%4);
         spielerObenLinksGeschlechtDiv.setAttribute("class", "geschlecht");
         spielerObenLinksGeschlechtDiv.setAttribute("align", "center");
         spielerObenLinksGeschlechtDiv.style.float = "left";
@@ -161,7 +159,6 @@ function spielstaendeErstellen() {
         spielerObenRechtsName.style.float = "right";
         spielerObenRechtsName.innerHTML = spieler[(getEigeneId()+2)%4].split(";")[0];
         spielerObenRechtsGeschlechtDiv = document.createElement("div");
-        spielerObenRechtsGeschlechtDiv.setAttribute("id", "geschlechtDiv" + (getEigeneId()+2)%4);
         spielerObenRechtsGeschlechtDiv.setAttribute("class", "geschlecht");
         spielerObenRechtsGeschlechtDiv.setAttribute("align", "center");
         spielerObenRechtsGeschlechtDiv.style.float = "right";
@@ -200,7 +197,6 @@ function spielstaendeErstellen() {
         spielerUntenRechtsName.style.float = "right";
         spielerUntenRechtsName.innerHTML = spieler[(getEigeneId()+3)%4].split(";")[0];
         spielerUntenRechtsGeschlechtDiv = document.createElement("div");
-        spielerUntenRechtsGeschlechtDiv.setAttribute("id", "geschlechtDiv" + (getEigeneId()+3)%4);
         spielerUntenRechtsGeschlechtDiv.setAttribute("class", "geschlecht");
         spielerUntenRechtsGeschlechtDiv.setAttribute("align", "center");
         spielerUntenRechtsGeschlechtDiv.style.float = "right";
