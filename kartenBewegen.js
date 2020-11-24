@@ -122,8 +122,8 @@ function mitteAufraeumen() {
     for (let i = 0; i < mitte.length; i++) {
         const kartenspace = mitte[i];
         const karten = kartenspace.split(";");
-        console.log("Jetzt wird Karte " + karten[0] + " abgelegt");
-        karteBewegenOhneCheck(karten[0], "mitte", "ablagestapel", "true", "x");
+//        console.log("Jetzt wird Karte " + karten[0].split("x")[0] + " abgelegt");
+        karteBewegenOhneCheck(karten[0].split("x")[0], "mitte", "ablagestapel", "true", "x");
     }
     kartenregionAktualisierenWrapper("mitte");
 }
