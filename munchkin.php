@@ -20,8 +20,6 @@
             <div id="nachziehstapelSchatz" class="stapelKarte"><img src="karten/schatzkarte_oben_mitSchrift.jpg" style="max-width: 100%; max-height: 50%" onclick="vomStapelZiehen('Schatz', 'offen')" /><img src="karten/schatzkarte_unten_mitSchrift.jpg" style="max-width: 100%; max-height: 50%" onclick="vomStapelZiehen('Schatz', 'verdeckt')" /></div>
             <div id="ablagestapelSchatz" class="stapelKarte" ondragover="ablegenErlauben(event)" ondrop="ablegen(event)"><img id="ablagestapelSchatzBild" style="max-width: 100%; max-height: 100%" onclick="ablagestapelMenu('Schatz')" /></div>
             </div>
-        <input type="submit" value="stop" onclick="stop()" />
-        <input type="submit" value="Karten zurücksetzen", onclick="kartenZuruecksetzen()" />
         <div id="mitte"></div>
         
         <div id="spielerObenLinksHandkarten"></div>
@@ -35,6 +33,9 @@
 
         <div id="eigeneOffeneKarten"></div>
         <div id="eigeneHandkarten"></div>
+
+        <input type="submit" value="stop" onclick="stop()" />
+        <input type="submit" value="Karten zurücksetzen", onclick="kartenZuruecksetzen()" />
         
         <div id="eigeneInfo" class="spielerInfo">
             <div id="spielstandKlicker">

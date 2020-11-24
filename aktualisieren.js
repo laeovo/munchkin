@@ -702,7 +702,7 @@ function objektFlaggen(kartenId, jaodernein, kontainer) {
             schaltflaeche.style.padding = "10% 0px 0px 0px";
         }
         else if (kontainer.split("ffeneKarten").length == 2) {
-            schaltflaeche.style.transform = "rotate(90deg) translateX(-30%)"; // Man könnte hier noch ein "translateY(18.75%)" einbauen, wenn man wöllte
+            schaltflaeche.style.transform = "rotate(90deg) translateX(-30%)";
         }
         else {
             console.log("Die Karte " + kartenId + " im Kontainer " + kontainer + " sollte eigentlich nicht geflaggt werden können");

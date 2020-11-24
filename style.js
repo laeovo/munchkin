@@ -1,4 +1,4 @@
-kartenbreite = "7vw";
+kartenbreite = "10vw";
 kartenhoehe = (1.6 * parseFloat(kartenbreite)) + "vw";
 offeneKartenOffset = (parseFloat(kartenhoehe.split("vw")[0]) + 1) + "vw";
 infoOffset = (parseFloat(kartenhoehe.split("vw")[0]) * 2 + 2) + "vw";
@@ -34,9 +34,11 @@ function kartenbreiteAnpassen(neueBreite) {
 
 function breiteZuweisen(karte, neueBreite) {
     if (karteIstGeflaggt(karte.id)) {
+        karte.style.width = neueBreite + "vw";
         karte.children[0].style.width = neueBreite + "vw";
     }
     else {
+        karte.style.width = neueBreite + "vw";
         karte.children[0].style.width = neueBreite + "vw";
     }
 }

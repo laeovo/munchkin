@@ -7,10 +7,7 @@ body {
 }
 
 .kartenSchaltflaeche {
-    float: left;
     position: relative;
-    top: 0px;
-    left: 0px;
     cursor: pointer;
 }
 
@@ -21,7 +18,7 @@ body {
 .karte {
     display: inline-block;
     position: relative;
-    float: left;
+    float: inherit;
 }
 
 .angehaengteKarte {
@@ -62,20 +59,24 @@ body {
 #spielerObenRechtsHandkarten {
     top: 0px;
     right: 0px;
+    float: right;
 }
 
 #spielerObenRechtsOffeneKarten {
     right: 0px;
+    float: right;
 }
 
 #spielerUntenRechtsHandkarten {
     bottom: 0px;
     right: 0px;
+    float: right;
 }
 
 #spielerUntenRechtsOffeneKarten {
     bottom: 9vw;
     right: 0px;
+    float: right;
 }
 
 #ablagestapelTuer, #nachziehstapelTuer, #nachziehstapelSchatz, #ablagestapelSchatz {
