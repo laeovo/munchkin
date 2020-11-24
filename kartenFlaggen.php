@@ -15,12 +15,48 @@
         
         if ($_POST["neueFlag"] == "") {
             ftruncate($fp, 0);
-            fwrite($fp, str_replace($karte . "x", $karte, $bisherigeKarten));
+            $kartenspaces = explode("/", $bisherigeKarten);
+            for ($i = 0; $i < count($kartenspaces); $i++) {
+                if ($i != 0) {
+                    fwrite($fp, "/");
+                }
+                $kartenspace = $kartenspaces[$i];
+                $kartenImKartenspace = explode(";", $kartenspace);
+                for ($j = 0; $j < count($kartenImKartenspace); $j++) {
+                    if ($j != 0) {
+                        fwrite($fp, ";");
+                    }
+                    if ($kartenImKartenspace[$j] == $karte . "x") {
+                        fwrite($fp, $karte);
+                    }
+                    else {
+                        fwrite($fp, $kartenImKartenspace[$j]);
+                    }
+                }
+            }
             echo "Die Karte " . $karte . " wurde entflaggt.";
         }
         elseif ($_POST["neueFlag"] == "x") {
             ftruncate($fp, 0);
-            fwrite($fp, str_replace($karte, $karte . "x", str_replace($karte . "x", $karte, $bisherigeKarten)));
+            $kartenspaces = explode("/", $bisherigeKarten);
+            for ($i = 0; $i < count($kartenspaces); $i++) {
+                if ($i != 0) {
+                    fwrite($fp, "/");
+                }
+                $kartenspace = $kartenspaces[$i];
+                $kartenImKartenspace = explode(";", $kartenspace);
+                for ($j = 0; $j < count($kartenImKartenspace); $j++) {
+                    if ($j != 0) {
+                        fwrite($fp, ";");
+                    }
+                    if ($kartenImKartenspace[$j] == $karte) {
+                        fwrite($fp, $karte . "x");
+                    }
+                    else {
+                        fwrite($fp, $kartenImKartenspace[$j]);
+                    }
+                }
+            }
             echo "Die Karte " . $karte . " wurde geflaggt.";
         }
         else {

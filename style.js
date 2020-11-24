@@ -1,4 +1,4 @@
-kartenbreite = "10vw";
+kartenbreite = "6vw";
 kartenhoehe = (1.6 * parseFloat(kartenbreite)) + "vw";
 offeneKartenOffset = (parseFloat(kartenhoehe.split("vw")[0]) + 1) + "vw";
 infoOffset = (parseFloat(kartenhoehe.split("vw")[0]) * 2 + 2) + "vw";
