@@ -1,7 +1,9 @@
-var kartenbreite = "5vw";
-var kartenhoehe = "8vw";
-var offeneKartenOffset = "9vw";
-var infoOffset = "18vw";
+kartenbreite = "7vw";
+kartenhoehe = (1.6 * parseFloat(kartenbreite)) + "vw";
+offeneKartenOffset = (parseFloat(kartenhoehe.split("vw")[0]) + 1) + "vw";
+infoOffset = (parseFloat(kartenhoehe.split("vw")[0]) * 2 + 2) + "vw";
+groesseStapelAnpassen();
+offsetAnpassen();
 spielstaendeErstellen();
 
 function kartenbreiteAnpassen(neueBreite) {
@@ -27,23 +29,14 @@ function kartenbreiteAnpassen(neueBreite) {
         }
     }
     groesseStapelAnpassen();
-    window.document.getElementById("eigeneOffeneKarten").style.bottom = offeneKartenOffset;
-    window.document.getElementById("spielerObenLinksOffeneKarten").style.top = offeneKartenOffset;
-    window.document.getElementById("spielerObenRechtsOffeneKarten").style.top = offeneKartenOffset;
-    window.document.getElementById("spielerUntenRechtsOffeneKarten").style.bottom = offeneKartenOffset;
-    window.document.getElementById("eigeneInfo").style.bottom = infoOffset;
-    window.document.getElementById("spielerObenLinksInfo").style.top = infoOffset;
-    window.document.getElementById("spielerObenRechtsInfo").style.top = infoOffset;
-    window.document.getElementById("spielerUntenRechtsInfo").style.bottom = infoOffset;
+    offsetAnpassen();
 }
 
 function breiteZuweisen(karte, neueBreite) {
     if (karteIstGeflaggt(karte.id)) {
-        karte.style.width = (neueBreite * 1.6) + "vw"; // TODO: versuchen, ob das raus kann; genau wie alle anderen width-Vorgaben für die Divs
         karte.children[0].style.width = neueBreite + "vw";
     }
     else {
-        karte.style.width = neueBreite + "vw";
         karte.children[0].style.width = neueBreite + "vw";
     }
 }
@@ -55,6 +48,17 @@ function groesseStapelAnpassen() {
         stapelKartenImBild[i].style.height = kartenhoehe;
     }
     window.document.getElementById("stapel").style.width = 4*parseFloat(kartenbreite.split("vw")[0]) + "vw";
+}
+
+function offsetAnpassen() {
+    window.document.getElementById("eigeneOffeneKarten").style.bottom = offeneKartenOffset;
+    window.document.getElementById("spielerObenLinksOffeneKarten").style.top = offeneKartenOffset;
+    window.document.getElementById("spielerObenRechtsOffeneKarten").style.top = offeneKartenOffset;
+    window.document.getElementById("spielerUntenRechtsOffeneKarten").style.bottom = offeneKartenOffset;
+    window.document.getElementById("eigeneInfo").style.bottom = infoOffset;
+    window.document.getElementById("spielerObenLinksInfo").style.top = infoOffset;
+    window.document.getElementById("spielerObenRechtsInfo").style.top = infoOffset;
+    window.document.getElementById("spielerUntenRechtsInfo").style.bottom = infoOffset;
 }
 
 function spielstaendeErstellen() {

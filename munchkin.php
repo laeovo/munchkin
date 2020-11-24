@@ -30,11 +30,11 @@
         <div id="spielerObenRechtsHandkarten"></div>
         <div id="spielerObenRechtsOffeneKarten"></div>
         
-        <div id="spielerUntenRechtsHandkarten"></div>
         <div id="spielerUntenRechtsOffeneKarten"></div>
+        <div id="spielerUntenRechtsHandkarten"></div>
 
-        <div id="eigeneHandkarten"></div>
         <div id="eigeneOffeneKarten"></div>
+        <div id="eigeneHandkarten"></div>
         
         <div id="eigeneInfo" class="spielerInfo">
             <div id="spielstandKlicker">

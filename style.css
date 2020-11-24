@@ -47,7 +47,6 @@ body {
 }
 
 #eigeneOffeneKarten {
-    bottom: 9vw;
     left: 0px;
 }
 
@@ -57,7 +56,6 @@ body {
 }
 
 #spielerObenLinksOffeneKarten {
-    top: 9vw;
     left: 0px;
 }
 
@@ -67,7 +65,6 @@ body {
 }
 
 #spielerObenRechtsOffeneKarten {
-    top: 9vw;
     right: 0px;
 }
 
