@@ -36,6 +36,7 @@
 
         <input type="submit" value="stop" onclick="stop()" />
         <input type="submit" value="Karten zurücksetzen", onclick="kartenZuruecksetzen()" />
+        <input type="range" min="3" max="10" step="0.25" value="7" id="kartenGroesseSlider" oninput="kartenbreiteAnpassen(this.value)">
         
         <div id="eigeneInfo" class="spielerInfo">
             <div id="spielstandKlicker">
