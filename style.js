@@ -20,10 +20,17 @@ function kartenbreiteAnpassen(neueBreite) {
                 aufraeumenButtonStylen();
                 continue;
             }
-            breiteZuweisen(karte, neueBreite);
+            if (einKindDieserKarteOderDieseKarteSelbstIstGeflaggt(karte)) {
+                karte.style.width = (neueBreite * 1.6) + "vw";
+            }
+            else {
+                karte.style.width = neueBreite + "vw";
+            }
+            karte.children[0].style.width = neueBreite + "vw";
             while (karte.children.length == 2) {
                 karte = karte.children[1];
-                breiteZuweisen(karte, neueBreite);
+                karte.style.width = neueBreite + "vw";
+                karte.children[0].style.width = neueBreite + "vw";
             }
         }
     }
@@ -38,15 +45,29 @@ function aufraeumenButtonStylen() {
     button.style.lineHeight = kartenhoehe;
 }
 
-function breiteZuweisen(karte, neueBreite) {
+function breiteZuweisenObersteKarte(karte, neueBreite) {
+    var imKartenspaceIstEineKarteGeflaggt = false;
     if (karteIstGeflaggt(karte.id)) {
-        karte.style.width = neueBreite + "vw";
-        karte.children[0].style.width = neueBreite + "vw";
+        imKartenspaceIstEineKarteGeflaggt = true;
+    }
+    while (karte.children.length == 2 && !imKartenspaceIstEineKarteGeflaggt) {
+        karte = karte.children[1];
+        if (karteIstGeflaggt(karte.id)) {
+            imKartenspaceIstEineKarteGeflaggt = true;
+        }
+    }
+    if (imKartenspaceIstEineKarteGeflaggt) {
+        karte.style.width = neueBreite * 1.6 + "vw";
     }
     else {
         karte.style.width = neueBreite + "vw";
-        karte.children[0].style.width = neueBreite + "vw";
     }
+    karte.children[0].style.width = neueBreite + "vw";
+}
+
+function breiteZuweisen(karte, neueBreite) {
+    karte.style.width = neueBreite + "vw";
+    karte.children[0].style.width = neueBreite + "vw";
 }
 
 function groesseStapelAnpassen() {

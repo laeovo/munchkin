@@ -191,6 +191,19 @@ function karteIstGeflaggt(kartenId) {
     return false;
 }
 
+function einKindDieserKarteOderDieseKarteSelbstIstGeflaggt(karte) {
+    if (karteIstGeflaggt(karte.id)) {
+        return true;
+    }
+    while (karte.children.length == 2) {
+        karte = karte.children[1];
+        if (karteIstGeflaggt(karte.id)) {
+            return true;
+        }
+    }
+    return false;
+}
+
 function automatischeSpielerAktualisierung() {
     spielerIntervall = setInterval(spielerAktualisieren, 3000);
 }
