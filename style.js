@@ -20,7 +20,6 @@ function kartenbreiteAnpassen(neueBreite) {
                 // TODO: Aufräumenbutton klären
                 continue;
             }
-            // TODO: gedrehte (geflaggte) Karten anders behandeln
             breiteZuweisen(karte, neueBreite);
             while (karte.children.length == 2) {
                 karte = karte.children[1];
