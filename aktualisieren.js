@@ -503,22 +503,20 @@ function kartenregionAktualisieren(dateiname, kontainer) {
 //                    console.log("kontainer = " + kontainer + ", j = " + j + ", kartenspace = " + kartenspace + ", kartenspace[0] = " + kartenspace[0]);
                     document.getElementById(kontainer).appendChild(document.getElementById(kartenspace[0].split("x")[0]));
                     document.getElementById(kartenspace[j].split("x")[0]).setAttribute("class", "karte");
-                    if (kontainer != "mitte") {
-                        var inDiesemKartenspaceSindKartenGeflaggt = false;
-                        for (let k = 0; k < kartenspace.length; k++) {
-                            if (kartenspace[k].split("x").length == 2) {
-                                inDiesemKartenspaceSindKartenGeflaggt = true;
-                                break;
-                            }
+                    var inDiesemKartenspaceSindKartenGeflaggt = false;
+                    for (let k = 0; k < kartenspace.length; k++) {
+                        if (kartenspace[k].split("x").length == 2) {
+                            inDiesemKartenspaceSindKartenGeflaggt = true;
+                            break;
                         }
-                        if (inDiesemKartenspaceSindKartenGeflaggt) {
-                            document.getElementById(kartenspace[j].split("x")[0]).style.width = kartenhoehe;
-                            document.getElementById(kartenspace[j].split("x")[0]).style.transform = "translateX(18.75%)";
-                        }
-                        else {
-                            document.getElementById(kartenspace[j].split("x")[0]).style.width = kartenbreite;
-                            document.getElementById(kartenspace[j].split("x")[0]).style.transform = "";
-                        }
+                    }
+                    if (inDiesemKartenspaceSindKartenGeflaggt && kontainer != "mitte") {
+                        document.getElementById(kartenspace[j].split("x")[0]).style.width = kartenhoehe;
+                        document.getElementById(kartenspace[j].split("x")[0]).style.transform = "translateX(18.75%)";
+                    }
+                    else {
+                        document.getElementById(kartenspace[j].split("x")[0]).style.width = kartenbreite;
+                        document.getElementById(kartenspace[j].split("x")[0]).style.transform = "";
                     }
                 }
                 else {
