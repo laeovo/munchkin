@@ -175,6 +175,15 @@ function karteIstGeflaggt(kartenId) {
     else if (getRegion(kartenId) == "eigeneOffeneKarten") {
         kartenInDerRegion = eigeneOffeneKarten;
     }
+    else if (getRegion(kartenId) == "spielerObenLinksOffeneKarten") {
+        kartenInDerRegion = spielerObenLinksOffeneKarten;
+    }
+    else if (getRegion(kartenId) == "spielerObenRechtsOffeneKarten") {
+        kartenInDerRegion = spielerObenRechtsOffeneKarten;
+    }
+    else if (getRegion(kartenId) == "spielerUntenRechtsOffeneKarten") {
+        kartenInDerRegion = spielerUntenRechtsOffeneKarten;
+    }
     else {
         // TODO: (erstmal irrelevant) Liste vervollständigen
         console.log("Die Funktion 'karteIstGeflaggt' geht nicht davon aus, dass die Karte in der Region '" + getRegion(kartenId) + "' liegt");
