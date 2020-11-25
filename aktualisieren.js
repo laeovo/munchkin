@@ -658,10 +658,9 @@ function aufraeumenButton() {
     button.setAttribute("id", "aufraeumenButton");
     button.setAttribute("align", "center");
     button.setAttribute("onclick", "mitteAufraeumen()");
-    button.style.width = kartenbreite;
-    button.style.height = kartenhoehe;
-    button.innerHTML = "Aufräumen";
     window.document.getElementById("mitte").appendChild(button);
+    aufraeumenButtonStylen();
+    button.innerHTML = "Aufräumen";
 }
 
 function ablagestapelAktualisieren(stapel) {

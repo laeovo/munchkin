@@ -17,7 +17,7 @@ function kartenbreiteAnpassen(neueBreite) {
         for (let j = 0; j < kartenImKontainer.length; j++) {
             var karte = kartenImKontainer[j];
             if (karte.id == "aufraeumenButton") {
-                // TODO: Aufräumenbutton klären
+                aufraeumenButtonStylen();
                 continue;
             }
             breiteZuweisen(karte, neueBreite);
@@ -29,6 +29,13 @@ function kartenbreiteAnpassen(neueBreite) {
     }
     groesseStapelAnpassen();
     offsetAnpassen();
+}
+
+function aufraeumenButtonStylen() {
+    var button = document.getElementById("aufraeumenButton");
+    button.style.width = kartenbreite;
+    button.style.height = kartenhoehe;
+    button.style.lineHeight = kartenhoehe;
 }
 
 function breiteZuweisen(karte, neueBreite) {

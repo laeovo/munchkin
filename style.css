@@ -168,14 +168,10 @@ body {
     background-color: rgba(100,100,100,0.35);
 }
 
-/* TODO: Prüfen, was hier mit vw und vh abgeht. Dann entfernen und mit Javascript regeln */
-
 #aufraeumenButton {
-    height: 5vw;
     background-color: rgba(200, 200, 200, 0.75);
     float: left;
     cursor: pointer;
-    line-height: 8vw;
 }
 
 #aufraeumenButton:hover {
