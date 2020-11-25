@@ -524,6 +524,8 @@ function kartenregionAktualisieren(dateiname, kontainer) {
 //                    console.log("kontainer = " + kontainer + ", j = " + j + ", kartenspace = " + kartenspace + ", kartenspace[j-1] = " + kartenspace[j-1]);
                     document.getElementById(kartenspace[j-1].split("x")[0]).appendChild(document.getElementById(kartenspace[j].split("x")[0]));
                     document.getElementById(kartenspace[j].split("x")[0]).setAttribute("class", "karte angehaengteKarte");
+                    document.getElementById(kartenspace[j].split("x")[0]).style.width = kartenbreite;
+                    document.getElementById(kartenspace[j].split("x")[0]).style.transform = "";
                 }
             }
         }
