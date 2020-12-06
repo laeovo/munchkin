@@ -60,6 +60,7 @@ function dropzonenErstellen(kartenId) {
     einzelneDropzoneErstellen("dropzoneSpielerObenLinksOffeneKarten", "spielerObenLinksOffeneKarten");
     einzelneDropzoneErstellen("dropzoneSpielerObenRechtsOffeneKarten", "spielerObenRechtsOffeneKarten");
     einzelneDropzoneErstellen("dropzoneSpielerUntenRechtsOffeneKarten", "spielerUntenRechtsOffeneKarten");
+    document.getElementById("mitte").style.left = (50 + parseFloat(kartenbreite.split("vw")[0])*0.5) + "vw";
     einzelneDropzoneErstellen("dropzoneMitte", "mitte");
     if (document.getElementById("aufraeumenButton")) {
         document.getElementById("mitte").appendChild(document.getElementById("aufraeumenButton"));
@@ -84,4 +85,5 @@ function dropzonenLoeschen() {
     document.getElementById("spielerObenRechtsOffeneKarten").removeChild(document.getElementById("dropzoneSpielerObenRechtsOffeneKarten"));
     document.getElementById("spielerUntenRechtsOffeneKarten").removeChild(document.getElementById("dropzoneSpielerUntenRechtsOffeneKarten"));
     document.getElementById("mitte").removeChild(document.getElementById("dropzoneMitte"));
+    document.getElementById("mitte").style.left = "50vw";
 }
