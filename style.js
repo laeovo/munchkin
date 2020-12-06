@@ -20,7 +20,7 @@ function kartenbreiteAnpassen(neueBreite) {
                 aufraeumenButtonStylen();
                 continue;
             }
-            if (einKindDieserKarteOderDieseKarteSelbstIstGeflaggt(karte)) {
+            if (einKindDieserKarteOderDieseKarteSelbstIstGeflaggt(karte) && kontainer[i] != "mitte") {
                 karte.style.width = (neueBreite * 1.6) + "vw";
             }
             else {
