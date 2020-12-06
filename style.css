@@ -177,3 +177,8 @@ body {
 #aufraeumenButton:hover {
     background-color: rgba(150, 150, 150, 0.75);
 }
+
+.dropzone {
+    background-color: rgba(200, 200, 200, 0.75);
+    cursor: pointer;
+}
