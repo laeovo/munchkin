@@ -61,6 +61,9 @@ function dropzonenErstellen(kartenId) {
     einzelneDropzoneErstellen("dropzoneSpielerObenRechtsOffeneKarten", "spielerObenRechtsOffeneKarten");
     einzelneDropzoneErstellen("dropzoneSpielerUntenRechtsOffeneKarten", "spielerUntenRechtsOffeneKarten");
     einzelneDropzoneErstellen("dropzoneMitte", "mitte");
+    if (document.getElementById("aufraeumenButton")) {
+        document.getElementById("mitte").appendChild(document.getElementById("aufraeumenButton"));
+    }
 }
 
 function einzelneDropzoneErstellen(name, kontainer) {
