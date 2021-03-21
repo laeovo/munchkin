@@ -552,6 +552,23 @@ function kartenregionAktualisieren(dateiname, kontainer) {
             }
         }
         
+        // Dropzonen
+        if (kontainer == "eigeneOffeneKarten" && document.getElementById("dropzoneEigeneOffeneKarten")) {
+            document.getElementById("eigeneOffeneKarten").appendChild(document.getElementById("dropzoneEigeneOffeneKarten"));
+        }
+        else if (kontainer == "spielerObenLinksOffeneKarten" && document.getElementById("dropzoneSpielerObenLinksOffeneKarten")) {
+            document.getElementById("spielerObenLinksOffeneKarten").appendChild(document.getElementById("dropzoneSpielerObenLinksOffeneKarten"));
+        }
+        else if (kontainer == "spielerObenRechtsOffeneKarten" && document.getElementById("dropzoneSpielerObenRechtsOffeneKarten")) {
+            document.getElementById("spielerObenRechtsOffeneKarten").appendChild(document.getElementById("dropzoneSpielerObenRechtsOffeneKarten"));
+        }
+        else if (kontainer == "spielerUntenRechtsOffeneKarten" && document.getElementById("dropzoneSpielerUntenRechtsOffeneKarten")) {
+            document.getElementById("spielerUntenRechtsOffeneKarten").appendChild(document.getElementById("dropzoneSpielerUntenRechtsOffeneKarten"));
+        }
+        else if (kontainer == "mitte" && document.getElementById("dropzoneMitte")) {
+            document.getElementById("mitte").appendChild(document.getElementById("dropzoneMitte"));
+        }
+        
         // speichern
         if (kontainer == "eigeneHandkarten") {
             eigeneHandkarten = kartenspacesLautServer;
@@ -613,11 +630,13 @@ function setzeDragDropAttribute(schaltflaeche, kontainer) {
         schaltflaeche.setAttribute("ondragover", "ablegenErlauben(event)"); // TODO: (Spielerei) Karte verdunkeln
         schaltflaeche.setAttribute("ondrop", "ablegen(event)")
         schaltflaeche.setAttribute("ondragstart", "ziehen(event)");
+        schaltflaeche.setAttribute("ondragend", "dropzonenLoeschen()");
     }
     else if (kontainer == "eigeneHandkarten") {
         schaltflaeche.setAttribute("draggable", "true");
         // Auf Handkarten dürfen andere Karten nicht abgelegt werden, da Handkarten nicht gestapelt werden dürfen
         schaltflaeche.setAttribute("ondragstart", "ziehen(event)");
+        schaltflaeche.setAttribute("ondragend", "dropzonenLoeschen()");
     }
     else {
         schaltflaeche.setAttribute("draggable", "false");
