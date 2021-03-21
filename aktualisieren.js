@@ -640,31 +640,31 @@ function setzeDragDropAttribute(schaltflaeche, kontainer) {
 
 function setzeKarteOnclick(schaltflaeche, kontainer, kartenId) {
     if (kontainer == "eigeneHandkarten") {
-        schaltflaeche.setAttribute("onclick", "eigeneHandkarteMenu(" + kartenId + ")");
+        schaltflaeche.setAttribute("onclick", "eigeneHandkarteMenu('" + kartenId + "')");
     }
     else if (kontainer == "eigeneOffeneKarten") {
-        schaltflaeche.setAttribute("onclick", "eigeneOffeneKarteMenu(" + kartenId + ")");
+        schaltflaeche.setAttribute("onclick", "eigeneOffeneKarteMenu('" + kartenId + "')");
     }
     else if (kontainer == "spielerObenLinksHandkarten") {
         schaltflaeche.setAttribute("onclick", "fremdeHandkarteMenu(" + (getEigeneId()+1)%4 + ")");
     }
     else if (kontainer == "spielerObenLinksOffeneKarten") {
-        schaltflaeche.setAttribute("onclick", "fremdeOffeneKarteMenu(" + kartenId + ", " + (getEigeneId()+1)%4 + ")");
+        schaltflaeche.setAttribute("onclick", "fremdeOffeneKarteMenu('" + kartenId + "', " + (getEigeneId()+1)%4 + ")");
     }
     else if (kontainer == "spielerObenRechtsHandkarten") {
         schaltflaeche.setAttribute("onclick", "fremdeHandkarteMenu(" + (getEigeneId()+2)%4 + ")");
     }
     else if (kontainer == "spielerObenRechtsOffeneKarten") {
-        schaltflaeche.setAttribute("onclick", "fremdeOffeneKarteMenu(" + kartenId + ", " + (getEigeneId()+2)%4 + ")");
+        schaltflaeche.setAttribute("onclick", "fremdeOffeneKarteMenu('" + kartenId + "', " + (getEigeneId()+2)%4 + ")");
     }
     else if (kontainer == "spielerUntenRechtsHandkarten") {
         schaltflaeche.setAttribute("onclick", "fremdeHandkarteMenu(" + (getEigeneId()+3)%4 + ")");
     }
     else if (kontainer == "spielerUntenRechtsOffeneKarten") {
-        schaltflaeche.setAttribute("onclick", "fremdeOffeneKarteMenu(" + kartenId + ", " + (getEigeneId()+3)%4 + ")");
+        schaltflaeche.setAttribute("onclick", "fremdeOffeneKarteMenu('" + kartenId + "', " + (getEigeneId()+3)%4 + ")");
     }
     else if (kontainer == "mitte") {
-        schaltflaeche.setAttribute("onclick", "mitteKarteMenu(" + kartenId + ")");
+        schaltflaeche.setAttribute("onclick", "mitteKarteMenu('" + kartenId + "')");
     }
     else {
         console.log("Für den Kontainer '" + kontainer + "' ist kein Menu vorgesehen");
@@ -685,7 +685,7 @@ function setzeKarteBild(karte, kontainer, kartenId) {
         const munchkinVersion = kartenId.split("-")[0];
         const kartenArt = kartenId.split("-")[1];
         const kartenNr = kartenId.split("-")[2];
-        karte.children[0].src = "karten/" + munchkinVersion + "/" + kartenArt + "/" kartenNr + ".jpg";
+        karte.children[0].src = "karten/" + munchkinVersion + "/" + kartenArt + "/" + kartenNr + ".jpg";
     }
 }
 

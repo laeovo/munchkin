@@ -59,11 +59,14 @@ function ablagestapelMenu(vonStapel) {
             stapel.setAttribute("id", "ablagestapel");
             
             for (var i = 0; i < karten.length; i++) {
-                var karteNr = karten[karten.length-i-1];
+                var kartenId = karten[karten.length-i-1];
                 karteDiv = document.createElement("div");
-                karteDiv.setAttribute("id", "ablagestapelKarte" + karteNr);
+                karteDiv.setAttribute("id", "ablagestapelKarte" + kartenId);
                 karteBild = document.createElement("img");
-                karteBild.setAttribute("src", "karten/" + karteNr + ".jpg");
+                const munchkinVersion = kartenId.split("-")[0];
+                const kartenArt = kartenId.split("-")[1];
+                const kartenNr = kartenId.split("-")[2];
+                karteBild.setAttribute("src", "karten/" + munchkinVersion + "/" + kartenArt + "/" + kartenNr + ".jpg");
                 karteBild.setAttribute("width", "200");
                 karteBild.style.cursor = "pointer";
                 karteBild.setAttribute("onclick", "vordergrundEntfernen(), karteBewegenOhneCheck(" + karteNr + ", 'ablagestapel" + vonStapel + "', 'karten" + getEigeneId() + "verdeckt', 'false', 'x')");
@@ -125,7 +128,10 @@ function vordergrundErstellen(kartenId) {
     grosseKarteBildDiv.setAttribute("id", "grosseKarteBildDiv");
     
     grosseKarteBild = document.createElement("img");
-    grosseKarteBild.src = "karten/" + kartenId + ".jpg";
+    const munchkinVersion = kartenId.split("-")[0];
+    const kartenArt = kartenId.split("-")[1];
+    const kartenNr = kartenId.split("-")[2];
+    grosseKarteBild.src = "karten/" + munchkinVersion + "/" + kartenArt + "/" + kartenNr + ".jpg";
     grosseKarteBild.width = "375";
     
     grosseKarteBildDiv.appendChild(grosseKarteBild);
