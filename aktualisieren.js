@@ -22,21 +22,13 @@ var nachziehstapelSchatz = [];
 var ablagestapelTuer = [];
 var ablagestapelSchatz = [];
 
-function istTuerkarte(kartenNr) {
-    if (kartenNr <= 160) {
+function istTuerkarte(kartenId) {
+    if (kartenId.split("-")[1] == "t") {
         return true;
     }
-    else if (kartenNr <= 281) {
+    else {
         return false;
     }
-    else if (kartenNr <= 447) {
-        return true;
-    }
-    else if (kartenNr <= 559) {
-        return false;
-    }
-    console.log("Karte " + kartenNr + " ist überhaupt keine Karte");
-    return false;
 }
 
 function getKartenArt(kartenId) {
@@ -690,7 +682,10 @@ function setzeKarteBild(karte, kontainer, kartenId) {
         }
     }
     else {
-        karte.children[0].src = "karten/" + kartenId + ".jpg";
+        const munchkinVersion = kartenId.split("-")[0];
+        const kartenArt = kartenId.split("-")[1];
+        const kartenNr = kartenId.split("-")[2];
+        karte.children[0].src = "karten/" + munchkinVersion + "/" + kartenArt + "/" kartenNr + ".jpg";
     }
 }
 
@@ -713,7 +708,11 @@ function ablagestapelAktualisieren(stapel) {
         }
         else {
             const karten = kartenString.split("/");
-            window.document.getElementById("ablagestapel" + stapel + "Bild").src = "karten/" + karten[karten.length-1] + ".jpg";
+            const letzteKartenId = karten[karten.length-1];
+            const munchkinVersion = letzteKartenId.split("-")[0];
+            const kartenArt = letzteKartenId.split("-")[1];
+            const kartenNr = letzteKartenId.split("-")[2];
+            window.document.getElementById("ablagestapel" + stapel + "Bild").src = "karten/" + munchkinVersion + "/" + kartenArt + "/" + kartenNr + ".jpg";
         }
     }
     xhr.open("POST", "getDatei.php");
