@@ -35,8 +35,8 @@
         <div id="eigeneOffeneKarten"></div>
         <div id="eigeneHandkarten"></div>
 
-        <!--<input type="submit" value="stop" onclick="stop()" />
-        <input type="submit" value="Karten zurücksetzen", onclick="kartenZuruecksetzen()" />-->
+        <input type="submit" value="stop" onclick="stop()" />
+        <input type="submit" value="Karten zurücksetzen", onclick="kartenZuruecksetzen()" />
         
         <div id="eigeneInfo" class="spielerInfo">
             <div id="einstellungen" align="center" onclick="einstellungen()">
