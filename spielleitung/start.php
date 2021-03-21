@@ -2,7 +2,7 @@
     // Was passiert alles beim Start?
     
     $fp = fopen("../spielstatus.txt", r);
-    $status = fgets($fp, filesize("spielstatus.txt")+1);
+    $status = fgets($fp, filesize("../spielstatus.txt")+1);
     fclose($fp);
     if ($status == "spielLaeuft") {
         echo "Spiel läuft";
@@ -18,13 +18,42 @@
             $schatzkarten = [];
             if (in_array("1", $spielversionen)) {
                 // Munchkin 1 und 2
-                $tuerkarten = array_merge($tuerkarten, range(0, 160));
-                $schatzkarten = array_merge($schatzkarten, range(161, 281));
+                $neueTuerkarten = range(0, 160);
+                for ($i = 0; $i < count($neueTuerkarten); $i++) {
+                    $neueTuerkarten[$i] = "1-t-" . $neueTuerkarten[$i];
+                }
+                $neueSchatzkarten = range(0, 120);
+                for ($i = 0; $i < count($neueSchatzkarten); $i++) {
+                    $neueSchatzkarten[$i] = "1-s-" . $neueSchatzkarten[$i];
+                }
+                $tuerkarten = array_merge($tuerkarten, $neueTuerkarten);
+                $schatzkarten = array_merge($schatzkarten, $neueSchatzkarten);
             }
             if (in_array("2", $spielversionen) && isset($_COOKIE["superuser"]) && $_COOKIE["superuser"] == "yes") {
                 // Star Munchkin
-                $tuerkarten = array_merge($tuerkarten, range(282, 447));
-                $schatzkarten = array_merge($schatzkarten, range(448, 559));
+                $neueTuerkarten = range(0, 165);
+                for ($i = 0; $i < count($neueTuerkarten); $i++) {
+                    $neueTuerkarten[$i] = "2-t-" . $neueTuerkarten[$i];
+                }
+                $neueSchatzkarten = range(0, 111);
+                for ($i = 0; $i < count($neueSchatzkarten); $i++) {
+                    $neueSchatzkarten[$i] = "2-s-" . $neueSchatzkarten[$i];
+                }
+                $tuerkarten = array_merge($tuerkarten, $neueTuerkarten);
+                $schatzkarten = array_merge($schatzkarten, $neueSchatzkarten);
+            }
+            if (in_array("3", $spielversionen) && isset($_COOKIE["superuser"]) && $_COOKIE["superuser"] == "yes") {
+                // Munchkin 5 und 6
+                $neueTuerkarten = range(0, 67); // TODO: Mit Portal geht es bis 99
+                for ($i = 0; $i < count($neueTuerkarten); $i++) {
+                    $neueTuerkarten[$i] = "3-t-" . $neueTuerkarten[$i];
+                }
+                $neueSchatzkarten = range(0, 54);
+                for ($i = 0; $i < count($neueSchatzkarten); $i++) {
+                    $neueSchatzkarten[$i] = "3-s-" . $neueSchatzkarten[$i];
+                }
+                $tuerkarten = array_merge($tuerkarten, $neueTuerkarten);
+                $schatzkarten = array_merge($schatzkarten, $neueSchatzkarten);
             }
             shuffle($tuerkarten);
             shuffle($schatzkarten);
