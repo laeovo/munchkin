@@ -23,7 +23,7 @@ var ablagestapelTuer = [];
 var ablagestapelSchatz = [];
 
 function istTuerkarte(kartenId) {
-    if (kartenId.split("-")[1] == "t") {
+    if (kartenId.split(".")[1] == "t") {
         return true;
     }
     else {
@@ -135,7 +135,7 @@ function getRegion(kartenId) {
         return "";
     }
     var region = kartenId;
-    while (!isNaN(region)) {
+    while (!isNaN(region.split(".")[2])) {
         region = document.getElementById(region).parentElement.id;
     }
     return region;
@@ -604,7 +604,7 @@ function kartenregionAktualisieren(dateiname, kontainer) {
 
 function erzeugeKarte(kartenId, kontainer) {
     var neueKarte = document.createElement("div");
-    neueKarte.setAttribute("id", kartenId);
+    neueKarte.setAttribute("id", "" + kartenId);
     neueKarte.setAttribute("class", "karte");
     schaltflaeche = document.createElement("img");
     schaltflaeche.setAttribute("class", "kartenSchaltflaeche");
@@ -682,9 +682,9 @@ function setzeKarteBild(karte, kontainer, kartenId) {
         }
     }
     else {
-        const munchkinVersion = kartenId.split("-")[0];
-        const kartenArt = kartenId.split("-")[1];
-        const kartenNr = kartenId.split("-")[2];
+        const munchkinVersion = kartenId.split(".")[0];
+        const kartenArt = kartenId.split(".")[1];
+        const kartenNr = kartenId.split(".")[2];
         karte.children[0].src = "karten/" + munchkinVersion + "/" + kartenArt + "/" + kartenNr + ".jpg";
     }
 }
@@ -709,9 +709,9 @@ function ablagestapelAktualisieren(stapel) {
         else {
             const karten = kartenString.split("/");
             const letzteKartenId = karten[karten.length-1];
-            const munchkinVersion = letzteKartenId.split("-")[0];
-            const kartenArt = letzteKartenId.split("-")[1];
-            const kartenNr = letzteKartenId.split("-")[2];
+            const munchkinVersion = letzteKartenId.split(".")[0];
+            const kartenArt = letzteKartenId.split(".")[1];
+            const kartenNr = letzteKartenId.split(".")[2];
             window.document.getElementById("ablagestapel" + stapel + "Bild").src = "karten/" + munchkinVersion + "/" + kartenArt + "/" + kartenNr + ".jpg";
         }
     }
@@ -744,7 +744,7 @@ function objektFlaggen(kartenId, jaodernein, kontainer) {
             schaltflaeche.style.transform = "rotate(90deg) translateX(-30%)";
         }
         else {
-            console.log("Die Karte " + kartenId + " im Kontainer " + kontainer + " sollte eigentlich nicht geflaggt werden können");
+            console.log("Die Karte '" + kartenId + "' im Kontainer '" + kontainer + "' sollte eigentlich nicht geflaggt werden können");
         }
     }
     else {

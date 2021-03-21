@@ -20,11 +20,11 @@
                 // Munchkin 1 und 2
                 $neueTuerkarten = range(0, 160);
                 for ($i = 0; $i < count($neueTuerkarten); $i++) {
-                    $neueTuerkarten[$i] = "1-t-" . $neueTuerkarten[$i];
+                    $neueTuerkarten[$i] = "1.t." . $neueTuerkarten[$i];
                 }
                 $neueSchatzkarten = range(0, 120);
                 for ($i = 0; $i < count($neueSchatzkarten); $i++) {
-                    $neueSchatzkarten[$i] = "1-s-" . $neueSchatzkarten[$i];
+                    $neueSchatzkarten[$i] = "1.s." . $neueSchatzkarten[$i];
                 }
                 $tuerkarten = array_merge($tuerkarten, $neueTuerkarten);
                 $schatzkarten = array_merge($schatzkarten, $neueSchatzkarten);
@@ -33,11 +33,11 @@
                 // Star Munchkin
                 $neueTuerkarten = range(0, 165);
                 for ($i = 0; $i < count($neueTuerkarten); $i++) {
-                    $neueTuerkarten[$i] = "2-t-" . $neueTuerkarten[$i];
+                    $neueTuerkarten[$i] = "2.t." . $neueTuerkarten[$i];
                 }
                 $neueSchatzkarten = range(0, 111);
                 for ($i = 0; $i < count($neueSchatzkarten); $i++) {
-                    $neueSchatzkarten[$i] = "2-s-" . $neueSchatzkarten[$i];
+                    $neueSchatzkarten[$i] = "2.s." . $neueSchatzkarten[$i];
                 }
                 $tuerkarten = array_merge($tuerkarten, $neueTuerkarten);
                 $schatzkarten = array_merge($schatzkarten, $neueSchatzkarten);
@@ -46,11 +46,11 @@
                 // Munchkin 5 und 6
                 $neueTuerkarten = range(0, 67); // TODO: Mit Portal geht es bis 99
                 for ($i = 0; $i < count($neueTuerkarten); $i++) {
-                    $neueTuerkarten[$i] = "3-t-" . $neueTuerkarten[$i];
+                    $neueTuerkarten[$i] = "3.t." . $neueTuerkarten[$i];
                 }
                 $neueSchatzkarten = range(0, 54);
                 for ($i = 0; $i < count($neueSchatzkarten); $i++) {
-                    $neueSchatzkarten[$i] = "3-s-" . $neueSchatzkarten[$i];
+                    $neueSchatzkarten[$i] = "3.s." . $neueSchatzkarten[$i];
                 }
                 $tuerkarten = array_merge($tuerkarten, $neueTuerkarten);
                 $schatzkarten = array_merge($schatzkarten, $neueSchatzkarten);

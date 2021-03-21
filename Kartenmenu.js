@@ -1,42 +1,42 @@
 function eigeneHandkarteMenu(kartenId) {
     vordergrundErstellen(kartenId);
-    buttonErstellen("Karte in die Mitte spielen", "KarteSpielen", "vordergrundEntfernen(), karteBewegen(" + kartenId + ", 'karten" + getEigeneId() + "verdeckt', 'mitte', 'x')", "buttons");
-    buttonErstellen("Karte ablegen", "KarteAblegen", "vordergrundEntfernen(), karteBewegen(" + kartenId + ", 'karten" + getEigeneId() + "verdeckt', 'ablagestapel', 'x')", "buttons");
-    buttonErstellen("Karte auslegen", "karteAuslegen", "vordergrundEntfernen(), karteBewegen(" + kartenId + ", 'karten" + getEigeneId() + "verdeckt', 'karten" + getEigeneId() + "offen', 'x')", "buttons");
-    buttonErstellen("Karte auf jemanden spielen", "KarteAufMitspielerSpielen", "karteAufMitspielerSpielenMenu(" + kartenId + ", 'verdeckt')", "buttons");
-    buttonErstellen("Karte an jemanden abgeben", "KarteWeitergeben", "karteWeitergebenMenu(" + kartenId + ", 'verdeckt')", "buttons");
+    buttonErstellen("Karte in die Mitte spielen", "KarteSpielen", "vordergrundEntfernen(), karteBewegen('" + kartenId + "', 'karten" + getEigeneId() + "verdeckt', 'mitte', 'x')", "buttons");
+    buttonErstellen("Karte ablegen", "KarteAblegen", "vordergrundEntfernen(), karteBewegen('" + kartenId + "', 'karten" + getEigeneId() + "verdeckt', 'ablagestapel', 'x')", "buttons");
+    buttonErstellen("Karte auslegen", "karteAuslegen", "vordergrundEntfernen(), karteBewegen('" + kartenId + "', 'karten" + getEigeneId() + "verdeckt', 'karten" + getEigeneId() + "offen', 'x')", "buttons");
+    buttonErstellen("Karte auf jemanden spielen", "KarteAufMitspielerSpielen", "karteAufMitspielerSpielenMenu('" + kartenId + "', 'verdeckt')", "buttons");
+    buttonErstellen("Karte an jemanden abgeben", "KarteWeitergeben", "karteWeitergebenMenu('" + kartenId + "', 'verdeckt')", "buttons");
 }
 
 function eigeneOffeneKarteMenu(kartenId) {
     vordergrundErstellen(kartenId);
-    buttonErstellen("Karte in die Mitte spielen", "KarteSpielen", "vordergrundEntfernen(), karteBewegen(" + kartenId + ", 'karten" + getEigeneId() + "offen', 'mitte', 'x')", "buttons");
-    buttonErstellen("Karte ablegen", "KarteAblegen", "vordergrundEntfernen(), karteBewegen(" + kartenId + ", 'karten" + getEigeneId() + "offen', 'ablagestapel', 'x')", "buttons");
-    buttonErstellen("Karte aufnehmen", "KarteAufnehmen", "vordergrundEntfernen(), karteBewegen(" + kartenId + ", 'karten" + getEigeneId() + "offen', 'karten" + getEigeneId() + "verdeckt', 'x')", "buttons");
+    buttonErstellen("Karte in die Mitte spielen", "KarteSpielen", "vordergrundEntfernen(), karteBewegen('" + kartenId + "', 'karten" + getEigeneId() + "offen', 'mitte', 'x')", "buttons");
+    buttonErstellen("Karte ablegen", "KarteAblegen", "vordergrundEntfernen(), karteBewegen('" + kartenId + "', 'karten" + getEigeneId() + "offen', 'ablagestapel', 'x')", "buttons");
+    buttonErstellen("Karte aufnehmen", "KarteAufnehmen", "vordergrundEntfernen(), karteBewegen('" + kartenId + "', 'karten" + getEigeneId() + "offen', 'karten" + getEigeneId() + "verdeckt', 'x')", "buttons");
     if (karteIstGeflaggt(kartenId)) {
-        buttonErstellen("Karte aus dem Rucksack auspacken", "KarteFlaggen", "vordergrundEntfernen(), karteFlaggen(" + kartenId + ", '')", "buttons");
+        buttonErstellen("Karte aus dem Rucksack auspacken", "KarteFlaggen", "vordergrundEntfernen(), karteFlaggen('" + kartenId + "', '')", "buttons");
     }
     else {
-        buttonErstellen("Karte in den Rucksack packen", "KarteFlaggen", "vordergrundEntfernen(), karteFlaggen(" + kartenId + ", 'x')", "buttons");
+        buttonErstellen("Karte in den Rucksack packen", "KarteFlaggen", "vordergrundEntfernen(), karteFlaggen('" + kartenId + "', 'x')", "buttons");
     }
-    buttonErstellen("Karte auf jemanden spielen", "KarteAufMitspielerSpielen", "karteAufMitspielerSpielenMenu(" + kartenId + ", 'offen')", "buttons");
-    buttonErstellen("Karte an jemanden abgeben", "KarteWeitergeben", "karteWeitergebenMenu(" + kartenId + ", 'offen')", "buttons");
+    buttonErstellen("Karte auf jemanden spielen", "KarteAufMitspielerSpielen", "karteAufMitspielerSpielenMenu('" + kartenId + "', 'offen')", "buttons");
+    buttonErstellen("Karte an jemanden abgeben", "KarteWeitergeben", "karteWeitergebenMenu('" + kartenId + "', 'offen')", "buttons");
 }
 
 function mitteKarteMenu(kartenId) {
     vordergrundErstellen(kartenId);
-    buttonErstellen("Karte ablegen", "KarteAblegen", "vordergrundEntfernen(), karteBewegen(" + kartenId + ", 'mitte', 'ablagestapel', 'x')", "buttons");
-    buttonErstellen("Karte aufnehmen", "KarteAufnehmen", "vordergrundEntfernen(), karteBewegen(" + kartenId + ", 'mitte', 'karten" + getEigeneId() + "verdeckt', 'x')", "buttons");
+    buttonErstellen("Karte ablegen", "KarteAblegen", "vordergrundEntfernen(), karteBewegen('" + kartenId + "', 'mitte', 'ablagestapel', 'x')", "buttons");
+    buttonErstellen("Karte aufnehmen", "KarteAufnehmen", "vordergrundEntfernen(), karteBewegen('" + kartenId + "', 'mitte', 'karten" + getEigeneId() + "verdeckt', 'x')", "buttons");
     if (karteIstGeflaggt(kartenId)) {
-        buttonErstellen("Karte entflaggen", "KarteFlaggen", "vordergrundEntfernen(), karteFlaggen(" + kartenId + ", '')", "buttons");
+        buttonErstellen("Karte entflaggen", "KarteFlaggen", "vordergrundEntfernen(), karteFlaggen('" + kartenId + "', '')", "buttons");
     }
     else {
-        buttonErstellen("Karte flaggen", "KarteFlaggen", "vordergrundEntfernen(), karteFlaggen(" + kartenId + ", 'x')", "buttons");
+        buttonErstellen("Karte flaggen", "KarteFlaggen", "vordergrundEntfernen(), karteFlaggen('" + kartenId + "', 'x')", "buttons");
     }
 }
 
 function fremdeOffeneKarteMenu(kartenId, spielerId) {
     vordergrundErstellen(kartenId);
-    buttonErstellen("Karte klauen", "KarteKlauen", "vordergrundEntfernen(), karteBewegen(" + kartenId + ", 'karten" + spielerId + "offen', 'karten" + getEigeneId() + "verdeckt', 'x')", "buttons");
+    buttonErstellen("Karte klauen", "KarteKlauen", "vordergrundEntfernen(), karteBewegen('" + kartenId + "', 'karten" + spielerId + "offen', 'karten" + getEigeneId() + "verdeckt', 'x')", "buttons");
 }
 
 function fremdeHandkarteMenu(spielerId) {
@@ -63,13 +63,13 @@ function ablagestapelMenu(vonStapel) {
                 karteDiv = document.createElement("div");
                 karteDiv.setAttribute("id", "ablagestapelKarte" + kartenId);
                 karteBild = document.createElement("img");
-                const munchkinVersion = kartenId.split("-")[0];
-                const kartenArt = kartenId.split("-")[1];
-                const kartenNr = kartenId.split("-")[2];
+                const munchkinVersion = kartenId.split(".")[0];
+                const kartenArt = kartenId.split(".")[1];
+                const kartenNr = kartenId.split(".")[2];
                 karteBild.setAttribute("src", "karten/" + munchkinVersion + "/" + kartenArt + "/" + kartenNr + ".jpg");
                 karteBild.setAttribute("width", "200");
                 karteBild.style.cursor = "pointer";
-                karteBild.setAttribute("onclick", "vordergrundEntfernen(), karteBewegenOhneCheck(" + karteNr + ", 'ablagestapel" + vonStapel + "', 'karten" + getEigeneId() + "verdeckt', 'false', 'x')");
+                karteBild.setAttribute("onclick", "vordergrundEntfernen(), karteBewegenOhneCheck('" + kartenId + "', 'ablagestapel" + vonStapel + "', 'karten" + getEigeneId() + "verdeckt', 'false', 'x')");
                 karteDiv.appendChild(karteBild);
                 stapel.appendChild(karteDiv);
             }
@@ -128,9 +128,9 @@ function vordergrundErstellen(kartenId) {
     grosseKarteBildDiv.setAttribute("id", "grosseKarteBildDiv");
     
     grosseKarteBild = document.createElement("img");
-    const munchkinVersion = kartenId.split("-")[0];
-    const kartenArt = kartenId.split("-")[1];
-    const kartenNr = kartenId.split("-")[2];
+    const munchkinVersion = kartenId.split(".")[0];
+    const kartenArt = kartenId.split(".")[1];
+    const kartenNr = kartenId.split(".")[2];
     grosseKarteBild.src = "karten/" + munchkinVersion + "/" + kartenArt + "/" + kartenNr + ".jpg";
     grosseKarteBild.width = "375";
     
@@ -168,7 +168,7 @@ function karteWeitergebenMenu(kartenId, positionVorher) {
     if (window.document.getElementById("buttonsKarteAufMitspielerSpielen") != null) {
         aufMitspielerSpielenMenuAusblenden(kartenId, positionVorher);
     }
-    window.document.getElementById("buttonKarteWeitergebenSchaltflaeche").setAttribute("onclick", "weitergebenMenuAusblenden(" + kartenId + ", '" + positionVorher + "')");
+    window.document.getElementById("buttonKarteWeitergebenSchaltflaeche").setAttribute("onclick", "weitergebenMenuAusblenden('" + kartenId + "', '" + positionVorher + "')");
     const xhr = new XMLHttpRequest();
     xhr.onload = function() {
         const data = this.responseText;
@@ -178,9 +178,9 @@ function karteWeitergebenMenu(kartenId, positionVorher) {
         weitergebenMenuDiv.setAttribute("id", "buttonsKarteWeitergeben");
         window.document.getElementById("buttonKarteWeitergeben").appendChild(weitergebenMenuDiv);
         
-        buttonErstellen(spieler[(getEigeneId()+1)%4].split(";")[0], "KarteAnSpielerObenLinksWeitergeben", "vordergrundEntfernen(), karteBewegen(" + kartenId + ", 'karten" + getEigeneId() + positionVorher + "', 'karten" + (getEigeneId()+1)%4 + "verdeckt', 'x')", "buttonsKarteWeitergeben");
-        buttonErstellen(spieler[(getEigeneId()+2)%4].split(";")[0], "KarteAnSpielerObenRechtsWeitergeben", "vordergrundEntfernen(), karteBewegen(" + kartenId + ", 'karten" + getEigeneId() + positionVorher + "', 'karten" + (getEigeneId()+2)%4 + "verdeckt', 'x')", "buttonsKarteWeitergeben");
-        buttonErstellen(spieler[(getEigeneId()+3)%4].split(";")[0], "KarteAnSpielerUntenRechtsWeitergeben", "vordergrundEntfernen(), karteBewegen(" + kartenId + ", 'karten" + getEigeneId() + positionVorher + "', 'karten" + (getEigeneId()+3)%4 + "verdeckt', 'x')", "buttonsKarteWeitergeben");
+        buttonErstellen(spieler[(getEigeneId()+1)%4].split(";")[0], "KarteAnSpielerObenLinksWeitergeben", "vordergrundEntfernen(), karteBewegen('" + kartenId + "', 'karten" + getEigeneId() + positionVorher + "', 'karten" + (getEigeneId()+1)%4 + "verdeckt', 'x')", "buttonsKarteWeitergeben");
+        buttonErstellen(spieler[(getEigeneId()+2)%4].split(";")[0], "KarteAnSpielerObenRechtsWeitergeben", "vordergrundEntfernen(), karteBewegen('" + kartenId + "', 'karten" + getEigeneId() + positionVorher + "', 'karten" + (getEigeneId()+2)%4 + "verdeckt', 'x')", "buttonsKarteWeitergeben");
+        buttonErstellen(spieler[(getEigeneId()+3)%4].split(";")[0], "KarteAnSpielerUntenRechtsWeitergeben", "vordergrundEntfernen(), karteBewegen('" + kartenId + "', 'karten" + getEigeneId() + positionVorher + "', 'karten" + (getEigeneId()+3)%4 + "verdeckt', 'x')", "buttonsKarteWeitergeben");
         
     };
     xhr.open("POST", "getDatei.php");
@@ -190,14 +190,14 @@ function karteWeitergebenMenu(kartenId, positionVorher) {
 
 function weitergebenMenuAusblenden(kartenId, positionVorher) {
     window.document.getElementById("buttonKarteWeitergeben").removeChild(window.document.getElementById("buttonsKarteWeitergeben"));
-    window.document.getElementById("buttonKarteWeitergebenSchaltflaeche").setAttribute("onclick", "karteWeitergebenMenu(" + kartenId + ", '" + positionVorher + "')");
+    window.document.getElementById("buttonKarteWeitergebenSchaltflaeche").setAttribute("onclick", "karteWeitergebenMenu('" + kartenId + "', '" + positionVorher + "')");
 }
 
 function karteAufMitspielerSpielenMenu(kartenId, positionVorher) {
     if (window.document.getElementById("buttonsKarteWeitergeben") != null) {
         weitergebenMenuAusblenden(kartenId, positionVorher);
     }
-    window.document.getElementById("buttonKarteAufMitspielerSpielenSchaltflaeche").setAttribute("onclick", "aufMitspielerSpielenMenuAusblenden(" + kartenId + ", '" + positionVorher + "')");
+    window.document.getElementById("buttonKarteAufMitspielerSpielenSchaltflaeche").setAttribute("onclick", "aufMitspielerSpielenMenuAusblenden('" + kartenId + "', '" + positionVorher + "')");
     const xhr = new XMLHttpRequest();
     xhr.onload = function() {
         const data = this.responseText;
@@ -207,9 +207,9 @@ function karteAufMitspielerSpielenMenu(kartenId, positionVorher) {
         aufMitspielerSpielenMenuDiv.setAttribute("id", "buttonsKarteAufMitspielerSpielen");
         window.document.getElementById("buttonKarteAufMitspielerSpielen").appendChild(aufMitspielerSpielenMenuDiv);
         
-        buttonErstellen(spieler[(getEigeneId()+1)%4].split(";")[0], "KarteAnSpielerObenLinksAufMitspielerSpielen", "vordergrundEntfernen(), karteBewegen(" + kartenId + ", 'karten" + getEigeneId() + positionVorher + "', 'karten" + (getEigeneId()+1)%4 + "offen', 'x')", "buttonsKarteAufMitspielerSpielen");
-        buttonErstellen(spieler[(getEigeneId()+2)%4].split(";")[0], "KarteAnSpielerObenRechtsAufMitspielerSpielen", "vordergrundEntfernen(), karteBewegen(" + kartenId + ", 'karten" + getEigeneId() + positionVorher + "', 'karten" + (getEigeneId()+2)%4 + "offen', 'x')", "buttonsKarteAufMitspielerSpielen");
-        buttonErstellen(spieler[(getEigeneId()+3)%4].split(";")[0], "KarteAnSpielerUntenRechtsAufMitspielerSpielen", "vordergrundEntfernen(), karteBewegen(" + kartenId + ", 'karten" + getEigeneId() + positionVorher + "', 'karten" + (getEigeneId()+3)%4 + "offen', 'x')", "buttonsKarteAufMitspielerSpielen");
+        buttonErstellen(spieler[(getEigeneId()+1)%4].split(";")[0], "KarteAnSpielerObenLinksAufMitspielerSpielen", "vordergrundEntfernen(), karteBewegen('" + kartenId + "', 'karten" + getEigeneId() + positionVorher + "', 'karten" + (getEigeneId()+1)%4 + "offen', 'x')", "buttonsKarteAufMitspielerSpielen");
+        buttonErstellen(spieler[(getEigeneId()+2)%4].split(";")[0], "KarteAnSpielerObenRechtsAufMitspielerSpielen", "vordergrundEntfernen(), karteBewegen('" + kartenId + "', 'karten" + getEigeneId() + positionVorher + "', 'karten" + (getEigeneId()+2)%4 + "offen', 'x')", "buttonsKarteAufMitspielerSpielen");
+        buttonErstellen(spieler[(getEigeneId()+3)%4].split(";")[0], "KarteAnSpielerUntenRechtsAufMitspielerSpielen", "vordergrundEntfernen(), karteBewegen('" + kartenId + "', 'karten" + getEigeneId() + positionVorher + "', 'karten" + (getEigeneId()+3)%4 + "offen', 'x')", "buttonsKarteAufMitspielerSpielen");
         
     };
     xhr.open("POST", "getDatei.php");
@@ -219,5 +219,5 @@ function karteAufMitspielerSpielenMenu(kartenId, positionVorher) {
 
 function aufMitspielerSpielenMenuAusblenden(kartenId, positionVorher) {
     window.document.getElementById("buttonKarteAufMitspielerSpielen").removeChild(window.document.getElementById("buttonsKarteAufMitspielerSpielen"));
-    window.document.getElementById("buttonKarteAufMitspielerSpielenSchaltflaeche").setAttribute("onclick", "karteAufMitspielerSpielenMenu(" + kartenId + ", '" + positionVorher + "')");
+    window.document.getElementById("buttonKarteAufMitspielerSpielenSchaltflaeche").setAttribute("onclick", "karteAufMitspielerSpielenMenu('" + kartenId + "', '" + positionVorher + "')");
 }

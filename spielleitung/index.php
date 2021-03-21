@@ -125,7 +125,8 @@
             <div id="superuser">Du bist ein Superuser!<br />
                 <img src="spielversionen/1.jpg" id="spielversion1" class="spielversion" onclick="spielversionenSetzen('1')" />
                 <img src="spielversionen/2.jpg" id="spielversion2" class="spielversion" onclick="spielversionenSetzen('2')" />
-                <img src="spielversionen/3.jpg" id="spielversion3" class="spielversion" onclick="spielversionenSetzen('3')" />
+            <img src="spielversionen/3.jpg" id="spielversion3" class="spielversion" onclick="spielversionenSetzen('3')" />
+            <img src="spielversionen/4.jpg" id="spielversion4" class="spielversion" onclick="spielversionenSetzen('4')" />
                 </div>
             <script type="text/JavaScript">
                 spielversionenSetzen("");
