@@ -55,6 +55,19 @@
                 $tuerkarten = array_merge($tuerkarten, $neueTuerkarten);
                 $schatzkarten = array_merge($schatzkarten, $neueSchatzkarten);
             }
+            if (in_array("4", $spielversionen) && isset($_COOKIE["superuser"]) && $_COOKIE["superuser"] == "yes") {
+                // Munchkin 5 und 6
+                $neueTuerkarten = range(0, 161); // TODO: Eventuell bis 165, da gibts noch vier problematische Karten
+                for ($i = 0; $i < count($neueTuerkarten); $i++) {
+                    $neueTuerkarten[$i] = "4.t." . $neueTuerkarten[$i];
+                }
+                $neueSchatzkarten = range(0, 113);
+                for ($i = 0; $i < count($neueSchatzkarten); $i++) {
+                    $neueSchatzkarten[$i] = "4.s." . $neueSchatzkarten[$i];
+                }
+                $tuerkarten = array_merge($tuerkarten, $neueTuerkarten);
+                $schatzkarten = array_merge($schatzkarten, $neueSchatzkarten);
+            }
             shuffle($tuerkarten);
             shuffle($schatzkarten);
             
