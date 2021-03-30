@@ -8,6 +8,6 @@
         fclose($fp);
     }
     else {
-        echo "Datei konnte nicht gesperrt werden";
+        echo "Datei '" . $datei . "' konnte nicht gesperrt werden";
     }
     ?>
