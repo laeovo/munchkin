@@ -1,6 +1,7 @@
 // Kommentar für Leas Git. Hat nichts mit der Funktionalität von Munchkin zu tun.
 // Doch hat es. Ich bin wichtig!
 // Ja ich mag das adden :)
+// nochwas irgendwo rein
 
 // Intervalle zum Aktualisieren, werden nachher gesetzt. Müssen global sein, um angehalten werden zu können
 var spielerIntervall;
