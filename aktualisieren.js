@@ -1,5 +1,7 @@
 // Kommentar für Leas Git. Hat nichts mit der Funktionalität von Munchkin zu tun.
 
+// Noch ein Kommentar für Lea, wie oben
+
 // Intervalle zum Aktualisieren, werden nachher gesetzt. Müssen global sein, um angehalten werden zu können
 var spielerIntervall;
 var kartenIntervall;
